@@ -4,11 +4,13 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { styles } from './style';
 
-export const BackgroundWrapper = ({ children }) => {
-  const stylesShema = styles();
+export const BackgroundWrapper = ({ children, color }) => {
+  const stylesShema = styles(color);
 
   return (
-    <SafeAreaView edges={{ bottom: 'maximum' }}>
+    <SafeAreaView edges={{ top: 'maximum', bottom: 'maximum' }}>
+      <View style={[stylesShema.background]}></View>
+
       <ScrollView style={[stylesShema.container]}>
         <View style={stylesShema.children}>{children}</View>
       </ScrollView>

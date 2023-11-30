@@ -1,17 +1,25 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import { View, TextInput, TouchableOpacity, Text } from 'react-native';
+import { useTranslation } from 'react-i18next';
+
+import { Eye } from '../../assets/icons';
+
 import { colors } from '../../constants';
 
+import { styles } from './style';
+
 export const InputTemplate = ({
-  hasIcon,
+  icon,
   placeholder,
   secureTextEntry,
   value,
   onChangeText,
-  hasError,
+  error,
+  errors,
   keyboardType,
   handleSearch = false,
 }) => {
-  const stylesShema = styles(hasError);
+  const stylesShema = styles(error);
 
   const [isFocused, setIsFocused] = useState(value.length > 0 ? true : false);
   const [isPasswordVisible, setIsPasswordVisible] = useState(secureTextEntry);
@@ -33,10 +41,10 @@ export const InputTemplate = ({
 
   return (
     <View style={stylesShema.inputWrapper}>
-      {hasIcon && (
+      {IconComponent && (
         <View style={stylesShema.icon}>
           <IconComponent
-            color={hasError ? '#ed6666' : isFocused ? '#5D3478' : '#BF87E3'}
+            color={error ? '#ed6666' : isFocused ? '#5D3478' : '#BF87E3'}
           />
         </View>
       )}
@@ -63,7 +71,13 @@ export const InputTemplate = ({
         }}
       />
 
-      {handleSearch && (
+      {errors && (
+        <View style={stylesShema.errorWrapper}>
+          <Text style={stylesShema.errorText}>{t(errors)}</Text>
+        </View>
+      )}
+
+      {/* {handleSearch && (
         <TouchableOpacity
           onPress={() => {
             handleSearch(value);
@@ -71,13 +85,13 @@ export const InputTemplate = ({
           style={stylesShema.searchIcon}>
           <CheckIcon />
         </TouchableOpacity>
-      )}
+      )} */}
 
       {secureTextEntry && (
         <TouchableOpacity
           style={stylesShema.eyeIcon}
           onPress={() => setIsPasswordVisible(!isPasswordVisible)}>
-          {isPasswordVisible ? <EyeCrossedIcon /> : <EyeShowIcon />}
+          {isPasswordVisible ? <Eye /> : <Eye color={colors.darkGray} />}
         </TouchableOpacity>
       )}
     </View>

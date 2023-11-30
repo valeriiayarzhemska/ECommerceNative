@@ -2,13 +2,15 @@ import { StyleSheet } from 'react-native';
 
 export const styles = () => {
   return StyleSheet.create({
-    container: {
+    errorContainer: {
+      width: '100%',
       justifyContent: 'center',
-    },
-    input: {},
-    button: {
-      marginTop: 10,
       alignItems: 'center',
+    },
+    errorText: {
+      color: '#ff0000',
+      fontSize: 13,
+      lineHeight: 13,
     },
   });
 };

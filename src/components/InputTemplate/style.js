@@ -1,47 +1,55 @@
 import { StyleSheet, Platform } from 'react-native';
+import { colors } from '../../constants';
 
-export const styles = (hasError) => {
-    return StyleSheet.create({
-        inputWrapper: {
-            width: '100%',
-            borderWidth: 2,
-            borderColor: hasError ? '#ed6666' : '#BF87E3',
-            borderRadius: 12,
-            flexDirection: 'row',
-            alignItems: 'center',
-            backgroundColor: 'transparent',
-            marginBottom: 12,
-            height: 46
-        },
-        input: {
-            paddingVertical: 10,
-            paddingHorizontal: 16,
-            paddingLeft: 14,
-            fontSize: 16,
-            lineHeight: Platform.OS === 'ios' ? 17 : 22,
-            flex: 1,
-            fontFamily: 'SFProDisplay-Regular',
-            color: '#5D3478',
-            backgroundColor: 'transparent',
-            marginTop: Platform.OS === 'ios' ? 5 : 0
-        },
-        icon: {
-            width: 16,
-            height: 16,
-            marginLeft: 20,
-        },
-        eyeIcon: {
-            padding: 14
-        },
-        searchIcon: {
-            backgroundColor: '#BF87E3',
-            height: '100%',
-            borderTopRightRadius: 8,
-            borderBottomRightRadius: 8,
-            width: 46,
-            height: 46,
-            justifyContent: 'center',
-            alignItems: 'center'
-        }
-    });
-}
+export const styles = error => {
+  return StyleSheet.create({
+    inputWrapper: {
+      width: '100%',
+      flexDirection: 'row',
+      alignItems: 'center',
+      marginBottom: 20,
+    },
+    input: {
+      flex: 1,
+      paddingVertical: 14,
+      paddingHorizontal: 18,
+      fontFamily: 'Lato-Regular',
+      fontSize: 16,
+      color: colors.darkGray,
+      borderWidth: 1,
+      borderColor: error ? colors.red : colors.lightGray,
+      borderRadius: 30,
+    },
+    eyeIcon: {
+      position: 'absolute',
+      right: 18,
+    },
+    errorWrapper: {
+      position: 'absolute',
+      top: 50,
+    },
+    errorText: {
+      fontFamily: 'Lato-Regular',
+      fontSize: 10,
+      color: colors.red,
+    },
+    /* icon: {
+      width: 16,
+      height: 16,
+      marginLeft: 20,
+    },
+    eyeIcon: {
+      padding: 14,
+    },
+    searchIcon: {
+      backgroundColor: '#BF87E3',
+      height: '100%',
+      borderTopRightRadius: 8,
+      borderBottomRightRadius: 8,
+      width: 46,
+      height: 46,
+      justifyContent: 'center',
+      alignItems: 'center',
+    }, */
+  });
+};

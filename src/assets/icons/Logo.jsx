@@ -1,8 +1,8 @@
 import React from 'react';
 import { Svg, Path, Defs, LinearGradient, Stop } from 'react-native-svg';
 
-export const Logo = () => (
-  <Svg width="48" height="42" viewBox="0 0 48 42" fill="none">
+export const Logo = ({ width = '48', height = '42' }) => (
+  <Svg width={width} height={height} viewBox="0 0 48 42" fill="none">
     <Path
       fillRule="evenodd"
       clipRule="evenodd"
@@ -22,7 +22,7 @@ export const Logo = () => (
         y2="35.04"
         gradientUnits="userSpaceOnUse">
         <Stop stopColor="#AFFC40" />
-        <Stop offset="1" stopColor="#B3B0FF" />
+        <Stop offset="1" stopColor="#9d9ae2" />
       </LinearGradient>
       <LinearGradient
         id="paint1_linear_3302_4"
@@ -32,7 +32,7 @@ export const Logo = () => (
         y2="13.6108"
         gradientUnits="userSpaceOnUse">
         <Stop stopColor="#AFFC40" />
-        <Stop offset="1" stopColor="#B3B0FF" />
+        <Stop offset="1" stopColor="#9d9ae2" />
       </LinearGradient>
     </Defs>
   </Svg>

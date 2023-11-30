@@ -13,13 +13,13 @@ export const MainTabNavigator = () => {
 };
 
 export const AppNavigator = () => {
-  /* const language = 'en';
+  const language = 'en';
 
   const { i18n } = useTranslation();
 
   useEffect(() => {
     i18n.changeLanguage(language);
-  }, [language]); */
+  }, [language]);
 
   return (
     <Stack.Navigator

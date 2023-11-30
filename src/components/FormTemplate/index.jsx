@@ -2,8 +2,8 @@ import React from 'react';
 import { View } from 'react-native';
 import { Formik } from 'formik';
 
-import Input from '../Input';
-import Button from '../Button';
+import { InputTemplate } from '../InputTemplate';
+import { ButtonTemplate } from '../ButtonTemplate';
 
 import { styles } from './style';
 
@@ -20,14 +20,14 @@ export const FormTemplate = ({
     <Formik
       initialValues={initialValues}
       onSubmit={handleSubmitForm}
-      validateOnChange={false}
       validationSchema={validationSchema}>
       {({ handleChange, handleSubmit, values, errors, touched }) => (
         <View style={stylesShema.container}>
           <View style={stylesShema.input}>
             {inputList.map(field => {
+              console.log(touched[field.name] && errors[field.name]);
               return (
-                <Input
+                <InputTemplate
                   key={field.id}
                   icon={field.icon}
                   placeholder={field.placeholder}
@@ -35,6 +35,7 @@ export const FormTemplate = ({
                   value={values[field.name]}
                   onChangeText={handleChange(field.name)}
                   error={touched[field.name] && errors[field.name]}
+                  errors={errors[field.name]}
                   keyboardType={field.keyboardType}
                 />
               );
@@ -42,7 +43,7 @@ export const FormTemplate = ({
           </View>
 
           <View style={stylesShema.button}>
-            <Button text={buttonText} handleClick={handleSubmit} />
+            <ButtonTemplate text={buttonText} handleClick={handleSubmit} />
           </View>
         </View>
       )}

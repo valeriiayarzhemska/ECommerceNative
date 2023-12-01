@@ -10,8 +10,9 @@ export const ButtonTemplate = ({
   size = 'full',
   isProduct = false,
   isOutline = false,
+  isSided = false,
 }) => {
-  const stylesShema = styles(size, isProduct, isOutline);
+  const stylesShema = styles(size, isProduct, isOutline, isSided);
   const IconComponent = icon;
 
   return (
@@ -23,7 +24,7 @@ export const ButtonTemplate = ({
       <TouchableOpacity onPress={handleClick} style={stylesShema.button}>
         {IconComponent && (
           <View style={stylesShema.icon}>
-            <IconComponent color="#ffffff" width={13} height={13} />
+            <IconComponent />
           </View>
         )}
 

@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import * as Yup from 'yup';
 
 import { validationSchema } from '../../store/validationSchema';
-import { mock } from '../../store/mocks/login-mock';
+import { mock } from '../../store/mocks/registration-mock';
 
 import { BackgroundWrapper } from '../../components/BackgroundWrapper';
 import { FormTemplate } from '../../components/FormTemplate';
@@ -30,21 +30,19 @@ export const Registration = () => {
     res && setError(res); */
   };
 
-  const handleSignUpClick = () => {
-    navigation.navigate('Registration');
+  const handleSignInClick = () => {
+    navigation.goBack();
   };
 
   return (
     <BackgroundWrapper>
-      <TouchableOpacity style={stylesShema.backButton}>
-        <BackArrow />
-      </TouchableOpacity>
+      <ButtonTemplate
+        handleClick={handleSignInClick}
+        icon={BackArrow}
+        isSided={true}
+      />
 
       <View style={stylesShema.container}>
-        <View style={stylesShema.logo}>
-          <Logo width={90} height={86} />
-        </View>
-
         <View style={stylesShema.titleWrapper}>
           <Text style={stylesShema.title}>{t('registrationTitle')}</Text>
         </View>
@@ -54,18 +52,20 @@ export const Registration = () => {
             initialValues={{
               username: '',
               email: '',
+              phone: '',
               newPassword: '',
               repeatPassword: '',
             }}
             validationSchema={Yup.object({
               username: validationSchema?.username,
-              newPassword: validationSchema?.newPassword,
               email: validationSchema?.email,
+              phone: validationSchema?.phone,
+              newPassword: validationSchema?.newPassword,
               repeatPassword: validationSchema?.repeatPassword,
             })}
             handleSubmitForm={handleSubmit}
             inputList={mock}
-            buttonText={t('loginButtonText')}
+            buttonText={t('registrationButtonText')}
           />
 
           {error !== null && (
@@ -74,12 +74,6 @@ export const Registration = () => {
             </View>
           )}
         </View>
-
-        <ButtonTemplate
-          text={t('registrationButtonText')}
-          handleClick={handleSignUpClick}
-          isOutline={true}
-        />
       </View>
     </BackgroundWrapper>
   );

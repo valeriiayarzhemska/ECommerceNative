@@ -12,7 +12,7 @@ export const InputTemplate = ({
   icon,
   placeholder,
   secureTextEntry,
-  value,
+  value = '',
   onChangeText,
   error,
   errors,

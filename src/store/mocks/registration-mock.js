@@ -1,4 +1,4 @@
-import { EmailIcon, PasswordIcon, UserIcon } from '../../assets/icons';
+import { EmailIcon, PasswordIcon, UserIcon, PhoneIcon } from '../../assets/icons';
 
 export const mock = [
   {
@@ -19,6 +19,14 @@ export const mock = [
   },
   {
     id: 3,
+    placeholder: 'phoneInputText',
+    icon: PhoneIcon,
+    keyboardType: 'default',
+    secureTextEntry: false,
+    name: 'phone',
+  },
+  {
+    id: 4,
     placeholder: 'passwordInputText',
     icon: PasswordIcon,
     keyboardType: 'default',
@@ -26,7 +34,7 @@ export const mock = [
     name: 'newPassword',
   },
   {
-    id: 4,
+    id: 5,
     placeholder: 'repeatPasswordInputText',
     icon: PasswordIcon,
     keyboardType: 'default',

@@ -8,10 +8,10 @@ export const buttonSize = {
   full: 'full',
 };
 
-export const styles = (size, isProduct, isOutline) => {
+export const styles = (size, isProduct, isOutline, isSided) => {
   return StyleSheet.create({
     container: {
-      width: '100%',
+      width: isSided ? 0 : '100%',
     },
     button: {
       flexDirection: 'row',
@@ -19,9 +19,12 @@ export const styles = (size, isProduct, isOutline) => {
       alignItems: 'center',
       paddingVertical: 14,
       paddingHorizontal: 24,
+      paddingRight: isSided ? 38 : 24,
       width: '100%',
       borderRadius: 30,
       borderWidth: 2,
+      borderTopLeftRadius: isSided ? 0 : 30,
+      borderBottomLeftRadius: isSided ? 0 : 30,
       borderColor: isOutline ? colors.purple : 'transparent',
       backgroundColor: isOutline ? 'transparent' : colors.green,
     },
@@ -41,7 +44,8 @@ export const styles = (size, isProduct, isOutline) => {
       lineHeight: 16,
     },
     icon: {
-      marginRight: 8,
+      width: '100%',
+      paddingLeftt: 20,
     },
   });
 };

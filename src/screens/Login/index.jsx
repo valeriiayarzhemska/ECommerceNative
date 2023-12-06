@@ -14,6 +14,7 @@ import { ButtonTemplate } from '../../components/ButtonTemplate';
 import { Logo } from '../../assets/icons';
 
 import { styles } from './style';
+import { useGetUsersQuery } from '../../store/redux/services/user/userApi';
 
 export const Login = () => {
   const stylesShema = styles();
@@ -23,6 +24,9 @@ export const Login = () => {
   const navigation = useNavigation();
   //const dispatch = useDispatch();
   const { t } = useTranslation();
+
+  const { data, isLoading } = useGetUsersQuery();
+  console.log('data', JSON.stringify(data));
 
   const handleSubmit = async values => {
     /* const res = await dispatch(loginUser(values));

@@ -1,7 +1,7 @@
 import { StyleSheet, Platform } from 'react-native';
 import { colors } from '../../constants';
 
-export const styles = error => {
+export const styles = (error, icon) => {
   return StyleSheet.create({
     inputWrapper: {
       width: '100%',
@@ -13,12 +13,17 @@ export const styles = error => {
       flex: 1,
       paddingVertical: 14,
       paddingHorizontal: 18,
+      paddingLeft: icon ? 42 : 18,
       fontFamily: 'Lato-Regular',
       fontSize: 16,
       color: colors.darkGray,
       borderWidth: 1,
       borderColor: error ? colors.red : colors.lightGray,
       borderRadius: 30,
+    },
+    icon: {
+      position: 'absolute',
+      left: 18,
     },
     eyeIcon: {
       position: 'absolute',

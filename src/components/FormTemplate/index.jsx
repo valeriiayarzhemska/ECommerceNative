@@ -25,7 +25,6 @@ export const FormTemplate = ({
         <View style={stylesShema.container}>
           <View style={stylesShema.input}>
             {inputList.map(field => {
-              console.log(touched[field.name] && errors[field.name]);
               return (
                 <InputTemplate
                   key={field.id}

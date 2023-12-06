@@ -21,7 +21,7 @@ export const mock = [
     id: 3,
     placeholder: 'phoneInputText',
     icon: PhoneIcon,
-    keyboardType: 'default',
+    keyboardType: 'numeric',
     secureTextEntry: false,
     name: 'phone',
   },

@@ -1,8 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { View, TextInput, TouchableOpacity, Text } from 'react-native';
+import { TextInputMask } from 'react-native-masked-text';
 import { useTranslation } from 'react-i18next';
 
-import { Eye } from '../../assets/icons';
+import { Eye, PhoneIcon } from '../../assets/icons';
 
 import { colors } from '../../constants';
 
@@ -19,7 +20,7 @@ export const InputTemplate = ({
   keyboardType,
   handleSearch = false,
 }) => {
-  const stylesShema = styles(error);
+  const stylesShema = styles(error, icon);
 
   const [isFocused, setIsFocused] = useState(value.length > 0 ? true : false);
   const [isPasswordVisible, setIsPasswordVisible] = useState(secureTextEntry);
@@ -49,27 +50,55 @@ export const InputTemplate = ({
         </View>
       )}
 
-      <TextInput
-        ref={inputRef}
-        style={stylesShema.input}
-        placeholder={t(placeholder)}
-        secureTextEntry={isPasswordVisible}
-        placeholderTextColor={colors.lightGray}
-        value={value}
-        onChangeText={onChangeText}
-        keyboardType={keyboardType}
-        autoCompleteType="off"
-        onBlur={() => {
-          if (value?.length === 0) {
-            setIsFocused(false);
-          }
-        }}
-        onFocus={() => {
-          if (!isInit) {
-            setIsFocused(true);
-          }
-        }}
-      />
+
+      {icon === PhoneIcon ? (
+        <TextInputMask
+          type={'custom'}
+          options={{
+            mask: '+ 99 (999) 999 99 99',
+          }}
+          ref={inputRef}
+          style={stylesShema.input}
+          placeholder={t(placeholder)}
+          placeholderTextColor={colors.lightGray}
+          value={value}
+          onChangeText={onChangeText}
+          keyboardType={keyboardType}
+          autoCompleteType="off"
+          onBlur={() => {
+            if (value?.length === 0) {
+              setIsFocused(false);
+            }
+          }}
+          onFocus={() => {
+            if (!isInit) {
+              setIsFocused(true);
+            }
+          }}
+        />
+      ) : (
+        <TextInput
+          ref={inputRef}
+          style={stylesShema.input}
+          placeholder={t(placeholder)}
+          secureTextEntry={isPasswordVisible}
+          placeholderTextColor={colors.lightGray}
+          value={value}
+          onChangeText={onChangeText}
+          keyboardType={keyboardType}
+          autoCompleteType="off"
+          onBlur={() => {
+            if (value?.length === 0) {
+              setIsFocused(false);
+            }
+          }}
+          onFocus={() => {
+            if (!isInit) {
+              setIsFocused(true);
+            }
+          }}
+        />
+      )}
 
       {errors && (
         <View style={stylesShema.errorWrapper}>

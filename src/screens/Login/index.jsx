@@ -2,7 +2,13 @@ import React, { useState } from 'react';
 import { Text, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
+import { useDispatch } from 'react-redux';
 import * as Yup from 'yup';
+import {
+  useGetUsersQuery,
+  useLoginMutation,
+} from '../../store/redux/services/user/userApi';
+import { setUserData } from '../../store/redux/features/authActions';
 
 import { validationSchema } from '../../store/validationSchema';
 import { mock } from '../../store/mocks/login-mock';
@@ -10,28 +16,44 @@ import { mock } from '../../store/mocks/login-mock';
 import { BackgroundWrapper } from '../../components/BackgroundWrapper';
 import { FormTemplate } from '../../components/FormTemplate';
 import { ButtonTemplate } from '../../components/ButtonTemplate';
-
+import { ErrorMessage } from '../../components/ErrorMessage';
 import { Logo } from '../../assets/icons';
 
 import { styles } from './style';
-import { useGetUsersQuery } from '../../store/redux/services/user/userApi';
 
 export const Login = () => {
   const stylesShema = styles();
 
   const [error, setError] = useState(null);
-
   const navigation = useNavigation();
-  //const dispatch = useDispatch();
   const { t } = useTranslation();
+  const [login, { isLoading }] = useLoginMutation();
+  const { data: users, error: usersError } = useGetUsersQuery();
+  const dispatch = useDispatch();
 
-  const { data, isLoading } = useGetUsersQuery();
-  console.log('data', JSON.stringify(data));
+  const handleSubmit = async ({ username, password }) => {
+    setError(null);
 
-  const handleSubmit = async values => {
-    /* const res = await dispatch(loginUser(values));
+    try {
+      const userAuth = await login({
+        username: username,
+        password: password,
+      });
 
-    res && setError(res); */
+      await dispatch(setUserData({ nickname: username, users, usersError }));
+
+      if (
+        Object.hasOwn(userAuth, 'error') &&
+        userAuth.error.data == 'username or password is incorrect'
+      ) {
+        setError('wrongCredential');
+
+        return;
+      }
+    } catch (error) {
+      setError('errorLogin');
+      console.log(error);
+    }
   };
 
   const handleSignUpClick = () => {
@@ -51,14 +73,15 @@ export const Login = () => {
 
         <View style={stylesShema.form}>
           <FormTemplate
-            initialValues={{ email: '', password: '' }}
+            initialValues={{ username: '', password: '' }}
             validationSchema={Yup.object({
-              email: validationSchema?.email,
+              username: validationSchema?.username,
               password: validationSchema?.password,
             })}
             handleSubmitForm={handleSubmit}
             inputList={mock}
             buttonText={t('loginButtonText')}
+            isLoadingData={isLoading}
           />
 
           {error !== null && (

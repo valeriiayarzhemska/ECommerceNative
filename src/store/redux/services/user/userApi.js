@@ -7,7 +7,7 @@ export const userApi = api.injectEndpoints({
       query: credentials => ({
         url: links.login,
         method: 'POST',
-        body: credentials,
+        body: JSON.stringify(credentials),
       }),
     }),
     getUsers: build.query({

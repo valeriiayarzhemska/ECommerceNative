@@ -5,12 +5,12 @@ export const styles = () => {
     errorContainer: {
       width: '100%',
       justifyContent: 'center',
-      alignItems: 'center',
+      alignItems: 'flex-start',
     },
     errorText: {
       color: '#ff0000',
-      fontSize: 13,
-      lineHeight: 13,
+      fontSize: 10,
+      lineHeight: 10,
     },
   });
 };

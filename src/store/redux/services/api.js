@@ -6,6 +6,7 @@ export const api = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: BASE_URL,
   }),
-  tagTypes: ['User'],
   endpoints: () => ({}),
 });
+
+api.enhanceEndpoints({ addTagTypes: ['User'] });

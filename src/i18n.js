@@ -33,6 +33,10 @@ const resources = {
       passwordInputText: `Enter your password`,
       repeatPasswordInputText: `Confirm your password`,
       userInputText: `Type your username`,
+      wrongCredential: `Wrong credentials`,
+      errorLogin: `Something went wront, try again`,
+      userDataTitle: `Use these credentials for login`,
+      buttonContinue: `Continue`,
     },
   },
   uk: {
@@ -59,6 +63,10 @@ const resources = {
       passwordInputText: `Введіть свій пароль`,
       repeatPasswordInputText: `Підтвердьте пароль`,
       userInputText: `Введіть своє ім’я користувача`,
+      wrongCredential: `Неправильні облікові дані`,
+      errorLogin: `Щось пішло не так, спробуйте ще раз`,
+      userDataTitle: `Використовуйте ці дані для входу`,
+      buttonContinue: `Продовжити`,
     },
   },
 };

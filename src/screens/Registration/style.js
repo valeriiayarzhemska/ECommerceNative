@@ -34,6 +34,18 @@ export const styles = () => {
     title: {
       fontSize: 28,
       fontFamily: 'Lato-Bold',
+      textAlign: 'center',
+      color: colors.darkGray,
+    },
+    dataButton: {
+      marginTop: '6%',
+    },
+    datatTextWrapper: {
+      marginBottom: '3%',
+    },
+    datatText: {
+      fontSize: 18,
+      fontFamily: 'Lato-Regular',
       color: colors.darkGray,
     },
     errorContainer: {

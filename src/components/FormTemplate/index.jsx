@@ -13,6 +13,7 @@ export const FormTemplate = ({
   handleSubmitForm,
   inputList,
   buttonText,
+  isLoadingData,
 }) => {
   const stylesShema = styles();
 
@@ -42,7 +43,11 @@ export const FormTemplate = ({
           </View>
 
           <View style={stylesShema.button}>
-            <ButtonTemplate text={buttonText} handleClick={handleSubmit} />
+            <ButtonTemplate
+              text={buttonText}
+              handleClick={handleSubmit}
+              isLoadingData={isLoadingData}
+            />
           </View>
         </View>
       )}

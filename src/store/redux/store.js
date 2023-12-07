@@ -11,13 +11,13 @@ import {
   REGISTER,
 } from 'redux-persist';
 
-import { rootReducer } from './rootReducer';
+import rootReducer from './rootReducer';
 import { api } from './services/api';
 
 const persistConfig = {
   key: 'root',
   storage: AsyncStorage,
-  whitelist: ['User'],
+  whitelist: ['User', 'auth'],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

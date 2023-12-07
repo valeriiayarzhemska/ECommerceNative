@@ -1,10 +1,10 @@
 export const mock = [
   {
     id: 1,
-    placeholder: 'emailPlaceholderText',
+    placeholder: 'userInputText',
     keyboardType: 'default',
     secureTextEntry: false,
-    name: 'email',
+    name: 'username',
   },
   {
     id: 2,

@@ -3,13 +3,16 @@ import { userApi } from '../services/user/userApi';
 
 const initialState = {
   user: null,
-  userId: null,
   token: null,
-  isAuthenticated: false,
+  lang: 'en',
 };
 
 export const setUser = createAsyncThunk(
   'auth/setUser',
+  async payload => payload,
+);
+export const setLang = createAsyncThunk(
+  'user/setLang',
   async payload => payload,
 );
 
@@ -23,6 +26,9 @@ const authSlice = createSlice({
     builder
       .addCase(setUser.fulfilled, (state, action) => {
         state.user = action.payload.data;
+      })
+      .addCase(setLang.fulfilled, (state, action) => {
+        state.lang = action.payload;
       })
       .addMatcher(userApi.endpoints.login.matchPending, (state, action) => {
         console.log('login pending', action);

@@ -1,4 +1,4 @@
-import { setUser } from './authSlice';
+import { setUser, setLang } from './authSlice';
 
 export const setUserData =
   ({ nickname, users, usersError }) =>
@@ -12,3 +12,7 @@ export const setUserData =
       console.log('Get users error: ', usersError);
     }
   };
+
+export const changeLang = lang => dispatch => {
+  dispatch(setLang(lang));
+};

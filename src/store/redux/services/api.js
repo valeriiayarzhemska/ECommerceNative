@@ -9,4 +9,4 @@ export const api = createApi({
   endpoints: () => ({}),
 });
 
-api.enhanceEndpoints({ addTagTypes: ['User'] });
+api.enhanceEndpoints({ addTagTypes: ['User', 'auth'] });

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Text, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import * as Yup from 'yup';
 import {
   useGetUsersQuery,
@@ -20,18 +20,16 @@ import { ErrorMessage } from '../../components/ErrorMessage';
 import { Logo } from '../../assets/icons';
 
 import { styles } from './style';
-import { selectToken } from '../../store/redux/features/authSelectors';
 
-export const Login = () => {
+export const Catalog = () => {
   const stylesShema = styles();
 
-  const [error, setError] = useState(null);
+  /* const [error, setError] = useState(null);
   const navigation = useNavigation();
   const { t } = useTranslation();
   const [login, { isLoading }] = useLoginMutation();
   const { data: users, error: usersError } = useGetUsersQuery();
   const dispatch = useDispatch();
-  const userToken = useSelector(selectToken);
 
   const handleSubmit = async ({ username, password }) => {
     setError(null);
@@ -52,9 +50,6 @@ export const Login = () => {
 
         return;
       }
-
-      console.log(userToken);
-
     } catch (error) {
       setError('errorLogin');
       console.log(error);
@@ -63,7 +58,7 @@ export const Login = () => {
 
   const handleSignUpClick = () => {
     navigation.navigate('Registration');
-  };
+  }; */
 
   return (
     <BackgroundWrapper>
@@ -72,7 +67,7 @@ export const Login = () => {
           <Logo width={90} height={86} />
         </View>
 
-        <View style={stylesShema.titleWrapper}>
+        {/* <View style={stylesShema.titleWrapper}>
           <Text style={stylesShema.title}>{t('loginTitle')}</Text>
         </View>
 
@@ -100,7 +95,7 @@ export const Login = () => {
           text={t('registrationButtonText')}
           handleClick={handleSignUpClick}
           isOutline={true}
-        />
+        /> */}
       </View>
     </BackgroundWrapper>
   );

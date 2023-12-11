@@ -7,6 +7,7 @@ export const api = createApi({
     baseUrl: BASE_URL,
   }),
   endpoints: () => ({}),
+  tagTypes: ['User', 'Product', 'auth'],
 });
 
-api.enhanceEndpoints({ addTagTypes: ['User', 'auth'] });
+//api.enhanceEndpoints({ addTagTypes: ['User', 'auth'] });

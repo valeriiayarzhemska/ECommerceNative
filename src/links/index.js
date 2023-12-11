@@ -7,4 +7,6 @@ export const links = {
   deleteUser: `/users/`,
   getUsers: `/users`,
   getUser: `/users/`,
+  getProducts: `/products`,
+  getProduct: `/products/`,
 };

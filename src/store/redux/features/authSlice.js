@@ -4,6 +4,7 @@ import { userApi } from '../services/user/userApi';
 const initialState = {
   user: null,
   token: null,
+  authError: null,
   lang: 'en',
 };
 
@@ -32,14 +33,15 @@ const authSlice = createSlice({
       })
       .addMatcher(userApi.endpoints.login.matchPending, (state, action) => {
         console.log('login pending', action);
+        state.authError = null;
       })
       .addMatcher(userApi.endpoints.login.matchFulfilled, (state, action) => {
         console.log('login fulfilled', action.payload.token);
         state.token = action.payload.token;
-        state.isAuthenticated = true;
       })
       .addMatcher(userApi.endpoints.login.matchRejected, (state, action) => {
         console.log('login rejected', action);
+        state.authError = 'errorWentWrong';
       })
       .addMatcher(userApi.endpoints.getUser.matchFulfilled, (state, action) => {
         console.log('user fulfilled', action);

@@ -1,13 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Text, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
+import { logout } from '../../store/redux/features/authSlice';
 import * as Yup from 'yup';
-import {
-  useGetUsersQuery,
-  useLoginMutation,
-} from '../../store/redux/services/user/userApi';
+import { useGetProductsQuery } from '../../store/redux/services/products/productsApi';
 import { setUserData } from '../../store/redux/features/authActions';
 
 import { validationSchema } from '../../store/validationSchema';
@@ -17,19 +15,36 @@ import { BackgroundWrapper } from '../../components/BackgroundWrapper';
 import { FormTemplate } from '../../components/FormTemplate';
 import { ButtonTemplate } from '../../components/ButtonTemplate';
 import { ErrorMessage } from '../../components/ErrorMessage';
-import { Logo } from '../../assets/icons';
+import { Logo, UserIcon } from '../../assets/icons';
 
 import { styles } from './style';
+import { colors } from '../../constants';
 
 export const Catalog = () => {
   const stylesShema = styles();
+  const dispatch = useDispatch();
+  const { t } = useTranslation();
+  const {
+    data: products,
+    isLoading,
+    isFetching,
+    error: productsError,
+  } = useGetProductsQuery({
+    refetchOnMountOrArgChange: true,
+  });
+
+  const handleLogOut = () => {
+    dispatch(logout());
+  };
+
+  console.log(products);
+
+  useEffect(() => {
+    const loadProducts = async () => {};
+  }, []);
 
   /* const [error, setError] = useState(null);
   const navigation = useNavigation();
-  const { t } = useTranslation();
-  const [login, { isLoading }] = useLoginMutation();
-  const { data: users, error: usersError } = useGetUsersQuery();
-  const dispatch = useDispatch();
 
   const handleSubmit = async ({ username, password }) => {
     setError(null);
@@ -51,7 +66,7 @@ export const Catalog = () => {
         return;
       }
     } catch (error) {
-      setError('errorLogin');
+      setError('errorWentWrong');
       console.log(error);
     }
   };
@@ -63,9 +78,53 @@ export const Catalog = () => {
   return (
     <BackgroundWrapper>
       <View style={stylesShema.container}>
-        <View style={stylesShema.logo}>
-          <Logo width={90} height={86} />
+        <View style={stylesShema.header}>
+          <View style={stylesShema.logo}>
+            <Logo width={40} height={40} />
+          </View>
+
+          <View style={stylesShema.profileIcon}>
+            <ButtonTemplate
+              icon={UserIcon}
+              iconWidth={30}
+              handleClick={handleLogOut}
+              isRounded={true}
+            />
+          </View>
         </View>
+
+        <View>
+          <Text>Search Bar</Text>
+        </View>
+
+        <View>
+          <Text>Product slider</Text>
+        </View>
+
+        <View>
+          <Text>Product categories slider</Text>
+        </View>
+
+        {isFetching ||
+          (isLoading && (
+            <View style={stylesShema.productsContainer}>
+              <Text>Products are loading</Text>
+            </View>
+          ))}
+
+        {productsError && (
+          <View style={stylesShema.productsContainer}>
+            <Text>{t('errorWentWrong')}</Text>
+          </View>
+        )}
+
+        {products && !isFetching && !isLoading && (
+          <View style={stylesShema.productsContainer}>
+            {products.map(product => (
+              <Text>{product.category}</Text>
+            ))}
+          </View>
+        )}
 
         {/* <View style={stylesShema.titleWrapper}>
           <Text style={stylesShema.title}>{t('loginTitle')}</Text>
@@ -89,11 +148,11 @@ export const Catalog = () => {
               <ErrorMessage message={error} />
             </View>
           )}
-        </View>
+        </View> */}
 
-        <ButtonTemplate
-          text={t('registrationButtonText')}
-          handleClick={handleSignUpClick}
+        {/* <ButtonTemplate
+          text={'logOut'}
+          handleClick={handleLogOut}
           isOutline={true}
         /> */}
       </View>

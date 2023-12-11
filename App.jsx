@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import { NavigationContainer } from '@react-navigation/native';
@@ -11,6 +11,14 @@ import './src/i18n';
 import { useGetUsersQuery } from './src/store/redux/services/user/userApi';
 
 function App() {
+  /* const [isUserLoggedIn, setIsUserLoggedIn] = useState(null);
+
+  const onBeforeLift = () => {
+    const userToken = store.getState().token;
+
+    setIsUserLoggedIn(userToken !== false);
+  }; */
+
   return (
     <SafeAreaProvider
       style={{ flex: 1, height: '100%', backgroundColor: '#fff' }}>

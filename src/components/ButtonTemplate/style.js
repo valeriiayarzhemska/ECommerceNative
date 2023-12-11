@@ -28,6 +28,16 @@ export const styles = (size, isProduct, isOutline, isSided) => {
       borderColor: isOutline ? colors.purple : 'transparent',
       backgroundColor: isOutline ? 'transparent' : colors.green,
     },
+    buttonRounded: {
+      paddingVertical: 5,
+      paddingHorizontal: 5,
+      paddingRight: 5,
+      width: 45,
+      borderRadius: 50,
+      borderTopLeftRadius: 50,
+      borderBottomLeftRadius: 50,
+      backgroundColor: colors.lightestGray,
+    },
     buttonTransparent: {
       borderWidth: 2,
       borderColor: '#A165C9',
@@ -44,8 +54,11 @@ export const styles = (size, isProduct, isOutline, isSided) => {
       lineHeight: 16,
     },
     icon: {
+      flexDirection: 'row',
+      justifyContent: 'center',
+      alignItems: 'center',
       width: '100%',
-      paddingLeftt: 20,
+      paddingLeftt: isSided ? 20 : 0,
     },
   });
 };

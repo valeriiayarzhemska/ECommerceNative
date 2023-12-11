@@ -20,7 +20,10 @@ import { ErrorMessage } from '../../components/ErrorMessage';
 import { Logo } from '../../assets/icons';
 
 import { styles } from './style';
-import { selectToken } from '../../store/redux/features/authSelectors';
+import {
+  selectError,
+  selectToken,
+} from '../../store/redux/features/authSelectors';
 
 export const Login = () => {
   const stylesShema = styles();
@@ -28,6 +31,7 @@ export const Login = () => {
   const [error, setError] = useState(null);
   const navigation = useNavigation();
   const { t } = useTranslation();
+  const loginError = useSelector(selectError);
   const [login, { isLoading }] = useLoginMutation();
   const { data: users, error: usersError } = useGetUsersQuery();
   const dispatch = useDispatch();
@@ -38,11 +42,15 @@ export const Login = () => {
 
     try {
       const userAuth = await login({
-        username: username,
-        password: password,
+        username,
+        password,
       });
 
-      await dispatch(setUserData({ nickname: username, users, usersError }));
+      if (loginError) {
+        setError('errorWentWrong');
+      }
+
+      await dispatch(setUserData({ nickname: 'username', users, usersError }));
 
       if (
         Object.hasOwn(userAuth, 'error') &&
@@ -54,10 +62,8 @@ export const Login = () => {
       }
 
       console.log(userToken);
-
     } catch (error) {
-      setError('errorLogin');
-      console.log(error);
+      setError('errorWentWrong');
     }
   };
 

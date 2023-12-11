@@ -7,7 +7,7 @@ export const userApi = api.injectEndpoints({
       query: credentials => ({
         url: links.login,
         method: 'POST',
-        body: JSON.stringify(credentials),
+        body: credentials
       }),
     }),
     getUsers: build.query({
@@ -22,6 +22,7 @@ export const userApi = api.injectEndpoints({
       providesTags: (_post, _err, id) => [{ type: 'User', id }],
     }),
   }),
+  overrideExisting: true,
 });
 
 export const { useLoginMutation, useGetUsersQuery, useGetUserQuery } = userApi;

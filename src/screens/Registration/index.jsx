@@ -33,7 +33,7 @@ export const Registration = () => {
     }
 
     if (userError) {
-      setError('errorLogin');
+      setError('errorWentWrong');
     }
   };
 

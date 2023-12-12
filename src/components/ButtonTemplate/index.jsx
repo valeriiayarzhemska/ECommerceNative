@@ -13,9 +13,18 @@ export const ButtonTemplate = ({
   isSided = false,
   isLoadingData = false,
   isRounded = false,
+  isRoundedSmall = false,
   iconWidth,
+  iconColor,
+  isTransparent,
 }) => {
-  const stylesShema = styles(size, isProduct, isOutline, isSided);
+  const stylesShema = styles(
+    size,
+    isProduct,
+    isOutline,
+    isSided,
+    isRoundedSmall,
+  );
   const IconComponent = icon;
 
   return (
@@ -27,13 +36,18 @@ export const ButtonTemplate = ({
       <TouchableOpacity
         style={[
           stylesShema.button,
-          isRounded ? stylesShema.buttonRounded : null
+          isRounded ? stylesShema.buttonRounded : null,
+          isTransparent ? stylesShema.buttonTransparent : null,
         ]}
         onPress={handleClick}
         disabled={isLoadingData}>
         {IconComponent && (
-          <View style={stylesShema.icon}>
-            <IconComponent width={iconWidth} />
+          <View
+            style={[
+              stylesShema.icon,
+              isRounded ? stylesShema.iconRounded : null,
+            ]}>
+            <IconComponent width={iconWidth} color={iconColor} />
           </View>
         )}
 

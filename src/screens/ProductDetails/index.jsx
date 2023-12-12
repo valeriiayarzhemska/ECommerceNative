@@ -25,7 +25,7 @@ import { ProductsItem } from '../../components/ProductsItem';
 import { CatalogHeader } from '../../components/CatalogHeader';
 import { Loader } from '../../components/Loader';
 
-export const Catalog = () => {
+export const ProductDetail = () => {
   const stylesShema = styles();
   const dispatch = useDispatch();
   const { t } = useTranslation();

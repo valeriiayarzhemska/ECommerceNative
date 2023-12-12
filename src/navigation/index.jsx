@@ -10,7 +10,7 @@ import { stackScreenData, tabScreenData } from './navList';
 import {
   selectLanguage,
   selectToken,
-} from '../store/redux/features/authSelectors';
+} from '../store/redux/features/auth/authSelectors';
 import { colors } from '../constants';
 
 const Stack = createStackNavigator();
@@ -37,8 +37,7 @@ const MainTabNavigator = () => {
           marginTop: -30,
         },
       }}
-      initialRouteName="Catalog"
-    >
+      initialRouteName="Catalog">
       {tabScreenData.map(screen => {
         return (
           <Tab.Screen

@@ -8,7 +8,7 @@ export const buttonSize = {
   full: 'full',
 };
 
-export const styles = (size, isProduct, isOutline, isSided) => {
+export const styles = (size, isProduct, isOutline, isSided, isRoundedSmall) => {
   return StyleSheet.create({
     container: {
       width: isSided ? 0 : '100%',
@@ -29,18 +29,18 @@ export const styles = (size, isProduct, isOutline, isSided) => {
       backgroundColor: isOutline ? 'transparent' : colors.green,
     },
     buttonRounded: {
-      paddingVertical: 5,
-      paddingHorizontal: 5,
+      paddingVertical: isRoundedSmall ? 3 : 5,
+      paddingHorizontal: isRoundedSmall ? 3 : 5,
       paddingRight: 5,
-      width: 45,
+      width: isRoundedSmall ? 35 : 45,
       borderRadius: 50,
       borderTopLeftRadius: 50,
       borderBottomLeftRadius: 50,
-      backgroundColor: colors.lightestGray,
+      backgroundColor: isRoundedSmall ? colors.green : colors.lightestGray,
     },
     buttonTransparent: {
-      borderWidth: 2,
-      borderColor: '#A165C9',
+      borderWidth: 0,
+      backgroundColor: 'transparent',
     },
     text: {
       color: isOutline ? colors.purple : colors.darkGray,
@@ -54,11 +54,13 @@ export const styles = (size, isProduct, isOutline, isSided) => {
       lineHeight: 16,
     },
     icon: {
+      width: '100%',
+      paddingLeftt: isSided ? 20 : 0,
+    },
+    iconRounded: {
       flexDirection: 'row',
       justifyContent: 'center',
       alignItems: 'center',
-      width: '100%',
-      paddingLeftt: isSided ? 20 : 0,
     },
   });
 };

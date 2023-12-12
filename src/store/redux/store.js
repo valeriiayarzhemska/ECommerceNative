@@ -17,7 +17,7 @@ import { api } from './services/api';
 const persistConfig = {
   key: 'root',
   storage: AsyncStorage,
-  whitelist: ['User', 'auth'],
+  whitelist: ['User', 'auth', 'Product'],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

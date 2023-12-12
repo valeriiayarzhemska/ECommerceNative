@@ -37,6 +37,8 @@ const resources = {
       errorWentWrong: `Something went wront, try again`,
       userDataTitle: `Use these credentials for login`,
       buttonContinue: `Continue`,
+      placeholderTitle: `No Items Available`,
+      placeholderText: `Please check back later`,
     },
   },
   uk: {
@@ -67,6 +69,8 @@ const resources = {
       errorWentWrong: `Щось пішло не так, спробуйте ще раз`,
       userDataTitle: `Використовуйте ці дані для входу`,
       buttonContinue: `Продовжити`,
+      placeholderTitle: `Немає доступних товарів`,
+      placeholderText: `Перевірте пізніше`,
     },
   },
 };

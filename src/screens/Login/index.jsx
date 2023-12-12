@@ -8,7 +8,7 @@ import {
   useGetUsersQuery,
   useLoginMutation,
 } from '../../store/redux/services/user/userApi';
-import { setUserData } from '../../store/redux/features/authActions';
+import { setUserData } from '../../store/redux/features/auth/authActions';
 
 import { validationSchema } from '../../store/validationSchema';
 import { mock } from '../../store/mocks/login-mock';
@@ -23,7 +23,7 @@ import { styles } from './style';
 import {
   selectError,
   selectToken,
-} from '../../store/redux/features/authSelectors';
+} from '../../store/redux/features/auth/authSelectors';
 
 export const Login = () => {
   const stylesShema = styles();

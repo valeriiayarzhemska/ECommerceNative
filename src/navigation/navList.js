@@ -21,6 +21,13 @@ export const tabScreenData = [
       tabBarIcon: ({ color, size }) => <HomeIcon color={color} />,
     },
   },
+  {
+    name: 'Registration',
+    component: Registration,
+    options: {
+      tabBarIcon: ({ color, size }) => <HomeIcon color={color} />,
+    },
+  },
 ];
 
 export const stackScreenData = [

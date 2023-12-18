@@ -25,7 +25,7 @@ import { ProductsItem } from '../../components/ProductsItem';
 import { CatalogHeader } from '../../components/CatalogHeader';
 import { Loader } from '../../components/Loader';
 
-export const Catalog = () => {
+export const Cart = () => {
   const stylesShema = styles();
   const dispatch = useDispatch();
   const { t } = useTranslation();
@@ -98,7 +98,7 @@ export const Catalog = () => {
           data={products}
           renderItem={({ item }) => <ProductsItem product={item} />}
           keyExtractor={item => item.id}
-          ListHeaderComponent={<CatalogHeader products={products} />}
+          ListHeaderComponent={<CatalogHeader />}
           ListEmptyComponent={<Loader loading={isLoading || isFetching} />}
           initialNumToRender={8}
         />

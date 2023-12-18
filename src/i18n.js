@@ -39,6 +39,11 @@ const resources = {
       buttonContinue: `Continue`,
       placeholderTitle: `No Items Available`,
       placeholderText: `Please check back later`,
+      addToCart: `Add to cart`,
+      buyNow: `Buy now`,
+      titleWishList: `Wishlist`,
+      emptyWishList: `Wishlist is empty`,
+      emptyProductsList: `Product list is empty`,
     },
   },
   uk: {
@@ -71,6 +76,11 @@ const resources = {
       buttonContinue: `Продовжити`,
       placeholderTitle: `Немає доступних товарів`,
       placeholderText: `Перевірте пізніше`,
+      addToCart: `Додати до корзини`,
+      buyNow: `Придбати зараз`,
+      titleWishList: `Вішлист`,
+      emptyWishList: `Вішлист пустий`,
+      emptyProductsList: `Продуктовий лист пустий`,
     },
   },
 };

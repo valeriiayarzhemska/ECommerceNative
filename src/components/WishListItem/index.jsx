@@ -4,33 +4,37 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 
 import { ButtonTemplate } from '../ButtonTemplate';
-import { HeartIcon, PlusIcon } from '../../assets/icons';
+import { CrossIcon, PlusIcon } from '../../assets/icons';
 import { colors } from '../../constants';
 
 import { styles } from './style';
 import { selectWishList } from '../../store/redux/features/products/productsSelectors';
-import { setProductsWishList, sliceProductTitle } from '../../utils';
+import { setProductsWishList } from '../../utils';
 import { updateWishList } from '../../store/redux/features/products/productsActions';
+import { useTranslation } from 'react-i18next';
 
-export const ProductsItem = ({ product }) => {
+export const WishListItem = ({ product }) => {
   const stylesShema = styles();
   const navigation = useNavigation();
   const dispatch = useDispatch();
+  const { t } = useTranslation();
   const userWishList = useSelector(selectWishList);
-  const productTitle = sliceProductTitle(product.title);
+  const [isLiked, setIsLiked] = useState(
+    userWishList.some(item => item.id === product.id),
+  );
 
   const handleClick = id => {
     navigation.navigate('ProductDetails', {
       id: id,
-      goFrom: 'ProductsItem',
+      isLiked: isLiked,
+      setIsLiked: setIsLiked,
+      goFrom: 'WishListItem',
     });
   };
 
-  const handleAddToWishList = () => {
+  const handleDeleteFromWishList = () => {
     setProductsWishList(product, userWishList, dispatch, updateWishList);
   };
-
-  console.log(product.category)
 
   const handleAddToCart = () => {};
 
@@ -41,28 +45,25 @@ export const ProductsItem = ({ product }) => {
     >
       <View style={stylesShema.imageContainer}>
         <Image style={stylesShema.image} source={{ uri: product.image }} />
-
-        <View style={stylesShema.favButton}>
-          <ButtonTemplate
-            icon={HeartIcon}
-            iconColor={
-              userWishList.some(item => item.id === product.id)
-                ? colors.red
-                : ''
-            }
-            iconWidth={18}
-            iconHeight={18}
-            handleClick={handleAddToWishList}
-            isRounded={true}
-            isRoundedSmall={true}
-            isTransparent={true}
-          />
-        </View>
       </View>
 
       <View style={stylesShema.content}>
-        <View style={stylesShema.titleContainer}>
-          <Text style={stylesShema.title}>{productTitle}</Text>
+        <View style={stylesShema.contentHeader}>
+          <View style={stylesShema.titleContainer}>
+            <Text style={stylesShema.title}>{product.title}</Text>
+          </View>
+
+          <View style={stylesShema.deleteButton}>
+            <ButtonTemplate
+              icon={CrossIcon}
+              iconWidth={18}
+              iconHeight={18}
+              handleClick={handleDeleteFromWishList}
+              isRounded={true}
+              isRoundedSmall={true}
+              isTransparent={true}
+            />
+          </View>
         </View>
 
         <View style={stylesShema.footer}>
@@ -70,13 +71,11 @@ export const ProductsItem = ({ product }) => {
             <Text style={stylesShema.price}>&#36; {product.price}</Text>
           </View>
 
-          <View>
+          <View style={stylesShema.cartButton}>
             <ButtonTemplate
-              icon={PlusIcon}
-              iconWidth={15}
               handleClick={handleAddToCart}
-              isRounded={true}
-              isRoundedSmall={true}
+              text={t('addToCart')}
+              isSmall={true}
             />
           </View>
         </View>

@@ -1,17 +1,21 @@
 import { StyleSheet } from 'react-native';
 import { colors } from '../../constants';
 
-export const buttonSize = {
-  small: 'small',
-  medium: 'medium',
-  big: 'big',
-  full: 'full',
-};
-
-export const styles = (size, isProduct, isOutline, isSided, isRoundedSmall) => {
+export const styles = (
+  size,
+  isProduct,
+  isOutline,
+  isSided,
+  isRoundedSmall,
+  isHalfed,
+  isSmall,
+) => {
   return StyleSheet.create({
     container: {
       width: isSided ? 0 : '100%',
+    },
+    containerHalf: {
+      width: '48%',
     },
     button: {
       flexDirection: 'row',
@@ -39,8 +43,16 @@ export const styles = (size, isProduct, isOutline, isSided, isRoundedSmall) => {
       backgroundColor: isRoundedSmall ? colors.green : colors.lightestGray,
     },
     buttonTransparent: {
+      paddingVertical: 0,
+      paddingHorizontal: 0,
+      paddingRight: 0,
       borderWidth: 0,
       backgroundColor: 'transparent',
+    },
+    buttonSmall: {
+      paddingVertical: 8,
+      paddingHorizontal: 8,
+      paddingRight: 8,
     },
     text: {
       color: isOutline ? colors.purple : colors.darkGray,
@@ -52,6 +64,10 @@ export const styles = (size, isProduct, isOutline, isSided, isRoundedSmall) => {
     textTransparent: {
       color: '#A165C9',
       lineHeight: 16,
+    },
+    textSmall: {
+      fontSize: 14,
+      lineHeight: 14,
     },
     icon: {
       width: '100%',

@@ -11,3 +11,5 @@ export { HeartIcon } from './HeartIcon';
 export { CartIcon } from './CartIcon';
 export { UserIcon } from './UserIcon';
 export { PlusIcon } from './PlusIcon';
+export { MinusIcon } from './MinusIcon';
+export { CrossIcon } from './CrossIcon';

@@ -9,9 +9,6 @@ export const styles = () => {
       height: '100%',
       backgroundColor: colors.white,
     },
-    list: {
-      justifyContent: 'space-between'
-    },
     listContent: {
       paddingHorizontal: '6%',
     },

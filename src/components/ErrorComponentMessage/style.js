@@ -5,14 +5,15 @@ export const styles = () => {
   return StyleSheet.create({
     errorContainer: {
       width: '100%',
+      height: '100%',
       justifyContent: 'center',
-      alignItems: 'flex-start',
+      alignItems: 'center',
     },
     errorText: {
-      fontFamily: 'Lato-Regular',
-      fontSize: 10,
-      lineHeight: 10,
-      color: colors.darkRed,
+      fontFamily: 'Lato-Bold',
+      fontSize: 18,
+      textAlign: 'center',
+      color: colors.darkGray,
     },
   });
 };

@@ -21,7 +21,8 @@ function App() {
 
   return (
     <SafeAreaProvider
-      style={{ flex: 1, height: '100%', backgroundColor: '#fff' }}>
+      style={{ flex: 1, height: '100%', backgroundColor: '#fff' }}
+    >
       <Provider store={store}>
         <PersistGate
           loading={null}

@@ -9,4 +9,5 @@ export const links = {
   getUser: `/users/`,
   getProducts: `/products`,
   getProduct: `/products/`,
+  getUserCart: `/carts/user/`,
 };

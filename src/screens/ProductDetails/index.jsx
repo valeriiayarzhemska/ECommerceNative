@@ -1,11 +1,20 @@
-import React, { useEffect, useState } from 'react';
-import { FlatList, Text, View } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import React, { useCallback, useEffect, useState } from 'react';
+import {
+  FlatList,
+  Image,
+  ScrollView,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import StarRating from 'react-native-star-rating-widget';
 import { logout } from '../../store/redux/features/auth/authSlice';
 import * as Yup from 'yup';
-import { useGetProductsQuery } from '../../store/redux/services/products/productsApi';
+import { useGetProductQuery } from '../../store/redux/services/products/productsApi';
 import { setUserData } from '../../store/redux/features/auth/authActions';
 
 import { validationSchema } from '../../store/validationSchema';
@@ -15,7 +24,14 @@ import { BackgroundWrapper } from '../../components/BackgroundWrapper';
 import { FormTemplate } from '../../components/FormTemplate';
 import { ButtonTemplate } from '../../components/ButtonTemplate';
 import { ErrorMessage } from '../../components/ErrorMessage';
-import { Logo, UserIcon } from '../../assets/icons';
+import {
+  CartIcon,
+  HeartIcon,
+  Logo,
+  MinusIcon,
+  PlusIcon,
+  UserIcon,
+} from '../../assets/icons';
 
 import { styles } from './style';
 import { colors } from '../../constants';
@@ -24,117 +40,190 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { ProductsItem } from '../../components/ProductsItem';
 import { CatalogHeader } from '../../components/CatalogHeader';
 import { Loader } from '../../components/Loader';
+import Carousel from 'react-native-snap-carousel';
+import { handleBackClick, setProductsWishList } from '../../utils';
+import { CustomHeader } from '../../components/CustomHeader';
+import { SkeletonProductDetails } from '../../components/Skeletons/SkeletonProductDetails';
+import { selectWishList } from '../../store/redux/features/products/productsSelectors';
+import { updateWishList } from '../../store/redux/features/products/productsActions';
 
-export const ProductDetail = () => {
+export const ProductDetails = ({ route }) => {
   const stylesShema = styles();
   const dispatch = useDispatch();
   const { t } = useTranslation();
-  const {
-    data: products,
-    isLoading,
-    isFetching,
-    error: productsError,
-  } = useGetProductsQuery({
-    refetchOnMountOrArgChange: true,
-  });
-
-  console.log(products);
-
-  useEffect(() => {
-    const loadProducts = async () => {};
-  }, []);
-
-  /* const [error, setError] = useState(null);
   const navigation = useNavigation();
 
-  const handleSubmit = async ({ username, password }) => {
-    setError(null);
+  const { params } = route;
+  const {
+    data: product,
+    isLoading,
+    isFetching,
+    error: productError,
+  } = useGetProductQuery(params.id, {
+    refetchOnMountOrArgChange: true,
+  });
+  const userWishList = useSelector(selectWishList);
+  const [quantity, seyQuantity] = useState('1');
 
-    try {
-      const userAuth = await login({
-        username: username,
-        password: password,
-      });
+  const handleAddToCart = () => {};
 
-      await dispatch(setUserData({ nickname: username, users, usersError }));
+  const handleAddToWishList = () => {
+    setProductsWishList(product, userWishList, dispatch, updateWishList);
+  };
 
-      if (
-        Object.hasOwn(userAuth, 'error') &&
-        userAuth.error.data == 'username or password is incorrect'
-      ) {
-        setError('wrongCredential');
+  const handleRating = () => {};
 
-        return;
-      }
-    } catch (error) {
-      setError('errorWentWrong');
-      console.log(error);
+  const handleQuantityIncrease = () => {
+    seyQuantity((Number(quantity) + 1).toString());
+  };
+
+  const handleQuantityDecrease = () => {
+    if (quantity > 1) {
+      seyQuantity((Number(quantity) - 1).toString());
     }
   };
 
-  const handleSignUpClick = () => {
-    navigation.navigate('Registration');
-  }; */
+  useFocusEffect(handleBackClick(params.goFrom, navigation, useCallback));
 
   return (
-    <SafeAreaView style={stylesShema.container}>
-      {/* {isFetching ||
-          (isLoading && (
-            <View style={stylesShema.productsContainer}>
-              <Text>Products are loading</Text>
+    <>
+      <ScrollView style={stylesShema.container}>
+        <View style={stylesShema.header}>
+          <CustomHeader
+            isButtonBack={true}
+            isButtonRight={true}
+            buttonRight={
+              <ButtonTemplate
+                icon={CartIcon}
+                iconWidth={28}
+                iconHeight={28}
+                handleClick={handleAddToCart}
+                isRounded={true}
+                isRoundedSmall={true}
+                isTransparent={true}
+              />
+            }
+          />
+        </View>
+
+        {isLoading ||
+          (isFetching && (
+            <SkeletonProductDetails isLoading={isLoading || isFetching} />
+          ))}
+
+        {product && (
+          <>
+            <View style={stylesShema.imageContainer}>
+              <Image
+                style={stylesShema.image}
+                source={{ uri: product.image }}
+              />
             </View>
-          ))} */}
 
-      {productsError && (
-        <View style={stylesShema.productsContainer}>
-          <Text>{t('errorWentWrong')}</Text>
+            <View style={stylesShema.content}>
+              <View style={stylesShema.contentHeader}>
+                <View style={stylesShema.titleContainer}>
+                  <Text style={stylesShema.title}>{product.title}</Text>
+                </View>
+
+                <View style={stylesShema.favButton}>
+                  <ButtonTemplate
+                    icon={HeartIcon}
+                    iconColor={
+                      userWishList.some(item => item.id === product.id)
+                        ? colors.red
+                        : ''
+                    }
+                    iconWidth={24}
+                    iconHeight={24}
+                    handleClick={handleAddToWishList}
+                    isRounded={true}
+                    isRoundedSmall={true}
+                    isTransparent={true}
+                  />
+                </View>
+              </View>
+
+              <View style={stylesShema.priceContainer}>
+                <Text style={stylesShema.price}>&#36; {product.price}</Text>
+              </View>
+
+              <View style={stylesShema.reviewsContainer}>
+                <View style={stylesShema.starsContainer}>
+                  <StarRating
+                    rating={product.rating.rate}
+                    onChange={handleRating}
+                    starSize={20}
+                    starStyle={stylesShema.stars}
+                  />
+                </View>
+
+                <View style={stylesShema.reviewContainer}>
+                  <Text style={stylesShema.review}>
+                    {`(${product.rating.count} REVIEWER)`}
+                  </Text>
+                </View>
+              </View>
+
+              <View style={stylesShema.descriptionContainer}>
+                <Text style={stylesShema.description}>
+                  {product.description}
+                </Text>
+              </View>
+            </View>
+          </>
+        )}
+      </ScrollView>
+
+      <View style={stylesShema.footer}>
+        <View style={stylesShema.quantityContainer}>
+          <View>
+            <Text style={stylesShema.quantity}>QTY</Text>
+          </View>
+
+          <View style={stylesShema.quantitySelect}>
+            <TouchableOpacity
+              style={stylesShema.quantityButton}
+              onPress={handleQuantityDecrease}
+              disabled={isLoading || isFetching}
+            >
+              <MinusIcon width={8} />
+            </TouchableOpacity>
+
+            <TextInput
+              style={stylesShema.quantityInput}
+              onChangeText={seyQuantity}
+              value={quantity}
+              keyboardType="numeric"
+            />
+
+            <TouchableOpacity
+              style={stylesShema.quantityButton}
+              onPress={handleQuantityIncrease}
+              disabled={isLoading || isFetching}
+            >
+              <PlusIcon width={8} />
+            </TouchableOpacity>
+          </View>
         </View>
-      )}
 
-      {products && !isFetching && !isLoading && (
-        <FlatList
-          columnWrapperStyle={stylesShema.list}
-          contentContainerStyle={stylesShema.listContent}
-          numColumns={2}
-          key={2}
-          data={products}
-          renderItem={({ item }) => <ProductsItem product={item} />}
-          keyExtractor={item => item.id}
-          ListHeaderComponent={<CatalogHeader />}
-          ListEmptyComponent={<Loader loading={isLoading || isFetching} />}
-          initialNumToRender={10}
-        />
-      )}
-
-      {/* <View style={stylesShema.titleWrapper}>
-          <Text style={stylesShema.title}>{t('loginTitle')}</Text>
-        </View>
-
-        <View style={stylesShema.form}>
-          <FormTemplate
-            initialValues={{ username: '', password: '' }}
-            validationSchema={Yup.object({
-              username: validationSchema?.username,
-              password: validationSchema?.password,
-            })}
-            handleSubmitForm={handleSubmit}
-            inputList={mock}
-            buttonText={t('loginButtonText')}
-            isLoadingData={isLoading}
+        <View style={stylesShema.buttons}>
+          <ButtonTemplate
+            text={t('addToCart')}
+            handleClick={handleAddToCart}
+            isOutline={true}
+            isHalfed={true}
+            isLoadingData={isLoading || isFetching}
           />
 
-          {error !== null && (
-            <View style={stylesShema.errorContainer}>
-              <ErrorMessage message={error} />
-            </View>
-          )}
-        </View> */}
-
-      {/* <ButtonTemplate
-          text={'logOut'}
-          handleClick={handleLogOut}
-          isOutline={true}
-        /> */}
-    </SafeAreaView>
+          <ButtonTemplate
+            text={t('buyNow')}
+            handleClick={handleAddToCart}
+            isHalfed={true}
+            isLoadingData={isLoading || isFetching}
+          />
+        </View>
+      </View>
+    </>
   );
 };

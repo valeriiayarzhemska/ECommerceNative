@@ -1,35 +1,28 @@
-import { StyleSheet, Dimensions } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { colors } from '../../constants';
-
-const cardWidth = (Dimensions.get('window').width - 70) / 2;
-const cardContentWidth = cardWidth - 20;
-const cardImageHeight = cardWidth - 10;
 
 export const styles = () => {
   return StyleSheet.create({
     container: {
-      marginHorizontal: 6,
+      flexDirection: 'row',
       marginBottom: 12,
       padding: 10,
-      width: cardWidth,
-      minHeight: 200,
+      width: '100%',
+      minHeight: 130,
       backgroundColor: colors.lightestGray,
       borderRadius: 20,
     },
-    favButton: {
-      position: 'absolute',
-      top: 5,
-      right: 5,
-      zIndex: 1,
+    containerSkeleton: {
+      width: '100%',
     },
     imageContainer: {
       position: 'relative',
-      marginBottom: 10,
+      marginRight: 14,
       padding: 20,
-      width: cardContentWidth,
-      height: cardImageHeight,
+      width: 110,
+      height: 110,
       backgroundColor: colors.white,
-      borderRadius: 20,
+      borderRadius: 14,
     },
     image: {
       zIndex: 1,
@@ -41,7 +34,16 @@ export const styles = () => {
       flex: 1,
       justifyContent: 'space-between',
       alignItems: 'flex-start',
-      width: cardContentWidth,
+      width: '100%',
+    },
+    contentHeader: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      width: '100%',
+    },
+    titleContainer: {
+      marginRight: 10,
+      width: '80%',
     },
     title: {
       marginBottom: 10,
@@ -49,8 +51,11 @@ export const styles = () => {
       fontFamily: 'Lato-Bold',
       color: colors.darkGray,
     },
+    priceContainer: {
+      marginRight: 6,
+    },
     price: {
-      fontSize: 14,
+      fontSize: 16,
       fontFamily: 'Lato-Bold',
       color: colors.darkGray,
     },
@@ -58,7 +63,10 @@ export const styles = () => {
       flexDirection: 'row',
       justifyContent: 'space-between',
       alignItems: 'center',
-      width: cardContentWidth,
+      width: '100%',
+    },
+    cartButton: {
+      width: '50%',
     },
   });
 };

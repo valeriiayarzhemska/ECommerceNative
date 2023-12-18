@@ -1,10 +1,15 @@
 import { Login } from '../screens/Login';
 import { Registration } from '../screens/Registration';
 import { Catalog } from '../screens/Catalog';
+import { ProductDetails } from '../screens/ProductDetails';
 
 import {
+  CartIcon,
+  HeartIcon,
   HomeIcon,
 } from '../assets/icons';
+import { Cart } from '../screens/Cart';
+import { WishList } from '../screens/WishList';
 
 export const tabScreenData = [
   {
@@ -15,17 +20,17 @@ export const tabScreenData = [
     },
   },
   {
-    name: 'Login',
-    component: Login,
+    name: 'WishList',
+    component: WishList,
     options: {
-      tabBarIcon: ({ color, size }) => <HomeIcon color={color} />,
+      tabBarIcon: ({ color, size }) => <HeartIcon color={color} />,
     },
   },
   {
-    name: 'Registration',
-    component: Registration,
+    name: 'Cart',
+    component: Cart,
     options: {
-      tabBarIcon: ({ color, size }) => <HomeIcon color={color} />,
+      tabBarIcon: ({ color, size }) => <CartIcon color={color} />,
     },
   },
 ];
@@ -53,6 +58,15 @@ export const stackScreenData = [
     name: 'Registration',
     component: Registration,
     isAuthorized: false,
+    options: {
+      headerShown: false,
+      animation: 'none',
+    },
+  },
+  {
+    name: 'ProductDetails',
+    component: ProductDetails,
+    isAuthorized: true,
     options: {
       headerShown: false,
       animation: 'none',

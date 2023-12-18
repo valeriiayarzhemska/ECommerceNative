@@ -50,7 +50,6 @@ export const InputTemplate = ({
         </View>
       )}
 
-
       {icon === PhoneIcon ? (
         <TextInputMask
           type={'custom'}

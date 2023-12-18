@@ -7,6 +7,20 @@ export const setProductsData =
 
     try {
       dispatch(setProducts.fulfilled({ products: data }));
+      console.log(data);
+    } catch (error) {
+      dispatch(setProducts.rejected());
+      console.log('productsList error: ', error);
+    }
+  };
+
+  export const filterProducts =
+  ({ category }) =>
+  async dispatch => {
+    dispatch(setProducts.pending());
+
+    try {
+      dispatch(setProducts.fulfilled({ products: data }));
     } catch (error) {
       dispatch(setProducts.rejected());
       console.log('productsList error: ', error);

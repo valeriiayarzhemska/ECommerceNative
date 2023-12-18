@@ -30,7 +30,7 @@ export const InputTemplate = ({
   const inputRef = useRef();
   const IconComponent = icon;
 
-  useEffect(() => {
+  /* useEffect(() => {
     const timerId = setTimeout(() => {
       setIsInit(false);
     }, 1100);
@@ -38,7 +38,7 @@ export const InputTemplate = ({
     return () => {
       clearTimeout(timerId);
     };
-  }, []);
+  }, []); */
 
   return (
     <View style={stylesShema.inputWrapper}>

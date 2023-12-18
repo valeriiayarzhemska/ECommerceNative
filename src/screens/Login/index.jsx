@@ -60,8 +60,6 @@ export const Login = () => {
 
         return;
       }
-
-      console.log(userToken);
     } catch (error) {
       setError('errorWentWrong');
     }

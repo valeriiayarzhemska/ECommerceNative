@@ -1,4 +1,14 @@
 import { BackHandler } from 'react-native';
+import { sliderImages } from '../components/SliderItem';
+
+export const refresh = (setRefreshing, useCallback) => {
+  return useCallback(() => {
+    setRefreshing(true);
+    setTimeout(() => {
+      setRefreshing(false);
+    }, 2000);
+  }, []);
+};
 
 export const handleBackClick = (
   goBack,
@@ -44,23 +54,67 @@ export const sliceProductTitle = title => {
 };
 
 export const filterProductsCategories = products => {
+  const categoriesSet = new Set();
   const categories = [];
-  let categoriesTitle = '';
-  let categoriesImages = '';
-  let prevCategory = '';
 
-  products.map(({ category }) => {
-    if (prevCategory !== category) {
+  products.forEach(({ category }) => {
+    if (!categoriesSet.has(category)) {
       const title = category.slice(0, 1).toUpperCase();
-      categoriesTitle = title.concat(category.slice(1));
+      const categoriesTitle = title.concat(category.slice(1));
 
-      categoriesImages = category.split(' ').join('-');
-
-      categories.push({ title: categoriesTitle, image: categoriesImages });
-
-      prevCategory = category;
+      categories.push({ title: categoriesTitle, category: category });
+      categoriesSet.add(category);
     }
   });
 
   return categories;
+};
+
+export const filterProducts = (
+  products,
+  filteredProducts,
+  setFilteredProducts,
+  filteredCategory,
+  productsCategories,
+) => {
+  const categoriesSet = new Set();
+  /* console.log(categoriesSet);
+
+  if (!filteredCategory) {
+    setFilteredProducts(products);
+  } else {
+    const updatedFilteredProducts = filteredProducts.filter(({ category }) => {
+      if (!categoriesSet.has(category) && category === filteredCategory) {
+        categoriesSet.add(category);
+        return true;
+      }
+
+      if (categoriesSet.has(category) && category !== filteredCategory) {
+        categoriesSet.delete(category);
+        return false;
+      }
+
+      return true; // Include products not affected by the filter
+    });
+
+    setFilteredProducts(updatedFilteredProducts);
+  } */
+
+  const updatedFilteredProducts = filteredProducts.filter(({ category }) => {
+    console.log(category, filteredCategory);
+    if (!categoriesSet.has(category) && category === filteredCategory) {
+      categoriesSet.add(category);
+      console.log('11')
+      return true;
+    }
+
+    if (categoriesSet.has(category) && category !== filteredCategory) {
+      categoriesSet.delete(category);
+      return false;
+    }
+
+    return true;
+  });
+
+  setFilteredProducts(updatedFilteredProducts);
 };

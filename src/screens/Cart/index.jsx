@@ -29,18 +29,18 @@ export const Cart = () => {
   const stylesShema = styles();
   const dispatch = useDispatch();
   const { t } = useTranslation();
-  const {
+  /* const {
     data: products,
     isLoading,
     isFetching,
     error: productsError,
   } = useGetProductsQuery({
     refetchOnMountOrArgChange: true,
-  });
+  }); */
 
-  useEffect(() => {
+  /* useEffect(() => {
     const loadProducts = async () => {};
-  }, []);
+  }, []); */
 
   /* const [error, setError] = useState(null);
   const navigation = useNavigation();

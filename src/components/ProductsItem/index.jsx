@@ -8,7 +8,7 @@ import { HeartIcon, PlusIcon } from '../../assets/icons';
 import { colors } from '../../constants';
 
 import { styles } from './style';
-import { selectWishList } from '../../store/redux/features/products/productsSelectors';
+import { selectProducts, selectWishList } from '../../store/redux/features/products/productsSelectors';
 import { setProductsWishList, sliceProductTitle } from '../../utils';
 import { updateWishList } from '../../store/redux/features/products/productsActions';
 
@@ -29,8 +29,6 @@ export const ProductsItem = ({ product }) => {
   const handleAddToWishList = () => {
     setProductsWishList(product, userWishList, dispatch, updateWishList);
   };
-
-  console.log(product.category)
 
   const handleAddToCart = () => {};
 

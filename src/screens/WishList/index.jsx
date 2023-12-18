@@ -5,7 +5,6 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../../store/redux/features/auth/authSlice';
 import * as Yup from 'yup';
-import { useGetProductsQuery } from '../../store/redux/services/products/productsApi';
 import { setUserData } from '../../store/redux/features/auth/authActions';
 
 import { validationSchema } from '../../store/validationSchema';

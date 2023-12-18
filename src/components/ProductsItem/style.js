@@ -18,8 +18,8 @@ export const styles = () => {
     },
     favButton: {
       position: 'absolute',
-      top: 5,
-      right: 5,
+      top: 8,
+      right: 3,
       zIndex: 1,
     },
     imageContainer: {

@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import { FlatList, Text, View } from 'react-native';
+import React, { useCallback, useEffect, useState } from 'react';
+import { FlatList, RefreshControl, Text, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../../store/redux/features/auth/authSlice';
 import * as Yup from 'yup';
 import { useGetProductsQuery } from '../../store/redux/services/products/productsApi';
@@ -24,115 +24,83 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { ProductsItem } from '../../components/ProductsItem';
 import { CatalogHeader } from '../../components/CatalogHeader';
 import { Loader } from '../../components/Loader';
+import {
+  selectProducts,
+  selectProductsError,
+  selectProductsLoading,
+} from '../../store/redux/features/products/productsSelectors';
+import { setProductsData } from '../../store/redux/features/products/productsActions';
+import { refresh } from '../../utils';
 
 export const Catalog = () => {
   const stylesShema = styles();
-  const dispatch = useDispatch();
-  const { t } = useTranslation();
   const {
-    data: products,
-    isLoading,
-    isFetching,
-    error: productsError,
+    data,
+    isLoading: isDataLoading,
+    isFetching: isDataFetching,
+    error,
+    refetch,
   } = useGetProductsQuery({
     refetchOnMountOrArgChange: true,
   });
+  const isLoading = useSelector(selectProductsLoading);
+  const isError = useSelector(selectProductsError);
+  const [filteredProducts, setFilteredProducts] = useState([]);
+  const [refreshing, setRefreshing] = useState(false);
+  const dispatch = useDispatch();
+  const { t } = useTranslation();
 
-  useEffect(() => {
-    const loadProducts = async () => {};
-  }, []);
-
-  /* const [error, setError] = useState(null);
-  const navigation = useNavigation();
-
-  const handleSubmit = async ({ username, password }) => {
-    setError(null);
-
-    try {
-      const userAuth = await login({
-        username: username,
-        password: password,
-      });
-
-      await dispatch(setUserData({ nickname: username, users, usersError }));
-
-      if (
-        Object.hasOwn(userAuth, 'error') &&
-        userAuth.error.data == 'username or password is incorrect'
-      ) {
-        setError('wrongCredential');
-
-        return;
-      }
-    } catch (error) {
-      setError('errorWentWrong');
-      console.log(error);
+  const setProductsFiltered = () => {
+    if (data) {
+      setFilteredProducts(data);
     }
   };
 
-  const handleSignUpClick = () => {
-    navigation.navigate('Registration');
-  }; */
+  const handleRefresh = refresh(setRefreshing, useCallback);
+
+  useEffect(() => {
+    if (refreshing) {
+      refetch();
+    }
+
+    setProductsFiltered();
+  }, [refreshing]);
+
+  useEffect(() => {
+    setProductsFiltered();
+  }, [isDataLoading, isDataFetching]);
 
   return (
     <SafeAreaView style={stylesShema.container}>
-      {/* {isFetching ||
-          (isLoading && (
-            <View style={stylesShema.productsContainer}>
-              <Text>Products are loading</Text>
-            </View>
-          ))} */}
-
-      {productsError && (
+      {isError && (
         <View style={stylesShema.productsContainer}>
           <Text>{t('errorWentWrong')}</Text>
         </View>
       )}
 
-      {products && !isFetching && !isLoading && (
+      {filteredProducts && filteredProducts.length > 0 && !isLoading && (
         <FlatList
           columnWrapperStyle={stylesShema.list}
           contentContainerStyle={stylesShema.listContent}
           numColumns={2}
           key={2}
-          data={products}
+          data={filteredProducts}
           renderItem={({ item }) => <ProductsItem product={item} />}
           keyExtractor={item => item.id}
-          ListHeaderComponent={<CatalogHeader products={products} />}
-          ListEmptyComponent={<Loader loading={isLoading || isFetching} />}
+          ListHeaderComponent={
+            <CatalogHeader
+              products={data}
+              filteredProducts={filteredProducts}
+              setFilteredProducts={setFilteredProducts}
+            />
+          }
+          ListEmptyComponent={<Loader loading={isLoading} />}
           initialNumToRender={8}
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />
+          }
         />
       )}
-
-      {/* <View style={stylesShema.titleWrapper}>
-          <Text style={stylesShema.title}>{t('loginTitle')}</Text>
-        </View>
-
-        <View style={stylesShema.form}>
-          <FormTemplate
-            initialValues={{ username: '', password: '' }}
-            validationSchema={Yup.object({
-              username: validationSchema?.username,
-              password: validationSchema?.password,
-            })}
-            handleSubmitForm={handleSubmit}
-            inputList={mock}
-            buttonText={t('loginButtonText')}
-            isLoadingData={isLoading}
-          />
-
-          {error !== null && (
-            <View style={stylesShema.errorContainer}>
-              <ErrorMessage message={error} />
-            </View>
-          )}
-        </View> */}
-
-      {/* <ButtonTemplate
-          text={'logOut'}
-          handleClick={handleLogOut}
-          isOutline={true}
-        /> */}
     </SafeAreaView>
   );
 };

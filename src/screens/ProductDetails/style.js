@@ -97,7 +97,7 @@ export const styles = () => {
       paddingTop: 16,
       paddingBottom: 30,
       paddingHorizontal: '6%',
-      height: 174,
+      height: 156,
       backgroundColor: colors.white,
       borderTopLeftRadius: 20,
       borderTopRightRadius: 20,

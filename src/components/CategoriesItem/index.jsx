@@ -9,9 +9,7 @@ import { filterProducts } from '../../utils';
 export const CategoriesItem = ({
   categoryItem,
   isLast,
-  filteredProducts,
   setFilteredProducts,
-  productsCategories,
 }) => {
   const stylesShema = styles();
 
@@ -19,8 +17,13 @@ export const CategoriesItem = ({
   const products = useSelector(selectProducts);
 
   const handleCategoryClick = category => {
+    filterProducts(
+      products,
+      setFilteredProducts,
+      category,
+    );
+
     setIsActive(!isActive);
-    filterProducts(products, filteredProducts, setFilteredProducts, category, productsCategories);
   };
 
   return (

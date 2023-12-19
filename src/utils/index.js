@@ -70,51 +70,42 @@ export const filterProductsCategories = products => {
   return categories;
 };
 
+const categoriesSet = new Set([]);
+
 export const filterProducts = (
   products,
-  filteredProducts,
   setFilteredProducts,
   filteredCategory,
-  productsCategories,
 ) => {
-  const categoriesSet = new Set();
-  /* console.log(categoriesSet);
+  const updatedFilteredProducts = [];
+  const hasCategory = categoriesSet.has(filteredCategory);
 
-  if (!filteredCategory) {
-    setFilteredProducts(products);
+  if (!hasCategory) {
+    categoriesSet.add(filteredCategory);
   } else {
-    const updatedFilteredProducts = filteredProducts.filter(({ category }) => {
-      if (!categoriesSet.has(category) && category === filteredCategory) {
-        categoriesSet.add(category);
-        return true;
+    categoriesSet.delete(filteredCategory);
+  }
+
+  if (categoriesSet.size > 0) {
+    products.forEach((product) =>{
+      if (categoriesSet.has(product.category)) {
+        updatedFilteredProducts.push(product);
       }
-
-      if (categoriesSet.has(category) && category !== filteredCategory) {
-        categoriesSet.delete(category);
-        return false;
-      }
-
-      return true; // Include products not affected by the filter
-    });
-
-    setFilteredProducts(updatedFilteredProducts);
-  } */
-
-  const updatedFilteredProducts = filteredProducts.filter(({ category }) => {
-    console.log(category, filteredCategory);
-    if (!categoriesSet.has(category) && category === filteredCategory) {
-      categoriesSet.add(category);
-      console.log('11')
-      return true;
-    }
-
-    if (categoriesSet.has(category) && category !== filteredCategory) {
-      categoriesSet.delete(category);
-      return false;
-    }
-
-    return true;
-  });
+    })
+  } else {
+    updatedFilteredProducts.push(...products);
+  }
 
   setFilteredProducts(updatedFilteredProducts);
+};
+
+export const shouldItemUpdate = (prev, next) => {
+  const prevItem = prev.item;
+  const nextItem = next.item;
+
+  const hasChanged = Object.keys(prevItem).some(key => {
+    return prevItem[key] !== nextItem[key];
+  });
+
+  return hasChanged;
 };

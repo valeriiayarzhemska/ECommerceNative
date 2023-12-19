@@ -24,9 +24,6 @@ const MainTabNavigator = () => {
         tabBarInactiveTintColor: colors.lightGray,
         tabBarActiveTintColor: colors.white,
         tabBarShowLabel: false,
-        tabBarIconStyle: {
-          marginTop: 10,
-        },
         tabBarStyle: {
           height: 80,
           backgroundColor: colors.darkGray,

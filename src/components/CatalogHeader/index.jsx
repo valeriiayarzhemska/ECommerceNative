@@ -13,6 +13,7 @@ import { filterProductsCategories } from '../../utils';
 import { SliderItem } from '../SliderItem';
 import { SliderCatalog } from '../SliderCatalog';
 import { CategoriesList } from '../CategoriesList';
+import { SearchInput } from '../SearchInput';
 
 const windowWidth = Dimensions.get('window').width;
 
@@ -32,19 +33,11 @@ export const CatalogHeader = ({
   return (
     <>
       <CustomHeader
-        isButtonLeft= {true}
-        buttonLeft={<Logo width={40} height={40} />}
-        isButtonRight={true}
-        buttonRight={
-          <ButtonTemplate
-            icon={UserIcon}
-            iconWidth={30}
-            iconHeight={30}
-            handleClick={handleLogOut}
-            isRounded={true}
-          />
-        }
+        isButtonLeft={true}
+        buttonLeft={<Logo width={44} height={44} />}
       />
+
+      <SearchInput />
 
       {products && (
         <View style={stylesShema.container}>

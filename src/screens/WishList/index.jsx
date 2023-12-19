@@ -54,7 +54,7 @@ export const WishList = () => {
           ListHeaderComponent={
             <CustomHeader
               isButtonLeft={true}
-              buttonLeft={<Logo width={40} height={40} />}
+              buttonLeft={<Logo width={44} height={44} />}
               isButtonRight={true}
               title={t('titleWishList')}
               isTitled={true}

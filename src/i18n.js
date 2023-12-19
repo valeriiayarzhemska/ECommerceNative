@@ -44,6 +44,7 @@ const resources = {
       titleWishList: `Wishlist`,
       emptyWishList: `Wishlist is empty`,
       emptyProductsList: `Product list is empty`,
+      searchInputText : `What are you searching for?`,
     },
   },
   uk: {
@@ -81,6 +82,7 @@ const resources = {
       titleWishList: `Вішлист`,
       emptyWishList: `Вішлист пустий`,
       emptyProductsList: `Продуктовий лист пустий`,
+      searchInputText : `Що ви шукаєте?`,
     },
   },
 };

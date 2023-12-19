@@ -30,7 +30,7 @@ import {
   selectProductsLoading,
 } from '../../store/redux/features/products/productsSelectors';
 import { setProductsData } from '../../store/redux/features/products/productsActions';
-import { refresh } from '../../utils';
+import { refresh, shouldItemUpdate } from '../../utils';
 
 export const Catalog = () => {
   const stylesShema = styles();
@@ -99,6 +99,8 @@ export const Catalog = () => {
           refreshControl={
             <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />
           }
+          shouldItemUpdate={shouldItemUpdate}
+
         />
       )}
     </SafeAreaView>

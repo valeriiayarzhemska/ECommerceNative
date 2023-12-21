@@ -7,10 +7,9 @@ import { containerWidth } from '../../constants';
 
 import { styles } from './style';
 
-export const SliderCatalog = ({ productsCategories, setFilteredProducts }) => {
+export const SliderCatalog = ({ productsCategories }) => {
   const stylesShema = styles();
-
-  const allCategories = productsCategories.push('all catrgories');
+  console.log(productsCategories)
 
   return (
     <View style={stylesShema.carouselSlider}>
@@ -22,9 +21,8 @@ export const SliderCatalog = ({ productsCategories, setFilteredProducts }) => {
         itemWidth={containerWidth}
         renderItem={({ item }) => (
           <SliderItem
+            key={item.category}
             category={item.category}
-            title={item.title}
-            setFilteredProducts={setFilteredProducts}
           />
         )}
       />

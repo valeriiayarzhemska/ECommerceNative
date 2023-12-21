@@ -1,40 +1,43 @@
 import React from 'react';
-import { Image, View, Text, TouchableOpacity } from 'react-native';
+import { Image, View, Text } from 'react-native';
 
 import { styles } from './style';
-import { filterProducts } from '../../utils';
-import { useSelector } from 'react-redux';
-import { selectProducts } from '../../store/redux/features/products/productsSelectors';
 
-export const sliderImages = {
-  "jewelery": require(`../../assets/images/jewelery.jpg`),
-  "electronics": require(`../../assets/images/electronics.jpg`),
-  "men's clothing": require(`../../assets/images/mens_clothing.jpg`),
-  "women's clothing": require(`../../assets/images/womens_clothing.jpg`),
-  "all categories": require(`../../assets/images/all_categories.jpg`),
+export const slidersInfo = {
+  "jewelery": {
+    image: require(`../../assets/images/jewelery.jpg`),
+    text: 'Promo: 1 + 1 = 3',
+  },
+  "electronics": {
+    image: require(`../../assets/images/electronics.jpg`),
+    text: 'Free product warranty',
+  },
+  "men's clothing": {
+    image: require(`../../assets/images/mens_clothing.jpg`),
+    text: 'Best choices for him',
+  },
+  "women's clothing": {
+    image: require(`../../assets/images/womens_clothing.jpg`),
+    text: 'Best choices for her',
+  },
 };
 
-export const SliderItem = ({ title, category, setFilteredProducts }) => {
+export const SliderItem = ({ category }) => {
   const stylesShema = styles();
-  const products = useSelector(selectProducts);
-
-  const handleCategoryClick = () => {
-    filterProducts(products, setFilteredProducts, category);
-  }
 
   return (
-    <TouchableOpacity style={stylesShema.container} onPress={handleCategoryClick}>
+    <View style={stylesShema.container}>
       <View style={stylesShema.imageContainer}>
         <Image
           style={stylesShema.image}
-          source={sliderImages[category]}
+          source={slidersInfo[category].image}
           resizeMode="cover"
         />
 
         <View style={stylesShema.textContainer}>
-          <Text style={stylesShema.text}>{title}</Text>
+          <Text style={stylesShema.text}>{slidersInfo[category].text}</Text>
         </View>
       </View>
-    </TouchableOpacity>
+    </View>
   );
 };

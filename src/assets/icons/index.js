@@ -13,3 +13,4 @@ export { UserIcon } from './UserIcon';
 export { PlusIcon } from './PlusIcon';
 export { MinusIcon } from './MinusIcon';
 export { CrossIcon } from './CrossIcon';
+export { StarIcon } from './StarIcon';

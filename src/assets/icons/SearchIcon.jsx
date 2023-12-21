@@ -2,8 +2,12 @@ import React from 'react';
 import { Svg, Path } from 'react-native-svg';
 import { colors } from '../../constants';
 
-export const SearchIcon = ({ color = colors.darkGray }) => (
-  <Svg width={24} height={24} viewBox="0 0 24 24" fill="none">
+export const SearchIcon = ({
+  color = colors.darkGray,
+  width = 24,
+  height = 24,
+}) => (
+  <Svg width={width} height={height} viewBox="0 0 24 24" fill="none">
     <Path
       d="M18.5 18.5L22 22"
       stroke={color}

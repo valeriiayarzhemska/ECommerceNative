@@ -42,12 +42,23 @@ export const styles = (
       borderBottomLeftRadius: 50,
       backgroundColor: isRoundedSmall ? colors.green : colors.lightestGray,
     },
+    buttonSearch: {
+      paddingVertical: 6,
+      paddingHorizontal: 8,
+      paddingRight: 8,
+      width: 43,
+    },
     buttonTransparent: {
       paddingVertical: 0,
       paddingHorizontal: 0,
       paddingRight: 0,
       borderWidth: 0,
       backgroundColor: 'transparent',
+    },
+    buttonMiddle: {
+      paddingVertical: 10,
+      paddingHorizontal: 16,
+      paddingRight: 16,
     },
     buttonSmall: {
       paddingVertical: 8,

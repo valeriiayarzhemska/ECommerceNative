@@ -1,21 +1,13 @@
 import React from 'react';
-import { Dimensions, FlatList, Text, View } from 'react-native';
+import { View } from 'react-native';
 import { useDispatch } from 'react-redux';
 
-import { ButtonTemplate } from '../ButtonTemplate';
-import { Logo, UserIcon } from '../../assets/icons';
-
-import { styles } from './style';
-import { Loader } from '../Loader';
-import { CustomHeader } from '../CustomHeader';
-import Carousel from 'react-native-snap-carousel';
-import { filterProductsCategories } from '../../utils';
-import { SliderItem } from '../SliderItem';
 import { SliderCatalog } from '../SliderCatalog';
 import { CategoriesList } from '../CategoriesList';
-import { SearchInput } from '../SearchInput';
 
-const windowWidth = Dimensions.get('window').width;
+import { filterProductsCategories } from '../../utils';
+
+import { styles } from './style';
 
 export const CatalogHeader = ({
   products,
@@ -32,22 +24,17 @@ export const CatalogHeader = ({
 
   return (
     <>
-      <CustomHeader
-        isButtonLeft={true}
-        buttonLeft={<Logo width={44} height={44} />}
-      />
-
-      <SearchInput />
-
       {products && (
         <View style={stylesShema.container}>
           <View style={stylesShema.search}></View>
 
-          <SliderCatalog productsCategories={productsCategories} />
+          <SliderCatalog
+            productsCategories={productsCategories}
+            setFilteredProducts={setFilteredProducts}
+          />
 
           <CategoriesList
             productsCategories={productsCategories}
-            filteredProducts={filteredProducts}
             setFilteredProducts={setFilteredProducts}
           />
         </View>

@@ -9,8 +9,17 @@ export const styles = () => {
       height: '100%',
       backgroundColor: colors.white,
     },
+    headerContainer: {
+      flexDirection: 'row',
+      paddingLeft: '6%',
+      zIndex: 10,
+    },
+    searchContainer: {
+      position: 'absolute',
+      marginLeft: '6.4%',
+    },
     list: {
-      justifyContent: 'space-between'
+      justifyContent: 'space-between',
     },
     listContent: {
       paddingHorizontal: '6%',

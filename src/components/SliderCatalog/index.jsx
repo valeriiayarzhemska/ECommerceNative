@@ -1,16 +1,16 @@
 import React from 'react';
-import { Dimensions, View } from 'react-native';
+import { View } from 'react-native';
 import Carousel from 'react-native-snap-carousel';
 
 import { SliderItem } from '../SliderItem';
+import { containerWidth } from '../../constants';
 
 import { styles } from './style';
 
-const windowWidth = Dimensions.get('window').width;
-const sliderWidth = windowWidth - (windowWidth / 100) * 12;
-
-export const SliderCatalog = ({ productsCategories }) => {
+export const SliderCatalog = ({ productsCategories, setFilteredProducts }) => {
   const stylesShema = styles();
+
+  const allCategories = productsCategories.push('all catrgories');
 
   return (
     <View style={stylesShema.carouselSlider}>
@@ -18,10 +18,14 @@ export const SliderCatalog = ({ productsCategories }) => {
         layout={'default'}
         data={productsCategories}
         containerCustomStyle={styles.carouselContainer}
-        sliderWidth={sliderWidth}
-        itemWidth={sliderWidth}
+        sliderWidth={containerWidth}
+        itemWidth={containerWidth}
         renderItem={({ item }) => (
-          <SliderItem category={item.category} title={item.title} />
+          <SliderItem
+            category={item.category}
+            title={item.title}
+            setFilteredProducts={setFilteredProducts}
+          />
         )}
       />
     </View>

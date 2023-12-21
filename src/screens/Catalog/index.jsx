@@ -31,6 +31,8 @@ import {
 } from '../../store/redux/features/products/productsSelectors';
 import { setProductsData } from '../../store/redux/features/products/productsActions';
 import { refresh, shouldItemUpdate } from '../../utils';
+import { SearchBar } from '../../components/SearchBar';
+import { CustomHeader } from '../../components/CustomHeader';
 
 export const Catalog = () => {
   const stylesShema = styles();
@@ -72,6 +74,17 @@ export const Catalog = () => {
 
   return (
     <SafeAreaView style={stylesShema.container}>
+      <View style={stylesShema.headerContainer}>
+        <CustomHeader
+          isButtonLeft={true}
+          buttonLeft={<Logo width={44} height={44} />}
+        />
+
+        <View style={stylesShema.searchContainer}>
+          <SearchBar />
+        </View>
+      </View>
+
       {isError && (
         <View style={stylesShema.productsContainer}>
           <Text>{t('errorWentWrong')}</Text>
@@ -100,7 +113,6 @@ export const Catalog = () => {
             <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />
           }
           shouldItemUpdate={shouldItemUpdate}
-
         />
       )}
     </SafeAreaView>

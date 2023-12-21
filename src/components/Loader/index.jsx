@@ -28,7 +28,6 @@ export const Loader = ({
       ) : (
         <View style={stylesShema.textContainer}>
           <Text style={stylesShema.title}>{t('placeholderTitle')}</Text>
-          <Text style={stylesShema.text}>{t('placeholderText')}</Text>
         </View>
       )}
     </View>

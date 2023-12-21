@@ -5,10 +5,13 @@ export const styles = () => {
     header: {
       flexDirection: 'row',
       justifyContent: 'space-between',
-      marginBottom: 20,
+      marginBottom: 10,
+      zIndex: 2,
     },
-    search: {
-      marginBottom: 20,
+    containerSearch: {
+      position: 'absolute',
+      width: '100%',
+      zIndex: 10,
     },
     carouselSlider: {
       flex: 1,

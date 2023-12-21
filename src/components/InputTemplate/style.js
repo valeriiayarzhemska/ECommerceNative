@@ -1,25 +1,28 @@
 import { StyleSheet, Platform } from 'react-native';
 import { colors } from '../../constants';
 
-export const styles = (error, icon) => {
+export const styles = (error, icon, isSearch) => {
   return StyleSheet.create({
     inputWrapper: {
-      width: '100%',
       flexDirection: 'row',
+      marginBottom: isSearch? 0 : 20,
+      width: '100%',
       alignItems: 'center',
-      marginBottom: 20,
     },
     input: {
       flex: 1,
       paddingVertical: 14,
       paddingHorizontal: 18,
       paddingLeft: icon ? 42 : 18,
+      paddingLeft: isSearch && !icon ? 50 : 18,
+      paddingRight: isSearch && !icon ? 86 : 18,
       fontFamily: 'Lato-Regular',
       fontSize: 16,
       color: colors.darkGray,
       borderWidth: 1,
       borderColor: error ? colors.red : colors.lightGray,
       borderRadius: 30,
+      backgroundColor: colors.white,
     },
     icon: {
       position: 'absolute',
@@ -38,23 +41,9 @@ export const styles = (error, icon) => {
       fontSize: 10,
       color: colors.red,
     },
-    /* icon: {
-      width: 16,
-      height: 16,
-      marginLeft: 20,
+    cancelButton: {
+      position: 'absolute',
+      right: 5,
     },
-    eyeIcon: {
-      padding: 14,
-    },
-    searchIcon: {
-      backgroundColor: '#BF87E3',
-      height: '100%',
-      borderTopRightRadius: 8,
-      borderBottomRightRadius: 8,
-      width: 46,
-      height: 46,
-      justifyContent: 'center',
-      alignItems: 'center',
-    }, */
   });
 };

@@ -8,6 +8,7 @@ import { Eye, PhoneIcon } from '../../assets/icons';
 import { colors } from '../../constants';
 
 import { styles } from './style';
+import { ButtonTemplate } from '../ButtonTemplate';
 
 export const InputTemplate = ({
   icon,
@@ -19,8 +20,10 @@ export const InputTemplate = ({
   errors,
   keyboardType,
   handleSearch = false,
+  isSearch = false,
+  handleSearchClose = false,
 }) => {
-  const stylesShema = styles(error, icon);
+  const stylesShema = styles(error, icon, isSearch);
 
   const [isFocused, setIsFocused] = useState(value.length > 0 ? true : false);
   const [isPasswordVisible, setIsPasswordVisible] = useState(secureTextEntry);
@@ -30,7 +33,7 @@ export const InputTemplate = ({
   const inputRef = useRef();
   const IconComponent = icon;
 
-  /* useEffect(() => {
+  useEffect(() => {
     const timerId = setTimeout(() => {
       setIsInit(false);
     }, 1100);
@@ -38,7 +41,7 @@ export const InputTemplate = ({
     return () => {
       clearTimeout(timerId);
     };
-  }, []); */
+  }, []);
 
   return (
     <View style={stylesShema.inputWrapper}>
@@ -105,20 +108,21 @@ export const InputTemplate = ({
         </View>
       )}
 
-      {/* {handleSearch && (
-        <TouchableOpacity
-          onPress={() => {
-            handleSearch(value);
-          }}
-          style={stylesShema.searchIcon}>
-          <CheckIcon />
-        </TouchableOpacity>
-      )} */}
+      {isSearch && (
+        <View style={stylesShema.cancelButton}>
+          <ButtonTemplate
+            handleClick={handleSearchClose}
+            text={t('buttonCancel')}
+            isMiddle={true}
+          />
+        </View>
+      )}
 
       {secureTextEntry && (
         <TouchableOpacity
           style={stylesShema.eyeIcon}
-          onPress={() => setIsPasswordVisible(!isPasswordVisible)}>
+          onPress={() => setIsPasswordVisible(!isPasswordVisible)}
+        >
           {isPasswordVisible ? <Eye /> : <Eye color={colors.darkGray} />}
         </TouchableOpacity>
       )}

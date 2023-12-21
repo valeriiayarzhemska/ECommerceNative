@@ -12,7 +12,6 @@ const sliderWidth = windowWidth - (windowWidth / 100) * 12;
 
 export const CategoriesList = ({
   productsCategories,
-  filteredProducts,
   setFilteredProducts,
 }) => {
   const stylesShema = styles();
@@ -26,9 +25,7 @@ export const CategoriesList = ({
           <CategoriesItem
             categoryItem={item}
             isLast={index === productsCategories.length - 1}
-            filteredProducts={filteredProducts}
             setFilteredProducts={setFilteredProducts}
-            productsCategories={productsCategories}
           />
         )}
         keyExtractor={item => item.title}

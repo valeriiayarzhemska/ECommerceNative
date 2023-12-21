@@ -1,3 +1,5 @@
+import { Dimensions } from 'react-native';
+
 export const colors = {
   lightestGray: '#f7f7f7',
   lightGray: '#C6C6C6',
@@ -7,4 +9,8 @@ export const colors = {
   green: '#AFFC40',
   red: '#ff0000',
   white: '#fff',
+  yellow: '#FFDF00',
 };
+
+export const windowWidth = Dimensions.get('window').width;
+export const containerWidth = windowWidth - (windowWidth / 100) * 12;

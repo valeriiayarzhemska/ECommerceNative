@@ -19,7 +19,9 @@ export const ButtonTemplate = ({
   iconColor,
   isTransparent = false,
   isHalfed = false,
+  isMiddle = false,
   isSmall = false,
+  isSearch = false,
 }) => {
   const stylesShema = styles(
     size,
@@ -46,6 +48,8 @@ export const ButtonTemplate = ({
           isRounded ? stylesShema.buttonRounded : null,
           isTransparent ? stylesShema.buttonTransparent : null,
           isSmall ? stylesShema.buttonSmall : null,
+          isMiddle ? stylesShema.buttonMiddle : null,
+          isSearch ? stylesShema.buttonSearch : null,
         ]}
         onPress={handleClick}
         disabled={isLoadingData}

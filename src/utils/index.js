@@ -87,16 +87,32 @@ export const filterProducts = (
   }
 
   if (categoriesSet.size > 0) {
-    products.forEach((product) =>{
+    products.forEach(product => {
       if (categoriesSet.has(product.category)) {
         updatedFilteredProducts.push(product);
       }
-    })
+    });
   } else {
     updatedFilteredProducts.push(...products);
   }
 
   setFilteredProducts(updatedFilteredProducts);
+};
+
+export const filterSearchedProducts = async (products, values) => {
+  const searchedProducts = await products
+    .filter(({ title }) => title.toLowerCase().includes(values.toLowerCase()))
+    .map(({ id, title, image, price, rating }) => {
+      return {
+        id: id,
+        title: title,
+        image: image,
+        price: price,
+        rating: rating,
+      };
+    });
+
+  return searchedProducts;
 };
 
 export const shouldItemUpdate = (prev, next) => {

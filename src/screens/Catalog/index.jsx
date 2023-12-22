@@ -30,9 +30,11 @@ import {
   selectProductsLoading,
 } from '../../store/redux/features/products/productsSelectors';
 import { setProductsData } from '../../store/redux/features/products/productsActions';
-import { refresh, shouldItemUpdate } from '../../utils';
+import { refresh, shouldItemUpdate, sortProducts } from '../../utils';
 import { SearchBar } from '../../components/SearchBar';
 import { CustomHeader } from '../../components/CustomHeader';
+import { SkeletonCatalog } from '../../components/Skeletons/SkeletonCatalog';
+import { SkeletonCatalogItem } from '../../components/Skeletons/SkeletonWishlist';
 
 export const Catalog = () => {
   const stylesShema = styles();
@@ -48,13 +50,16 @@ export const Catalog = () => {
   const isLoading = useSelector(selectProductsLoading);
   const isError = useSelector(selectProductsError);
   const [filteredProducts, setFilteredProducts] = useState([]);
+  const [activeCategory, setActiveCategory] = useState('');
   const [refreshing, setRefreshing] = useState(false);
   const dispatch = useDispatch();
   const { t } = useTranslation();
 
   const setProductsFiltered = () => {
     if (data) {
-      setFilteredProducts(data);
+      const sortedProducts = sortProducts(data, t('sortPopularity'));
+
+      setFilteredProducts(sortedProducts);
     }
   };
 
@@ -91,7 +96,8 @@ export const Catalog = () => {
         </View>
       )}
 
-      {filteredProducts && filteredProducts.length > 0 && !isLoading && (
+
+      {filteredProducts && filteredProducts.length > 0 && !isLoading ? (
         <FlatList
           columnWrapperStyle={stylesShema.list}
           contentContainerStyle={stylesShema.listContent}
@@ -105,15 +111,19 @@ export const Catalog = () => {
               products={data}
               filteredProducts={filteredProducts}
               setFilteredProducts={setFilteredProducts}
+              activeCategory={activeCategory}
+              setActiveCategory={setActiveCategory}
             />
           }
-          ListEmptyComponent={<Loader loading={isLoading} />}
+          ListEmptyComponent={<SkeletonCatalogItem isLoading={isDataLoading || isDataFetching} />}
           initialNumToRender={8}
           refreshControl={
             <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />
           }
           shouldItemUpdate={shouldItemUpdate}
         />
+      ) : (
+        <SkeletonCatalog isLoading={true} />
       )}
     </SafeAreaView>
   );

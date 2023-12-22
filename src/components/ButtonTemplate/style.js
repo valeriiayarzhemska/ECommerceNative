@@ -59,6 +59,7 @@ export const styles = (
       paddingVertical: 10,
       paddingHorizontal: 16,
       paddingRight: 16,
+      width: 86,
     },
     buttonSmall: {
       paddingVertical: 8,

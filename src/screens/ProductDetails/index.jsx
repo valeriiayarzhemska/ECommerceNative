@@ -190,12 +190,14 @@ export const ProductDetails = ({ route }) => {
               <MinusIcon width={8} />
             </TouchableOpacity>
 
-            <TextInput
-              style={stylesShema.quantityInput}
-              onChangeText={seyQuantity}
-              value={quantity}
-              keyboardType="numeric"
-            />
+            <View style={stylesShema.quantityInputContainer}>
+              <TextInput
+                style={stylesShema.quantityInput}
+                onChangeText={seyQuantity}
+                value={quantity}
+                keyboardType="numeric"
+              />
+            </View>
 
             <TouchableOpacity
               style={stylesShema.quantityButton}

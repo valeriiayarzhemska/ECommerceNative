@@ -19,9 +19,7 @@ export const InputTemplate = ({
   error,
   errors,
   keyboardType,
-  handleSearch = false,
   isSearch = false,
-  handleSearchClose = false,
 }) => {
   const stylesShema = styles(error, icon, isSearch);
 
@@ -108,7 +106,7 @@ export const InputTemplate = ({
         </View>
       )}
 
-      {isSearch && (
+      {/* {isSearch && (
         <View style={stylesShema.cancelButton}>
           <ButtonTemplate
             handleClick={handleSearchClose}
@@ -116,7 +114,7 @@ export const InputTemplate = ({
             isMiddle={true}
           />
         </View>
-      )}
+      )} */}
 
       {secureTextEntry && (
         <TouchableOpacity

@@ -2,9 +2,9 @@ import React from 'react';
 import { View } from 'react-native';
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
 
-import { styles } from '../../components/WishListItem/style';
+import { styles } from '../../screens/Catalog/style';
 
-export const SkeletonWishlist = ({ isLoading }) => {
+export const SkeletonCatalogItem = ({ isLoading }) => {
   const stylesShema = styles();
 
   return (
@@ -12,7 +12,19 @@ export const SkeletonWishlist = ({ isLoading }) => {
       {isLoading && (
         <SkeletonPlaceholder>
           <View style={stylesShema.container}>
-            <View style={stylesShema.containerSkeleton}></View>
+            <View style={[stylesShema.skeletonContainer, stylesShema.listContent]}>
+              <View style={stylesShema.skeletonList}>
+                <View style={stylesShema.skeletonItem}></View>
+
+                <View style={stylesShema.skeletonItem}></View>
+              </View>
+
+              <View style={stylesShema.skeletonList}>
+                <View style={stylesShema.skeletonItem}></View>
+
+                <View style={stylesShema.skeletonItem}></View>
+              </View>
+            </View>
           </View>
         </SkeletonPlaceholder>
       )}

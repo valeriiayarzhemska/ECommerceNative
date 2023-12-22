@@ -1,8 +1,12 @@
 import { StyleSheet } from 'react-native';
-import { colors, containerWidth } from '../../constants';
+import { colors, containerWidth, windowHeight } from '../../constants';
 
 export const styles = () => {
   return StyleSheet.create({
+    outerContainer: {
+      flex: 1,
+      marginLeft: -23,
+    },
     container: {
       position: 'absolute',
       width: containerWidth,
@@ -20,6 +24,11 @@ export const styles = () => {
       borderBottomStartRadius: 24,
       backgroundColor: colors.white,
       zIndex: 3,
+    },
+    cancelButton: {
+      position: 'absolute',
+      top: 4.5,
+      right: 5,
     },
     resultsEmpty: {
       height: 96,

@@ -9,7 +9,6 @@ import { styles } from './style';
 
 export const SliderCatalog = ({ productsCategories }) => {
   const stylesShema = styles();
-  console.log(productsCategories)
 
   return (
     <View style={stylesShema.carouselSlider}>

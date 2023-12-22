@@ -128,12 +128,19 @@ export const styles = () => {
       fontSize: 14,
       color: colors.darkGray,
     },
+    quantityInputContainer: {
+      alignItems: 'center',
+      justifyContent: 'center',
+      width: 44,
+    },
     quantityInput: {
       paddingHorizontal: 4,
     },
     quantityButton: {
+      alignItems: 'center',
       paddingVertical: 11,
       paddingHorizontal: 17,
+      width: 40,
     },
     buttons: {
       flexDirection: 'row',

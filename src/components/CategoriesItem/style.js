@@ -3,11 +3,6 @@ import { colors } from '../../constants';
 
 export const styles = () => {
   return StyleSheet.create({
-    container: {
-      width: '100%',
-      height: 140,
-      borderRadius: 30,
-    },
     textContainerMargin: {
       marginRight: 6,
     },

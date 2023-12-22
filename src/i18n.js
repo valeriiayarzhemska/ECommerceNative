@@ -3,6 +3,7 @@ import { initReactI18next } from 'react-i18next';
 
 import 'intl';
 import IntlPluralRules from 'intl-pluralrules';
+import { sortOptionsValues } from './constants';
 
 if (!Intl.PluralRules) {
   Intl.PluralRules = IntlPluralRules;
@@ -46,6 +47,13 @@ const resources = {
       emptyWishList: `Wishlist is empty`,
       emptyProductsList: `Product list is empty`,
       searchInputText : `What are you searching for?`,
+      sortText : `Sort:`,
+      sortPopularity : `Most popular`,
+      sortLowHigh : `Price: low - high`,
+      sortHighLow : `Price: high - low`,
+      sortPopularity : sortOptionsValues.sortPopularityEn,
+      sortLowHigh : sortOptionsValues.sortLowHighEn,
+      sortHighLow : sortOptionsValues.sortHighLowEn,
     },
   },
   uk: {
@@ -85,6 +93,10 @@ const resources = {
       emptyWishList: `Вішлист пустий`,
       emptyProductsList: `Продуктовий лист пустий`,
       searchInputText : `Що ви шукаєте?`,
+      sortText : `Сортувати:`,
+      sortPopularity : sortOptionsValues.sortPopularityUa,
+      sortLowHigh : sortOptionsValues.sortLowHighUa,
+      sortHighLow : sortOptionsValues.sortHighLowUa,
     },
   },
 };

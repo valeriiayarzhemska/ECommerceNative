@@ -1,5 +1,6 @@
 import { BackHandler } from 'react-native';
-import { sliderImages } from '../components/SliderItem';
+import { useTranslation } from 'react-i18next';
+import { sortOptionsValues } from '../constants';
 
 export const refresh = (setRefreshing, useCallback) => {
   return useCallback(() => {
@@ -97,6 +98,36 @@ export const filterProducts = (
   }
 
   setFilteredProducts(updatedFilteredProducts);
+};
+
+export const sortProducts = (filteredProducts, sortOption) => {
+  const sortedProducts = [...filteredProducts];
+
+  switch (sortOption) {
+    case sortOptionsValues.sortLowHighEn || sortOptionsValues.sortLowHighUa: {
+      sortedProducts.sort(
+        (productA, productB) => productA.price - productB.price,
+      );
+      break;
+    }
+
+    case sortOptionsValues.sortHighLowEn || sortOptionsValues.sortHighLowUa: {
+      sortedProducts.sort(
+        (productA, productB) => productB.price - productA.price,
+      );
+      break;
+    }
+
+    case sortOptionsValues.sortPopularityEn || sortOptionsValues.sortPopularityUa:
+    default: {
+      sortedProducts.sort(
+        (productA, productB) => productA.rating.rate - productB.rating.rate,
+      );
+      break;
+    }
+  }
+
+  return sortedProducts;
 };
 
 export const filterSearchedProducts = async (products, values) => {

@@ -9,7 +9,7 @@ import { styles } from './style';
 import { StarIcon } from '../../assets/icons';
 import { colors } from '../../constants';
 
-export const SearchInputItem = ({ product }) => {
+export const SearchItem = ({ product }) => {
   const stylesShema = styles();
 
   const navigation = useNavigation();

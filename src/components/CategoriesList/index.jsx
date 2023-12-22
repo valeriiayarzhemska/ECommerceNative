@@ -1,18 +1,13 @@
 import React from 'react';
-import { Dimensions, FlatList, View } from 'react-native';
-import Carousel from 'react-native-snap-carousel';
-
-import { SliderItem } from '../SliderItem';
-
-import { styles } from './style';
+import { FlatList, View } from 'react-native';
 import { CategoriesItem } from '../CategoriesItem';
 
-const windowWidth = Dimensions.get('window').width;
-const sliderWidth = windowWidth - (windowWidth / 100) * 12;
+import { styles } from './style';
 
 export const CategoriesList = ({
   productsCategories,
   setFilteredProducts,
+  setActiveCategory,
 }) => {
   const stylesShema = styles();
 
@@ -21,11 +16,13 @@ export const CategoriesList = ({
       <FlatList
         horizontal={true}
         data={productsCategories}
+        showsHorizontalScrollIndicator={false}
         renderItem={({ item, index }) => (
           <CategoriesItem
             categoryItem={item}
             isLast={index === productsCategories.length - 1}
             setFilteredProducts={setFilteredProducts}
+            setActiveCategory={setActiveCategory}
           />
         )}
         keyExtractor={item => item.title}

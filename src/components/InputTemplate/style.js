@@ -15,7 +15,7 @@ export const styles = (error, icon, isSearch) => {
       paddingHorizontal: 18,
       paddingLeft: icon ? 42 : 18,
       paddingLeft: isSearch && !icon ? 50 : 18,
-      paddingRight: isSearch && !icon ? 86 : 18,
+      paddingRight: isSearch && !icon ? 96 : 18,
       fontFamily: 'Lato-Regular',
       fontSize: 16,
       color: colors.darkGray,
@@ -40,10 +40,10 @@ export const styles = (error, icon, isSearch) => {
       fontFamily: 'Lato-Regular',
       fontSize: 10,
       color: colors.red,
-    },
+    },/* 
     cancelButton: {
       position: 'absolute',
       right: 5,
-    },
+    }, */
   });
 };

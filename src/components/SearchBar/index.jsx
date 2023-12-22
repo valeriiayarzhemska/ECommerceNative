@@ -6,20 +6,23 @@ import {
   LayoutAnimation,
   UIManager,
   FlatList,
+  Keyboard,
+  TouchableOpacity,
 } from 'react-native';
 import { Formik } from 'formik';
 import { debounce } from 'lodash';
 
+import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { selectProducts } from '../../store/redux/features/products/productsSelectors';
 
 import { ButtonTemplate } from '../ButtonTemplate';
 import { InputTemplate } from '../InputTemplate';
-import { SearchInputItem } from '../SearchInputItem';
+import { SearchItem } from '../SearchItem';
 import { SearchIcon } from '../../assets/icons';
 
 import { inputList } from '../../store/mocks/search-mock';
-import { containerWidth } from '../../constants';
+import { containerWidth, windowHeight, windowWidth } from '../../constants';
 import { filterSearchedProducts } from '../../utils';
 
 import { styles } from './style';
@@ -41,6 +44,8 @@ export const SearchBar = () => {
   const products = useSelector(selectProducts);
   const containerWidthAnim = useRef(new Animated.Value(0)).current;
 
+  const { t } = useTranslation();
+
   const handleSearchDebounce = useCallback(
     debounce(async values => {
       if (values && values.length > 0) {
@@ -50,7 +55,7 @@ export const SearchBar = () => {
           const searchedProducts = await filterSearchedProducts(
             products,
             values,
-        );
+          );
 
           setSearchedProducts(searchedProducts);
         } catch (error) {
@@ -81,6 +86,13 @@ export const SearchBar = () => {
       formikRef.current.resetForm();
       formikRef.current.setFieldValue('search', '');
       setSearchedProducts([]);
+    }
+  };
+
+  const handleOuterClick = () => {
+    if (isInputVisible) {
+      Keyboard.dismiss();
+      toggleInput();
     }
   };
 
@@ -129,7 +141,7 @@ export const SearchBar = () => {
               validateOnChange={false}
               innerRef={formikRef}
             >
-              {({ handleChange, handleSubmit, values, errors, touched }) => (
+              {({ handleChange, values, errors, touched }) => (
                 <View style={stylesShema.form}>
                   {inputList.map(field => (
                     <InputTemplate
@@ -144,12 +156,19 @@ export const SearchBar = () => {
                       error={touched[field.name] && errors[field.name]}
                       keyboardType={field.keyboardType}
                       isSearch={true}
-                      handleSearchClose={toggleInput}
                     />
                   ))}
                 </View>
               )}
             </Formik>
+
+            <View style={stylesShema.cancelButton}>
+              <ButtonTemplate
+                handleClick={toggleInput}
+                text={t('buttonCancel')}
+                isMiddle={true}
+              />
+            </View>
 
             {isInputVisible && (
               <View
@@ -163,7 +182,7 @@ export const SearchBar = () => {
                 <FlatList
                   data={searchedProducts}
                   renderItem={({ item }) => {
-                    return <SearchInputItem key={item.id} product={item} />;
+                    return <SearchItem key={item.id} product={item} />;
                   }}
                   keyExtractor={item => item.id}
                   ListEmptyComponent={
@@ -178,6 +197,18 @@ export const SearchBar = () => {
           </Animated.View>
         </Animated.View>
       </View>
+
+      <TouchableOpacity
+        style={[
+          stylesShema.outerContainer,
+          {
+            height: isInputVisible ? windowHeight : 0,
+            width: isInputVisible ? windowWidth : 0,
+            pointerEvents: isInputVisible ? 'visible' : 'none',
+          },
+        ]}
+        onPress={handleOuterClick}
+      ></TouchableOpacity>
     </>
   );
 };

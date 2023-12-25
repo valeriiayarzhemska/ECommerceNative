@@ -50,7 +50,7 @@ export const Login = () => {
         setError('errorWentWrong');
       }
 
-      await dispatch(setUserData({ nickname: 'username', users, usersError }));
+      await dispatch(setUserData({ nickname: username, users, usersError }));
 
       if (
         Object.hasOwn(userAuth, 'error') &&

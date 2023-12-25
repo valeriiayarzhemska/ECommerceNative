@@ -48,11 +48,13 @@ export const setProductsCartList = async (
   setCartData,
 ) => {
   if (!userCart || !userCart.products || !products) {
+
     return [];
   }
 
   const productsInCart = userCart.products.map(cartItem => {
     const product = products.find(product => product.id === cartItem.productId);
+    console.log('4',product)
 
     if (product) {
       return {

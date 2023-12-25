@@ -48,7 +48,7 @@ export const Cart = () => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const userId = useSelector(selectUserId);
-
+console.log(userId)
   const {
     data,
     isLoading: isDataLoading,
@@ -75,6 +75,7 @@ export const Cart = () => {
   const handleCheckOut = () => {};
 
   useEffect(() => {
+
     const loadCart = async () => {
       if (data) {
         const cartList = await setProductsCartList(
@@ -83,10 +84,8 @@ export const Cart = () => {
           dispatch,
           setCartData,
         );
-console.log(data,
-  products,
-  dispatch,
-  setCartData,)
+        console.log(cartList)
+
         setCartProducts(cartList);
         updateTotalPrice(cartList);
       }

@@ -25,6 +25,7 @@ export const CartListItem = ({ product, setTotalPrice }) => {
   const [isInCart, setIsInCart] = useState(
     userCartList.some(item => item.id === id),
   );
+  console.log(product)
   const [quantityCart, setQuantityCart] = useState(quantity.toString());
   const [totalPriceProduct, setTotalPriceProduct] = useState(price.toFixed(2));
 

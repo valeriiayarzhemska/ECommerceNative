@@ -1,17 +1,11 @@
 import { StyleSheet } from 'react-native';
 import { colors } from '../../constants';
 
-export const styles = () => {
+export const styles = ({ isCartSelect }) => {
   return StyleSheet.create({
-    quantityContainer: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      marginBottom: 20,
-    },
     quantitySelect: {
       flexDirection: 'row',
       alignItems: 'center',
-      marginLeft: 16,
       borderWidth: 1,
       borderColor: colors.lightGray,
       borderRadius: 10,

@@ -7,6 +7,11 @@ import { logout } from '../../store/redux/features/auth/authSlice';
 import * as Yup from 'yup';
 import { useGetProductsQuery } from '../../store/redux/services/products/productsApi';
 import { setUserData } from '../../store/redux/features/auth/authActions';
+import {
+  selectCartList,
+  selectCartListError,
+  selectCartListLoading,
+} from '../../store/redux/features/products/productsSelectors';
 
 import { validationSchema } from '../../store/validationSchema';
 import { mock } from '../../store/mocks/login-mock';
@@ -24,115 +29,79 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { ProductsItem } from '../../components/ProductsItem';
 import { CatalogHeader } from '../../components/CatalogHeader';
 import { Loader } from '../../components/Loader';
+import { useGetUserCartQuery } from '../../store/redux/services/user/userApi';
+import { setCartData } from '../../store/redux/features/products/productsActions';
+import { handleUserIconClick } from '../../utils';
 
 export const Cart = () => {
   const stylesShema = styles();
   const dispatch = useDispatch();
   const { t } = useTranslation();
-  /* const {
-    data: products,
-    isLoading,
-    isFetching,
-    error: productsError,
-  } = useGetProductsQuery({
+  const {
+    data,
+    isLoading: isDataLoading,
+    isFetching: isDataFetching,
+    error,
+    refetch,
+  } = useGetUserCartQuery({
     refetchOnMountOrArgChange: true,
-  }); */
+  });
 
-  /* useEffect(() => {
-    const loadProducts = async () => {};
-  }, []); */
+  const userCartList = useSelector(selectCartList);
+  const isUserCartListLoading = useSelector(selectCartListLoading);
+  const isUserCartListError = useSelector(selectCartListError);
 
-  /* const [error, setError] = useState(null);
-  const navigation = useNavigation();
+  useEffect(() => {
+    const loadCart = async () => {
+      if (data) {
+        await dispatch(setCartData(data));
+      };
+    };
 
-  const handleSubmit = async ({ username, password }) => {
-    setError(null);
+    loadCart();
+  }, []);
 
-    try {
-      const userAuth = await login({
-        username: username,
-        password: password,
-      });
-
-      await dispatch(setUserData({ nickname: username, users, usersError }));
-
-      if (
-        Object.hasOwn(userAuth, 'error') &&
-        userAuth.error.data == 'username or password is incorrect'
-      ) {
-        setError('wrongCredential');
-
-        return;
-      }
-    } catch (error) {
-      setError('errorWentWrong');
-      console.log(error);
-    }
-  };
-
-  const handleSignUpClick = () => {
-    navigation.navigate('Registration');
-  }; */
 
   return (
     <SafeAreaView style={stylesShema.container}>
-      {/* {isFetching ||
-          (isLoading && (
-            <View style={stylesShema.productsContainer}>
-              <Text>Products are loading</Text>
-            </View>
-          ))} */}
-
-      {productsError && (
-        <View style={stylesShema.productsContainer}>
-          <Text>{t('errorWentWrong')}</Text>
-        </View>
-      )}
-
-      {products && !isFetching && !isLoading && (
+      {userCartList && !isUserCartListLoading && (
         <FlatList
-          columnWrapperStyle={stylesShema.list}
           contentContainerStyle={stylesShema.listContent}
-          numColumns={2}
-          key={2}
-          data={products}
-          renderItem={({ item }) => <ProductsItem product={item} />}
+          numColumns={1}
+          key={1}
+          data={userCartList}
+          renderItem={({ item }) => <ListItem product={item} />}
           keyExtractor={item => item.id}
-          ListHeaderComponent={<CatalogHeader />}
-          ListEmptyComponent={<Loader loading={isLoading || isFetching} />}
+          ListHeaderComponent={
+            <CustomHeader
+              isButtonLeft={true}
+              buttonLeft={<Logo width={44} height={44} />}
+              isButtonRight={true}
+              title={t('titleCartList')}
+              isTitled={true}
+              buttonRight={
+                <ButtonTemplate
+                  icon={UserIcon}
+                  iconWidth={30}
+                  iconHeight={30}
+                  handleClick={handleUserIconClick}
+                  isRounded={true}
+                />
+              }
+            />
+          }
+          ListEmptyComponent={
+            isUserCartListError ? (
+              <ErrorComponentMessage message={'errorWentWrong'} />
+            ) : isUserCartListLoading ? (
+              <SkeletonList isLoading={isUserCartListLoading} />
+            ) : (
+              <ErrorComponentMessage message={'emptyCartList'} />
+            )
+          }
           initialNumToRender={8}
         />
       )}
-
-      {/* <View style={stylesShema.titleWrapper}>
-          <Text style={stylesShema.title}>{t('loginTitle')}</Text>
-        </View>
-
-        <View style={stylesShema.form}>
-          <FormTemplate
-            initialValues={{ username: '', password: '' }}
-            validationSchema={Yup.object({
-              username: validationSchema?.username,
-              password: validationSchema?.password,
-            })}
-            handleSubmitForm={handleSubmit}
-            inputList={mock}
-            buttonText={t('loginButtonText')}
-            isLoadingData={isLoading}
-          />
-
-          {error !== null && (
-            <View style={stylesShema.errorContainer}>
-              <ErrorMessage message={error} />
-            </View>
-          )}
-        </View> */}
-
-      {/* <ButtonTemplate
-          text={'logOut'}
-          handleClick={handleLogOut}
-          isOutline={true}
-        /> */}
     </SafeAreaView>
   );
 };

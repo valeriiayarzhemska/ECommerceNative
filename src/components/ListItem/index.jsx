@@ -13,7 +13,7 @@ import { setProductsWishList } from '../../utils';
 import { updateWishList } from '../../store/redux/features/products/productsActions';
 import { useTranslation } from 'react-i18next';
 
-export const WishListItem = ({ product }) => {
+export const ListItem = ({ product }) => {
   const stylesShema = styles();
   const navigation = useNavigation();
   const dispatch = useDispatch();
@@ -28,7 +28,7 @@ export const WishListItem = ({ product }) => {
       id: id,
       isLiked: isLiked,
       setIsLiked: setIsLiked,
-      goFrom: 'WishListItem',
+      goFrom: 'ListItem',
     });
   };
 

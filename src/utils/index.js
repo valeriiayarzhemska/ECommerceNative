@@ -29,17 +29,29 @@ export const handleBackClick = (
     };
   }, [navigation, goBack, goBackData]);
 
-export const setProductsWishList = (item, list, dispatch, setWishList) => {
-  const productIndex = list.findIndex(product => +product.id === +item.id);
+  export const setProductsWishList = (item, list, dispatch, setWishList) => {
+    const productIndex = list.findIndex(product => +product.id === +item.id);
+  
+    if (productIndex >= 0) {
+      dispatch(
+        setWishList({ wishList: list.filter(product => product.id !== item.id) }),
+      );
+    } else {
+      dispatch(setWishList({ wishList: [...list, item] }));
+    }
+  };
 
-  if (productIndex >= 0) {
-    dispatch(
-      setWishList({ wishList: list.filter(product => product.id !== item.id) }),
-    );
-  } else {
-    dispatch(setWishList({ wishList: [...list, item] }));
-  }
-};
+  export const setProductsCartList = (item, list, dispatch, setCartList) => {
+    const productIndex = list.findIndex(product => +product.id === +item.id);
+  
+    if (productIndex >= 0) {
+      dispatch(
+        setCartList({ cartList: list.filter(product => product.id !== item.id) }),
+      );
+    } else {
+      dispatch(setCartList({ cartList: [...list, item] }));
+    }
+  };
 
 export const handleUserIconClick = () => {};
 

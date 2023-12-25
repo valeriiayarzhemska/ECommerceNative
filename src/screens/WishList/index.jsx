@@ -30,7 +30,7 @@ import {
   selectWishListError,
   selectWishListLoading,
 } from '../../store/redux/features/products/productsSelectors';
-import { WishListItem } from '../../components/WishListItem';
+import { ListItem } from '../../components/ListItem';
 import { SkeletonWishlist } from '../../components/Skeletons/SkeletonWishlist';
 
 export const WishList = () => {
@@ -49,7 +49,7 @@ export const WishList = () => {
           numColumns={1}
           key={1}
           data={userWishList}
-          renderItem={({ item }) => <WishListItem product={item} />}
+          renderItem={({ item }) => <ListItem product={item} />}
           keyExtractor={item => item.id}
           ListHeaderComponent={
             <CustomHeader

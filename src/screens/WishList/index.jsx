@@ -30,7 +30,7 @@ import {
   selectWishListError,
   selectWishListLoading,
 } from '../../store/redux/features/products/productsSelectors';
-import { ListItem } from '../../components/ListItem';
+import { WishListItem } from '../../components/WishListItem';
 import { SkeletonWishlist } from '../../components/Skeletons/SkeletonWishlist';
 
 export const WishList = () => {
@@ -41,6 +41,10 @@ export const WishList = () => {
   const isUserWishListLoading = useSelector(selectWishListLoading);
   const isUserWishListError = useSelector(selectWishListError);
 
+  const handleLogOut = () => {
+    dispatch(logout());
+  };
+
   return (
     <SafeAreaView style={stylesShema.container}>
       {userWishList && !isUserWishListLoading && (
@@ -49,7 +53,7 @@ export const WishList = () => {
           numColumns={1}
           key={1}
           data={userWishList}
-          renderItem={({ item }) => <ListItem product={item} />}
+          renderItem={({ item }) => <WishListItem product={item} />}
           keyExtractor={item => item.id}
           ListHeaderComponent={
             <CustomHeader
@@ -63,7 +67,7 @@ export const WishList = () => {
                   icon={UserIcon}
                   iconWidth={30}
                   iconHeight={30}
-                  handleClick={handleUserIconClick}
+                  handleClick={handleLogOut}
                   isRounded={true}
                 />
               }

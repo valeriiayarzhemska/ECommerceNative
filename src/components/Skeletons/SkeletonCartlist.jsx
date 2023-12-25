@@ -2,9 +2,9 @@ import React from 'react';
 import { View } from 'react-native';
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
 
-import { styles } from '../../components/WishListItem/style';
+import { styles } from '../../components/CartListItem/style';
 
-export const SkeletonWishlist = ({ isLoading }) => {
+export const SkeletonCartlist = ({ isLoading }) => {
   const stylesShema = styles();
 
   return (

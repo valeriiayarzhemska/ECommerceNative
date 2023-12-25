@@ -7,7 +7,7 @@ export const userApi = api.injectEndpoints({
       query: credentials => ({
         url: links.login,
         method: 'POST',
-        body: credentials,
+        body: credentials
       }),
     }),
     getUsers: build.query({
@@ -21,17 +21,8 @@ export const userApi = api.injectEndpoints({
       query: id => links.getUser,
       providesTags: (_post, _err, id) => [{ type: 'User', id }],
     }),
-    getUserCart: build.query({
-      query: id => `${links.getUserCart}${id}`,
-      providesTags: (_cart, _err, id) => [{ type: 'User', id }],
-    }),
   }),
   overrideExisting: true,
 });
 
-export const {
-  useLoginMutation,
-  useGetUsersQuery,
-  useGetUserQuery,
-  useGetUserCartQuery,
-} = userApi;
+export const { useLoginMutation, useGetUsersQuery, useGetUserQuery } = userApi;

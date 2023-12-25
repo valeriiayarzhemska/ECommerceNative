@@ -34,7 +34,7 @@ import { refresh, shouldItemUpdate, sortProducts } from '../../utils';
 import { SearchBar } from '../../components/SearchBar';
 import { CustomHeader } from '../../components/CustomHeader';
 import { SkeletonCatalog } from '../../components/Skeletons/SkeletonCatalog';
-import { SkeletonCatalogItem } from '../../components/Skeletons/SkeletonWishlist';
+import { SkeletonWishlist } from '../../components/Skeletons/SkeletonWishlist';
 
 export const Catalog = () => {
   const stylesShema = styles();
@@ -115,7 +115,7 @@ export const Catalog = () => {
               setActiveCategory={setActiveCategory}
             />
           }
-          ListEmptyComponent={<SkeletonCatalogItem isLoading={isDataLoading || isDataFetching} />}
+          ListEmptyComponent={<SkeletonWishlist isLoading={isDataLoading || isDataFetching} />}
           initialNumToRender={8}
           refreshControl={
             <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />

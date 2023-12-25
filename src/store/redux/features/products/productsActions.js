@@ -7,25 +7,22 @@ export const setProductsData =
 
     try {
       dispatch(setProducts.fulfilled(data));
-      console.log(data);
     } catch (error) {
       dispatch(setProducts.rejected());
       console.log('productsList error: ', error);
     }
   };
 
-export const setCartData =
-  ({ data }) =>
-  async dispatch => {
-    dispatch(setCartList.pending());
+export const setCartData = data => async dispatch => {
+  dispatch(setCartList.pending());
 
-    try {
-      dispatch(setCartList.fulfilled(data));
-    } catch (error) {
-      dispatch(setCartList.rejected());
-      console.log('cartList error: ', error);
-    }
-  };
+  try {
+    dispatch(setCartList.fulfilled(data));
+  } catch (error) {
+    dispatch(setCartList.rejected());
+    console.log('cartList error: ', error);
+  }
+};
 
 export const updateCartData =
   (props = {}) =>

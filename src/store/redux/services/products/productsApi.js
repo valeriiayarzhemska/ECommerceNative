@@ -14,8 +14,12 @@ export const productsApi = api.injectEndpoints({
       query: id => `${links.getProduct}${id}`,
       providesTags: (_post, _err, id) => [{ type: 'Product', id }],
     }),
+    getUserCart: build.query({
+      query: id => `${links.getUserCart}${id}`,
+      providesTags: (_cart, _err, id) => [{ type: 'Product', id }],
+    }),
   }),
   overrideExisting: true,
 });
 
-export const { useGetProductsQuery, useGetProductQuery } = productsApi;
+export const { useGetProductsQuery, useGetProductQuery, useGetUserCartQuery } = productsApi;

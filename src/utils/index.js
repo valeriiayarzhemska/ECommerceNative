@@ -29,29 +29,59 @@ export const handleBackClick = (
     };
   }, [navigation, goBack, goBackData]);
 
-  export const setProductsWishList = (item, list, dispatch, setWishList) => {
-    const productIndex = list.findIndex(product => +product.id === +item.id);
-  
-    if (productIndex >= 0) {
-      dispatch(
-        setWishList({ wishList: list.filter(product => product.id !== item.id) }),
-      );
-    } else {
-      dispatch(setWishList({ wishList: [...list, item] }));
-    }
-  };
+export const setProductsWishList = (item, list, dispatch, setWishList) => {
+  const productIndex = list.findIndex(product => +product.id === +item.id);
 
-  export const setProductsCartList = (item, list, dispatch, setCartList) => {
-    const productIndex = list.findIndex(product => +product.id === +item.id);
-  
-    if (productIndex >= 0) {
-      dispatch(
-        setCartList({ cartList: list.filter(product => product.id !== item.id) }),
-      );
-    } else {
-      dispatch(setCartList({ cartList: [...list, item] }));
+  if (productIndex >= 0) {
+    dispatch(
+      setWishList({ wishList: list.filter(product => product.id !== item.id) }),
+    );
+  } else {
+    dispatch(setWishList({ wishList: [...list, item] }));
+  }
+};
+
+export const setProductsCartList = async (
+  userCart,
+  products,
+  dispatch,
+  setCartData,
+) => {
+  if (!userCart || !userCart.products || !products) {
+    return [];
+  }
+
+  const productsInCart = userCart.products.map(cartItem => {
+    const product = products.find(product => product.id === cartItem.productId);
+
+    if (product) {
+      return {
+        ...product,
+        quantity: cartItem.quantity,
+      };
     }
-  };
+
+    return null;
+  });
+
+  const newProductsInCart = productsInCart.filter(Boolean);
+
+  await dispatch(setCartData(newProductsInCart));
+
+  return newProductsInCart;
+};
+
+export const updateProductsCartList = (item, list, dispatch, setCartList) => {
+  const productIndex = list.findIndex(product => +product.id === +item.id);
+
+  if (productIndex >= 0) {
+    dispatch(
+      setCartList({ cartList: list.filter(product => product.id !== item.id) }),
+    );
+  } else {
+    dispatch(setCartList({ cartList: [...list, item] }));
+  }
+};
 
 export const handleUserIconClick = () => {};
 
@@ -130,7 +160,8 @@ export const sortProducts = (filteredProducts, sortOption) => {
       break;
     }
 
-    case sortOptionsValues.sortPopularityEn || sortOptionsValues.sortPopularityUa:
+    case sortOptionsValues.sortPopularityEn ||
+      sortOptionsValues.sortPopularityUa:
     default: {
       sortedProducts.sort(
         (productA, productB) => productA.rating.rate - productB.rating.rate,

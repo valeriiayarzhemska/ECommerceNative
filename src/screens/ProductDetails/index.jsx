@@ -46,6 +46,7 @@ import { CustomHeader } from '../../components/CustomHeader';
 import { SkeletonProductDetails } from '../../components/Skeletons/SkeletonProductDetails';
 import { selectWishList } from '../../store/redux/features/products/productsSelectors';
 import { updateWishList } from '../../store/redux/features/products/productsActions';
+import { QuantitySelect } from '../../components/QuantitySelect';
 
 export const ProductDetails = ({ route }) => {
   const stylesShema = styles();
@@ -63,7 +64,7 @@ export const ProductDetails = ({ route }) => {
     refetchOnMountOrArgChange: true,
   });
   const userWishList = useSelector(selectWishList);
-  const [quantity, seyQuantity] = useState('1');
+  const [quantity, setQuantity] = useState('1');
 
   const handleAddToCart = () => {};
 
@@ -72,16 +73,6 @@ export const ProductDetails = ({ route }) => {
   };
 
   const handleRating = () => {};
-
-  const handleQuantityIncrease = () => {
-    seyQuantity((Number(quantity) + 1).toString());
-  };
-
-  const handleQuantityDecrease = () => {
-    if (quantity > 1) {
-      seyQuantity((Number(quantity) - 1).toString());
-    }
-  };
 
   useFocusEffect(handleBackClick(params.goFrom, navigation, useCallback));
 
@@ -177,36 +168,11 @@ export const ProductDetails = ({ route }) => {
 
       <View style={stylesShema.footer}>
         <View style={stylesShema.quantityContainer}>
-          <View>
+          <View style={stylesShema.quantityTextContainer}>
             <Text style={stylesShema.quantity}>QTY</Text>
           </View>
 
-          <View style={stylesShema.quantitySelect}>
-            <TouchableOpacity
-              style={stylesShema.quantityButton}
-              onPress={handleQuantityDecrease}
-              disabled={isLoading || isFetching}
-            >
-              <MinusIcon width={8} />
-            </TouchableOpacity>
-
-            <View style={stylesShema.quantityInputContainer}>
-              <TextInput
-                style={stylesShema.quantityInput}
-                onChangeText={seyQuantity}
-                value={quantity}
-                keyboardType="numeric"
-              />
-            </View>
-
-            <TouchableOpacity
-              style={stylesShema.quantityButton}
-              onPress={handleQuantityIncrease}
-              disabled={isLoading || isFetching}
-            >
-              <PlusIcon width={8} />
-            </TouchableOpacity>
-          </View>
+          <QuantitySelect quantity={quantity} setQuantity={setQuantity} />
         </View>
 
         <View style={stylesShema.buttons}>

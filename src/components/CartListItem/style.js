@@ -12,9 +12,6 @@ export const styles = () => {
       backgroundColor: colors.lightestGray,
       borderRadius: 20,
     },
-    containerSkeleton: {
-      width: '100%',
-    },
     imageContainer: {
       position: 'relative',
       marginRight: 14,
@@ -74,6 +71,15 @@ export const styles = () => {
       fontSize: 16,
       fontFamily: 'Lato-Bold',
       color: colors.darkGray,
+    },
+    skeletonContainer: {
+      flex: 1,
+      width: '100%',
+    },
+    skeletonItem: {
+      height: 189,
+      marginBottom: 12,
+      borderRadius: 20,
     },
   });
 };

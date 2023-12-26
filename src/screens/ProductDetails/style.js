@@ -110,10 +110,15 @@ export const styles = () => {
       shadowRadius: 3.84,
       elevation: 5,
     },
-    quantityContainer: {
+    contentContainer: {
       flexDirection: 'row',
       alignItems: 'center',
       marginBottom: 20,
+    },
+    quantityContainer: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      marginRight: 20,
     },
     quantitySelect: {
       flexDirection: 'row',
@@ -122,6 +127,9 @@ export const styles = () => {
       borderWidth: 1,
       borderColor: colors.lightGray,
       borderRadius: 10,
+    },
+    quantityTextContainer: {
+      marginRight: 10,
     },
     quantity: {
       fontFamily: 'Lato-Bold',
@@ -141,6 +149,16 @@ export const styles = () => {
       paddingVertical: 11,
       paddingHorizontal: 17,
       width: 40,
+    },
+    addedToCart: {
+      flexDirection: 'row',
+      alignItems: 'center',
+    },
+    addedToCartText: {
+      marginRight: 4,
+      fontFamily: 'Lato-Regular',
+      fontSize: 14,
+      color: colors.darkGray,
     },
     buttons: {
       flexDirection: 'row',

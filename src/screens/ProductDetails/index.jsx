@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import {
   FlatList,
   Image,
@@ -7,6 +7,7 @@ import {
   TextInput,
   TouchableOpacity,
   View,
+  Animated,
 } from 'react-native';
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
@@ -26,6 +27,7 @@ import { ButtonTemplate } from '../../components/ButtonTemplate';
 import { ErrorMessage } from '../../components/ErrorMessage';
 import {
   CartIcon,
+  CheckIcon,
   HeartIcon,
   Logo,
   MinusIcon,
@@ -41,12 +43,20 @@ import { ProductsItem } from '../../components/ProductsItem';
 import { CatalogHeader } from '../../components/CatalogHeader';
 import { Loader } from '../../components/Loader';
 import Carousel from 'react-native-snap-carousel';
-import { handleBackClick, setProductsWishList } from '../../utils';
+import {
+  handleBackClick,
+  setProductsWishList,
+  updateProductsCartList,
+} from '../../utils';
 import { CustomHeader } from '../../components/CustomHeader';
 import { SkeletonProductDetails } from '../../components/Skeletons/SkeletonProductDetails';
-import { selectWishList } from '../../store/redux/features/products/productsSelectors';
+import {
+  selectCartList,
+  selectWishList,
+} from '../../store/redux/features/products/productsSelectors';
 import { updateWishList } from '../../store/redux/features/products/productsActions';
 import { QuantitySelect } from '../../components/QuantitySelect';
+import { setCartList } from '../../store/redux/features/products/productsSlice';
 
 export const ProductDetails = ({ route }) => {
   const stylesShema = styles();
@@ -64,9 +74,62 @@ export const ProductDetails = ({ route }) => {
     refetchOnMountOrArgChange: true,
   });
   const userWishList = useSelector(selectWishList);
+  const userCartList = useSelector(selectCartList);
   const [quantity, setQuantity] = useState('1');
+  const [isAddingLoading, setIsAddingLoading] = useState(false);
+  const [showAddedToCart, setShowAddedToCart] = useState(false);
 
-  const handleAddToCart = () => {};
+  const fadeAnim = useRef(new Animated.Value(0)).current;
+
+  const fadeOut = () => {
+    Animated.timing(fadeAnim, {
+      toValue: 0,
+      duration: 500,
+      useNativeDriver: true,
+    }).start(() => {
+      setShowAddedToCart(false);
+    });
+  };
+
+  const fadeIn = () => {
+    Animated.timing(fadeAnim, {
+      toValue: 1,
+      duration: 500,
+      useNativeDriver: true,
+    }).start(() => {
+      setTimeout(() => {
+        fadeOut();
+      }, 2000);
+    });
+  };
+
+  const handleCartClick = () => {
+    navigation.navigate('Cart', {
+      goFrom: 'ProductDetails',
+    });
+  };
+
+  const handleAddToCart = async () => {
+    setIsAddingLoading(true);
+
+    try {
+      updateProductsCartList(
+        product,
+        quantity,
+        userCartList,
+        dispatch,
+        setCartList,
+      );
+
+      setShowAddedToCart(true);
+      fadeIn();
+
+      setIsAddingLoading(false);
+    } catch (error) {
+      console.log(error);
+      setIsAddingLoading(false);
+    }
+  };
 
   const handleAddToWishList = () => {
     setProductsWishList(product, userWishList, dispatch, updateWishList);
@@ -88,7 +151,7 @@ export const ProductDetails = ({ route }) => {
                 icon={CartIcon}
                 iconWidth={28}
                 iconHeight={28}
-                handleClick={handleAddToCart}
+                handleClick={handleCartClick}
                 isRounded={true}
                 isRoundedSmall={true}
                 isTransparent={true}
@@ -167,12 +230,24 @@ export const ProductDetails = ({ route }) => {
       </ScrollView>
 
       <View style={stylesShema.footer}>
-        <View style={stylesShema.quantityContainer}>
-          <View style={stylesShema.quantityTextContainer}>
-            <Text style={stylesShema.quantity}>QTY</Text>
+        <View style={stylesShema.contentContainer}>
+          <View style={stylesShema.quantityContainer}>
+            <View style={stylesShema.quantityTextContainer}>
+              <Text style={stylesShema.quantity}>QTY</Text>
+            </View>
+
+            <QuantitySelect quantity={quantity} setQuantity={setQuantity} />
           </View>
 
-          <QuantitySelect quantity={quantity} setQuantity={setQuantity} />
+          {showAddedToCart && (
+            <Animated.View
+              style={[stylesShema.addedToCart, { opacity: fadeAnim }]}
+            >
+              <Text style={stylesShema.addedToCartText}>Added to cart</Text>
+
+              <CheckIcon color={colors.green} />
+            </Animated.View>
+          )}
         </View>
 
         <View style={stylesShema.buttons}>
@@ -182,6 +257,7 @@ export const ProductDetails = ({ route }) => {
             isOutline={true}
             isHalfed={true}
             isLoadingData={isLoading || isFetching}
+            disabled={isAddingLoading}
           />
 
           <ButtonTemplate

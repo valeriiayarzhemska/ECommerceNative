@@ -35,6 +35,8 @@ import { SearchBar } from '../../components/SearchBar';
 import { CustomHeader } from '../../components/CustomHeader';
 import { SkeletonCatalog } from '../../components/Skeletons/SkeletonCatalog';
 import { SkeletonWishlist } from '../../components/Skeletons/SkeletonWishlist';
+import { SkeletonCatalogItem } from '../../components/Skeletons/SkeletonCatalogItem';
+import { ErrorComponentMessage } from '../../components/ErrorComponentMessage';
 
 export const Catalog = () => {
   const stylesShema = styles();
@@ -96,35 +98,41 @@ export const Catalog = () => {
         </View>
       )}
 
+      {isDataFetching ||
+        (isDataLoading && <SkeletonCatalog isLoading={true} />)}
 
-      {filteredProducts && filteredProducts.length > 0 && !isLoading ? (
-        <FlatList
-          columnWrapperStyle={stylesShema.list}
-          contentContainerStyle={stylesShema.listContent}
-          numColumns={2}
-          key={2}
-          data={filteredProducts}
-          renderItem={({ item }) => <ProductsItem product={item} />}
-          keyExtractor={item => item.id}
-          ListHeaderComponent={
-            <CatalogHeader
-              products={data}
-              filteredProducts={filteredProducts}
-              setFilteredProducts={setFilteredProducts}
-              activeCategory={activeCategory}
-              setActiveCategory={setActiveCategory}
-            />
-          }
-          ListEmptyComponent={<SkeletonWishlist isLoading={isDataLoading || isDataFetching} />}
-          initialNumToRender={8}
-          refreshControl={
-            <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />
-          }
-          shouldItemUpdate={shouldItemUpdate}
-        />
-      ) : (
-        <SkeletonCatalog isLoading={true} />
-      )}
+      <FlatList
+        columnWrapperStyle={stylesShema.list}
+        contentContainerStyle={stylesShema.listContent}
+        numColumns={2}
+        key={2}
+        data={filteredProducts}
+        renderItem={({ item }) => <ProductsItem product={item} />}
+        keyExtractor={item => item.id}
+        ListHeaderComponent={
+          <CatalogHeader
+            products={data}
+            filteredProducts={filteredProducts}
+            setFilteredProducts={setFilteredProducts}
+            activeCategory={activeCategory}
+            setActiveCategory={setActiveCategory}
+          />
+        }
+        ListEmptyComponent={
+          isDataFetching || isDataLoading ? (
+            <SkeletonCatalog isLoading={true} />
+          ) : isLoading ? (
+            <SkeletonCatalogItem isLoading={true} />
+          ) : (
+            <ErrorComponentMessage message={'emptyProductsList'} />
+          )
+        }
+        initialNumToRender={8}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />
+        }
+        shouldItemUpdate={shouldItemUpdate}
+      />
     </SafeAreaView>
   );
 };

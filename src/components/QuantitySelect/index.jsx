@@ -40,6 +40,7 @@ export const QuantitySelect = ({
           onChangeText={setQuantity}
           value={quantity}
           keyboardType="numeric"
+          editable={false}
         />
       </View>
 

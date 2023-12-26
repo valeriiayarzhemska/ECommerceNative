@@ -47,14 +47,12 @@ export const setProductsCartList = async (
   dispatch,
   setCartData,
 ) => {
-  if (!userCart || !userCart.products || !products) {
-
+  if (!userCart || !products) {
     return [];
   }
 
-  const productsInCart = userCart.products.map(cartItem => {
+  const productsInCart = userCart[0].products.map(cartItem => {
     const product = products.find(product => product.id === cartItem.productId);
-    console.log('4',product)
 
     if (product) {
       return {
@@ -73,15 +71,61 @@ export const setProductsCartList = async (
   return newProductsInCart;
 };
 
-export const updateProductsCartList = (item, list, dispatch, setCartList) => {
+export const updateProductsCartList = async (
+  product,
+  quantity,
+  cartList,
+  dispatch,
+  setCartList,
+) => {
+  const existingProductIndex = cartList.find(item => item.id === product.id);
+
+  if (existingProductIndex) {
+    const productsInCart = cartList.filter(item => item.id !== product.id);
+    productsInCart.unshift({
+      ...product,
+      quantity: Number(existingProductIndex.quantity) + Number(quantity),
+    });
+
+    await dispatch(setCartList(productsInCart));
+  } else {
+    const updatedCartList = [
+      { ...product, quantity: Number(quantity) },
+      ...cartList,
+    ];
+    await dispatch(setCartList(updatedCartList));
+  }
+};
+
+export const updateProductCartQuantity = async (
+  product,
+  quantity,
+  cartList,
+  dispatch,
+  setCartList,
+) => {
+  const existingProductIndex = cartList.findIndex(
+    item => item.id === product.id,
+  );
+
+  if (existingProductIndex !== -1) {
+    const updatedCartList = [...cartList];
+    updatedCartList[existingProductIndex] = {
+      ...updatedCartList[existingProductIndex],
+      quantity: Number(quantity),
+    };
+
+    await dispatch(setCartList(updatedCartList));
+  }
+};
+
+export const deleteProductInCartList = (item, list, dispatch, setCartList) => {
   const productIndex = list.findIndex(product => +product.id === +item.id);
 
   if (productIndex >= 0) {
     dispatch(
       setCartList({ cartList: list.filter(product => product.id !== item.id) }),
     );
-  } else {
-    dispatch(setCartList({ cartList: [...list, item] }));
   }
 };
 
@@ -102,17 +146,19 @@ export const filterProductsCategories = products => {
   const categoriesSet = new Set();
   const categories = [];
 
-  products.forEach(({ category }) => {
-    if (!categoriesSet.has(category)) {
-      const title = category.slice(0, 1).toUpperCase();
-      const categoriesTitle = title.concat(category.slice(1));
+  if (products) {
+    products.forEach(({ category }) => {
+      if (!categoriesSet.has(category)) {
+        const title = category.slice(0, 1).toUpperCase();
+        const categoriesTitle = title.concat(category.slice(1));
 
-      categories.push({ title: categoriesTitle, category: category });
-      categoriesSet.add(category);
-    }
-  });
+        categories.push({ title: categoriesTitle, category: category });
+        categoriesSet.add(category);
+      }
+    });
 
-  return categories;
+    return categories;
+  }
 };
 
 const categoriesSet = new Set([]);
@@ -166,7 +212,7 @@ export const sortProducts = (filteredProducts, sortOption) => {
       sortOptionsValues.sortPopularityUa:
     default: {
       sortedProducts.sort(
-        (productA, productB) => productA.rating.rate - productB.rating.rate,
+        (productA, productB) => productB.rating.rate - productA.rating.rate,
       );
       break;
     }

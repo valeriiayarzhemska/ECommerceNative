@@ -9,12 +9,21 @@ import { colors } from '../../constants';
 
 import { styles } from './style';
 import { selectCartList } from '../../store/redux/features/products/productsSelectors';
-import { setProductsWishList } from '../../utils';
-import { updateWishList } from '../../store/redux/features/products/productsActions';
+import {
+  deleteProductInCartList,
+  setProductsWishList,
+  updateProductCartQuantity,
+  updateProductsCartList,
+} from '../../utils';
+import {
+  updateCartData,
+  updateWishList,
+} from '../../store/redux/features/products/productsActions';
 import { useTranslation } from 'react-i18next';
 import { QuantitySelect } from '../QuantitySelect';
+import { setCartList } from '../../store/redux/features/products/productsSlice';
 
-export const CartListItem = ({ product, setTotalPrice }) => {
+export const CartListItem = ({ product, setTotalPrice, updateTotalPrice }) => {
   const stylesShema = styles();
   const navigation = useNavigation();
   const dispatch = useDispatch();
@@ -25,9 +34,10 @@ export const CartListItem = ({ product, setTotalPrice }) => {
   const [isInCart, setIsInCart] = useState(
     userCartList.some(item => item.id === id),
   );
-  console.log(product)
-  const [quantityCart, setQuantityCart] = useState(quantity.toString());
-  const [totalPriceProduct, setTotalPriceProduct] = useState(price.toFixed(2));
+  const [quantityCart, setQuantityCart] = useState('1');
+  const [totalPriceProduct, setTotalPriceProduct] = useState(
+    (price * quantity).toFixed(2),
+  );
 
   const handleClick = idProduct => {
     navigation.navigate('ProductDetails', {
@@ -36,33 +46,50 @@ export const CartListItem = ({ product, setTotalPrice }) => {
     });
   };
 
-  const handleDeleteFromWishList = () => {
-    setProductsWishList(product, userCartList, dispatch, updateWishList);
+  const handleDeleteFromCartList = () => {
+    deleteProductInCartList(product, userCartList, dispatch, updateCartData);
+    setTotalPrice(prevTotalPrice => prevTotalPrice - totalPriceProduct);
   };
 
-  const handleQuantityIncreaseCart = () => {
-    setQuantityCart(prevQuantity => {
-      const newQuantity = Number(prevQuantity) + 1;
+  const handleQuantityIncreaseCart = async () => {
+    setQuantityCart(prevQuantity => (Number(prevQuantity) + 1).toString());
 
-      setTotalPriceProduct((price * newQuantity).toFixed(2));
-      setTotalPrice(prevTotalPrice => prevTotalPrice + price);
+    setTotalPriceProduct(prevPrice => (Number(prevPrice) + price).toFixed(2));
+    setTotalPrice(prevTotalPrice => prevTotalPrice + price);
 
-      return newQuantity.toString();
-    });
+    await updateProductCartQuantity(
+      product,
+      Number(quantityCart) + 1,
+      userCartList,
+      dispatch,
+      setCartList,
+    );
   };
 
-  const handleQuantityDecreaseCart = () => {
-    if (quantity > 1) {
-      setQuantityCart(prevQuantity => {
-        const newQuantity = Number(prevQuantity) - 1;
+  const handleQuantityDecreaseCart = async () => {
+    setQuantityCart(prevQuantity =>
+      Number(prevQuantity) !== 1 ? (Number(prevQuantity) - 1).toString() : '1',
+    );
 
-        setTotalPriceProduct((price * newQuantity).toFixed(2));
-        setTotalPrice(prevTotalPrice => prevTotalPrice - price);
+    if (Number(quantityCart) > 1) {
+      setTotalPriceProduct(prevPrice => (Number(prevPrice) - price).toFixed(2));
+      setTotalPrice(prevTotalPrice => prevTotalPrice - price);
 
-        return newQuantity.toString();
-      });
+      await updateProductCartQuantity(
+        product,
+        Number(quantityCart) - 1,
+        userCartList,
+        dispatch,
+        setCartList,
+      );
     }
   };
+
+  useEffect(() => {
+    setQuantityCart(quantity ? quantity.toString() : '1');
+    setTotalPriceProduct((price * quantity).toFixed(2));
+    updateTotalPrice(userCartList);
+  }, [quantity]);
 
   return (
     <>
@@ -92,7 +119,7 @@ export const CartListItem = ({ product, setTotalPrice }) => {
                   icon={CrossIcon}
                   iconWidth={18}
                   iconHeight={18}
-                  handleClick={handleDeleteFromWishList}
+                  handleClick={handleDeleteFromCartList}
                   isRounded={true}
                   isRoundedSmall={true}
                   isTransparent={true}
@@ -108,7 +135,6 @@ export const CartListItem = ({ product, setTotalPrice }) => {
                   isCartSelect={true}
                   handleQuantityIncreaseCart={handleQuantityIncreaseCart}
                   handleQuantityDecreaseCart={handleQuantityDecreaseCart}
-                  setTotalPriceProduct={setTotalPriceProduct}
                 />
               </View>
 

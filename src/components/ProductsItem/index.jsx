@@ -4,11 +4,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 
 import { ButtonTemplate } from '../ButtonTemplate';
-import { HeartIcon, PlusIcon } from '../../assets/icons';
+import { HeartIcon, PlusIcon, StarIcon } from '../../assets/icons';
 import { colors } from '../../constants';
 
 import { styles } from './style';
-import { selectProducts, selectWishList } from '../../store/redux/features/products/productsSelectors';
+import {
+  selectProducts,
+  selectWishList,
+} from '../../store/redux/features/products/productsSelectors';
 import { setProductsWishList, sliceProductTitle } from '../../utils';
 import { updateWishList } from '../../store/redux/features/products/productsActions';
 
@@ -16,12 +19,13 @@ export const ProductsItem = ({ product }) => {
   const stylesShema = styles();
   const navigation = useNavigation();
   const dispatch = useDispatch();
+  const { title, id, image, price, rating } = product;
   const userWishList = useSelector(selectWishList);
-  const productTitle = sliceProductTitle(product.title);
+  const productTitle = sliceProductTitle(title);
 
-  const handleClick = id => {
+  const handleClick = productId => {
     navigation.navigate('ProductDetails', {
-      id: id,
+      id: productId,
       goFrom: 'ProductsItem',
     });
   };
@@ -35,18 +39,16 @@ export const ProductsItem = ({ product }) => {
   return (
     <TouchableOpacity
       style={stylesShema.container}
-      onPress={() => handleClick(product.id)}
+      onPress={() => handleClick(id)}
     >
       <View style={stylesShema.imageContainer}>
-        <Image style={stylesShema.image} source={{ uri: product.image }} />
+        <Image style={stylesShema.image} source={{ uri: image }} />
 
         <View style={stylesShema.favButton}>
           <ButtonTemplate
             icon={HeartIcon}
             iconColor={
-              userWishList.some(item => item.id === product.id)
-                ? colors.red
-                : ''
+              userWishList.some(item => item.id === id) ? colors.red : ''
             }
             iconWidth={18}
             iconHeight={18}
@@ -64,18 +66,13 @@ export const ProductsItem = ({ product }) => {
         </View>
 
         <View style={stylesShema.footer}>
-          <View style={stylesShema.priceContainer}>
-            <Text style={stylesShema.price}>&#36; {product.price}</Text>
+          <View style={stylesShema.ratingContainer}>
+            <StarIcon color={colors.yellow} width={16} height={16} />
+            <Text style={stylesShema.ratingText}>{rating.rate}</Text>
           </View>
 
-          <View>
-            <ButtonTemplate
-              icon={PlusIcon}
-              iconWidth={15}
-              handleClick={handleAddToCart}
-              isRounded={true}
-              isRoundedSmall={true}
-            />
+          <View style={stylesShema.priceContainer}>
+            <Text style={stylesShema.price}>&#36; {price}</Text>
           </View>
         </View>
       </View>

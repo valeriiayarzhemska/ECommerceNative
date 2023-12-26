@@ -45,9 +45,19 @@ export const styles = () => {
     },
     title: {
       marginBottom: 10,
-      fontSize: 14,
       fontFamily: 'Lato-Bold',
+      fontSize: 14,
       color: colors.darkGray,
+    },
+    ratingContainer: {
+      flexDirection: 'row',
+      alignItems: 'center',
+    },
+    ratingText: {
+      marginLeft: 4,
+      fontFamily: 'Lato-Regular',
+      fontSize: 14,
+      color: colors.gray,
     },
     price: {
       fontSize: 14,

@@ -15,3 +15,4 @@ export { PlusIcon } from './PlusIcon';
 export { MinusIcon } from './MinusIcon';
 export { CrossIcon } from './CrossIcon';
 export { StarIcon } from './StarIcon';
+export { CheckIcon } from './CheckIcon';

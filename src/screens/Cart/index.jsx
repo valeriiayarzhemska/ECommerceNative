@@ -48,7 +48,6 @@ export const Cart = () => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const userId = useSelector(selectUserId);
-console.log(userId)
   const {
     data,
     isLoading: isDataLoading,
@@ -58,9 +57,9 @@ console.log(userId)
   } = useGetUserCartQuery(userId, {});
 
   const products = useSelector(selectProducts);
+  const cart = useSelector(selectCartList);
   const isUserCartListLoading = useSelector(selectCartListLoading);
   const isUserCartListError = useSelector(selectCartListError);
-  const [cartProducts, setCartProducts] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
 
   const updateTotalPrice = cartList => {
@@ -75,7 +74,6 @@ console.log(userId)
   const handleCheckOut = () => {};
 
   useEffect(() => {
-
     const loadCart = async () => {
       if (data) {
         const cartList = await setProductsCartList(
@@ -84,9 +82,7 @@ console.log(userId)
           dispatch,
           setCartData,
         );
-        console.log(cartList)
 
-        setCartProducts(cartList);
         updateTotalPrice(cartList);
       }
     };
@@ -96,48 +92,50 @@ console.log(userId)
 
   return (
     <SafeAreaView style={stylesShema.container}>
-      {cartProducts && cartProducts.length > 0 && !isUserCartListLoading && (
-        <View style={stylesShema.containerList}>
-          <FlatList
-            contentContainerStyle={stylesShema.listContent}
-            numColumns={1}
-            key={1}
-            data={cartProducts}
-            renderItem={({ item }) => (
-              <CartListItem product={item} setTotalPrice={setTotalPrice} />
-            )}
-            keyExtractor={item => item.id}
-            ListHeaderComponent={
-              <CustomHeader
-                isButtonLeft={true}
-                buttonLeft={<Logo width={44} height={44} />}
-                isButtonRight={true}
-                title={t('titleCartList')}
-                isTitled={true}
-                buttonRight={
-                  <ButtonTemplate
-                    icon={UserIcon}
-                    iconWidth={30}
-                    iconHeight={30}
-                    handleClick={handleUserIconClick}
-                    isRounded={true}
-                  />
-                }
-              />
-            }
-            ListEmptyComponent={
-              isUserCartListError ? (
-                <ErrorComponentMessage message={'errorWentWrong'} />
-              ) : isUserCartListLoading ? (
-                <SkeletonCartlist isLoading={isUserCartListLoading} />
-              ) : (
-                <ErrorComponentMessage message={'emptyCartList'} />
-              )
-            }
-            initialNumToRender={8}
-          />
-        </View>
-      )}
+      <View style={stylesShema.containerList}>
+        <FlatList
+          contentContainerStyle={stylesShema.listContent}
+          numColumns={1}
+          key={1}
+          data={cart}
+          renderItem={({ item }) => (
+            <CartListItem
+              product={item}
+              setTotalPrice={setTotalPrice}
+              updateTotalPrice={updateTotalPrice}
+            />
+          )}
+          keyExtractor={item => item.id}
+          ListHeaderComponent={
+            <CustomHeader
+              isButtonLeft={true}
+              buttonLeft={<Logo width={44} height={44} />}
+              isButtonRight={true}
+              title={t('titleCartList')}
+              isTitled={true}
+              buttonRight={
+                <ButtonTemplate
+                  icon={UserIcon}
+                  iconWidth={30}
+                  iconHeight={30}
+                  handleClick={handleUserIconClick}
+                  isRounded={true}
+                />
+              }
+            />
+          }
+          ListEmptyComponent={
+            isUserCartListError ? (
+              <ErrorComponentMessage message={'errorWentWrong'} />
+            ) : isUserCartListLoading ? (
+              <SkeletonCartlist isLoading={true} />
+            ) : (
+              <ErrorComponentMessage message={'emptyCartList'} />
+            )
+          }
+          initialNumToRender={8}
+        />
+      </View>
 
       <View style={stylesShema.footer}>
         <Text style={stylesShema.totalPriceText}>

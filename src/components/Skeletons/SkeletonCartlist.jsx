@@ -11,8 +11,10 @@ export const SkeletonCartlist = ({ isLoading }) => {
     <>
       {isLoading && (
         <SkeletonPlaceholder>
-          <View style={stylesShema.container}>
-            <View style={stylesShema.containerSkeleton}></View>
+          <View style={stylesShema.skeletonContainer}>
+            <View style={stylesShema.skeletonItem}></View>
+            <View style={stylesShema.skeletonItem}></View>
+            <View style={stylesShema.skeletonItem}></View>
           </View>
         </SkeletonPlaceholder>
       )}

@@ -12,7 +12,7 @@ export const SkeletonCatalog = ({ isLoading }) => {
       {isLoading && (
         <SkeletonPlaceholder>
           <View style={stylesShema.container}>
-            <View style={stylesShema.listContent}>
+            <View>
               <View style={stylesShema.skeletonSlider}></View>
 
               <View style={stylesShema.skeletonCategories}></View>

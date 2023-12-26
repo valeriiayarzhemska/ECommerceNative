@@ -24,9 +24,6 @@ export const styles = () => {
     listContent: {
       paddingHorizontal: '6%',
     },
-    skeletonContainer: {
-      paddingTop: 251,
-    },
     skeletonSlider: {
       marginBottom: 20,
       width: containerWidth,

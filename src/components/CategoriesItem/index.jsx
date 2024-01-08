@@ -11,6 +11,7 @@ export const CategoriesItem = ({
   isLast,
   setFilteredProducts,
   setActiveCategory,
+  selectedSortOption,
 }) => {
   const stylesShema = styles();
 
@@ -18,7 +19,7 @@ export const CategoriesItem = ({
   const products = useSelector(selectProducts);
 
   const handleCategoryClick = category => {
-    filterProducts(products, setFilteredProducts, category);
+    filterProducts(products, setFilteredProducts, category, selectedSortOption);
 
     setIsActive(!isActive);
     setActiveCategory(category);

@@ -8,6 +8,7 @@ export const CategoriesList = ({
   productsCategories,
   setFilteredProducts,
   setActiveCategory,
+  selectedSortOption,
 }) => {
   const stylesShema = styles();
 
@@ -23,6 +24,7 @@ export const CategoriesList = ({
             isLast={index === productsCategories.length - 1}
             setFilteredProducts={setFilteredProducts}
             setActiveCategory={setActiveCategory}
+            selectedSortOption={selectedSortOption}
           />
         )}
         keyExtractor={item => item.title}

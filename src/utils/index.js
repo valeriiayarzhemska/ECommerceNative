@@ -163,33 +163,6 @@ export const filterProductsCategories = products => {
 
 const categoriesSet = new Set([]);
 
-export const filterProducts = (
-  products,
-  setFilteredProducts,
-  filteredCategory,
-) => {
-  const updatedFilteredProducts = [];
-  const hasCategory = categoriesSet.has(filteredCategory);
-
-  if (!hasCategory) {
-    categoriesSet.add(filteredCategory);
-  } else {
-    categoriesSet.delete(filteredCategory);
-  }
-
-  if (categoriesSet.size > 0) {
-    products.forEach(product => {
-      if (categoriesSet.has(product.category)) {
-        updatedFilteredProducts.push(product);
-      }
-    });
-  } else {
-    updatedFilteredProducts.push(...products);
-  }
-
-  setFilteredProducts(updatedFilteredProducts);
-};
-
 export const sortProducts = (filteredProducts, sortOption) => {
   const sortedProducts = [...filteredProducts];
 
@@ -219,6 +192,35 @@ export const sortProducts = (filteredProducts, sortOption) => {
   }
 
   return sortedProducts;
+};
+
+export const filterProducts = (
+  products,
+  setFilteredProducts,
+  filteredCategory,
+  selectedSortOption,
+) => {
+  const updatedFilteredProducts = [];
+  const hasCategory = categoriesSet.has(filteredCategory);
+
+  if (!hasCategory) {
+    categoriesSet.add(filteredCategory);
+  } else {
+    categoriesSet.delete(filteredCategory);
+  }
+
+  if (categoriesSet.size > 0) {
+    products.forEach(product => {
+      if (categoriesSet.has(product.category)) {
+        updatedFilteredProducts.push(product);
+      }
+    });
+  } else {
+    const sortedFilteredProducts = sortProducts(products, selectedSortOption);
+    updatedFilteredProducts.push(...sortedFilteredProducts);
+  }
+
+  setFilteredProducts(updatedFilteredProducts);
 };
 
 export const filterSearchedProducts = async (products, values) => {

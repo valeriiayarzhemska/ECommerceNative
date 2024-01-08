@@ -4,21 +4,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 
 import { ButtonTemplate } from '../ButtonTemplate';
-import { CrossIcon, PlusIcon } from '../../assets/icons';
-import { colors } from '../../constants';
+import { CrossIcon } from '../../assets/icons';
 
 import { styles } from './style';
 import { selectCartList } from '../../store/redux/features/products/productsSelectors';
 import {
   deleteProductInCartList,
-  setProductsWishList,
   updateProductCartQuantity,
-  updateProductsCartList,
 } from '../../utils';
-import {
-  updateCartData,
-  updateWishList,
-} from '../../store/redux/features/products/productsActions';
+import { updateCartData } from '../../store/redux/features/products/productsActions';
 import { useTranslation } from 'react-i18next';
 import { QuantitySelect } from '../QuantitySelect';
 import { setCartList } from '../../store/redux/features/products/productsSlice';

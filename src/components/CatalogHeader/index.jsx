@@ -16,6 +16,8 @@ export const CatalogHeader = ({
   setFilteredProducts,
   activeCategory,
   setActiveCategory,
+  selectedSortOption,
+  setSelectedSortOption,
 }) => {
   const stylesShema = styles();
   const dispatch = useDispatch();
@@ -38,12 +40,15 @@ export const CatalogHeader = ({
             productsCategories={productsCategories}
             setFilteredProducts={setFilteredProducts}
             setActiveCategory={setActiveCategory}
+            selectedSortOption={selectedSortOption}
           />
 
           <SortList
             filteredProducts={filteredProducts}
             setFilteredProducts={setFilteredProducts}
             activeCategory={activeCategory}
+            selectedSortOption={selectedSortOption}
+            setSelectedSortOption={setSelectedSortOption}
           />
         </View>
       )}

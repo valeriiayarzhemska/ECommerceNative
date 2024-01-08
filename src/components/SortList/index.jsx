@@ -9,20 +9,17 @@ import { styles } from './style';
 import { sortOptions } from '../../constants';
 import { DownArrow } from '../../assets/icons';
 import { sortProducts } from '../../utils';
-const pokemons = ['Pikachu', 'Charmander', 'Squirtle'];
 
 export const SortList = ({
   filteredProducts,
   setFilteredProducts,
   activeCategory,
+  selectedSortOption,
+  setSelectedSortOption,
 }) => {
   const stylesShema = styles();
 
   const { t } = useTranslation();
-
-  const [selectedSortOption, setSelectedSortOption] = useState(
-    t('sortPopularity'),
-  );
   const [modalVisible, setModalVisible] = useState(false);
 
   const handlePress = () => {

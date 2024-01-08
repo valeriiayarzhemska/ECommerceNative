@@ -40,6 +40,7 @@ import { ErrorComponentMessage } from '../../components/ErrorComponentMessage';
 
 export const Catalog = () => {
   const stylesShema = styles();
+  const { t } = useTranslation();
   const {
     data,
     isLoading: isDataLoading,
@@ -53,13 +54,15 @@ export const Catalog = () => {
   const isError = useSelector(selectProductsError);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [activeCategory, setActiveCategory] = useState('');
+  const [selectedSortOption, setSelectedSortOption] = useState(
+    t('sortPopularity'),
+  );
   const [refreshing, setRefreshing] = useState(false);
   const dispatch = useDispatch();
-  const { t } = useTranslation();
 
   const setProductsFiltered = () => {
     if (data) {
-      const sortedProducts = sortProducts(data, t('sortPopularity'));
+      const sortedProducts = sortProducts(data, selectedSortOption);
 
       setFilteredProducts(sortedProducts);
     }
@@ -116,6 +119,8 @@ export const Catalog = () => {
             setFilteredProducts={setFilteredProducts}
             activeCategory={activeCategory}
             setActiveCategory={setActiveCategory}
+            selectedSortOption={selectedSortOption}
+            setSelectedSortOption={setSelectedSortOption}
           />
         }
         ListEmptyComponent={

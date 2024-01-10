@@ -10,8 +10,16 @@ import {
 } from '../assets/icons';
 import { Cart } from '../screens/Cart';
 import { WishList } from '../screens/WishList';
+import { Checkout } from '../screens/Checkout';
 
 export const tabScreenData = [
+  {
+    name: 'Checkout',
+    component: Checkout,
+    options: {
+      tabBarIcon: ({ color, size }) => <HomeIcon color={color} />,
+    },
+  },
   {
     name: 'Catalog',
     component: Catalog,
@@ -66,6 +74,15 @@ export const stackScreenData = [
   {
     name: 'ProductDetails',
     component: ProductDetails,
+    isAuthorized: true,
+    options: {
+      headerShown: false,
+      animation: 'none',
+    },
+  },
+  {
+    name: 'Checkout',
+    component: Checkout,
     isAuthorized: true,
     options: {
       headerShown: false,

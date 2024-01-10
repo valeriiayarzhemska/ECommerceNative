@@ -249,3 +249,7 @@ export const shouldItemUpdate = (prev, next) => {
 
   return hasChanged;
 };
+
+export const capitalizedValue = value => {
+  return value.charAt(0).toUpperCase() + value.slice(1);
+};

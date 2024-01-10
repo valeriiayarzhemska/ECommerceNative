@@ -46,6 +46,7 @@ import { SkeletonCartlist } from '../../components/Skeletons/SkeletonCartlist';
 export const Cart = () => {
   const stylesShema = styles();
   const dispatch = useDispatch();
+  const navigation = useNavigation();
   const { t } = useTranslation();
   const userId = useSelector(selectUserId);
   const {
@@ -71,7 +72,12 @@ export const Cart = () => {
     setTotalPrice(newTotalPrice);
   };
 
-  const handleCheckOut = () => {};
+  const handleCheckOut = () => {
+    navigation.navigate('Checkout', {
+      products: cart,
+      goFrom: 'Cart',
+    });
+  };
 
   useEffect(() => {
     const loadCart = async () => {

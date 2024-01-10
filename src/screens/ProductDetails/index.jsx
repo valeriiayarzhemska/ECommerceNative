@@ -1,62 +1,42 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import {
-  FlatList,
   Image,
   ScrollView,
   Text,
-  TextInput,
-  TouchableOpacity,
   View,
   Animated,
 } from 'react-native';
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
-import { useDispatch, useSelector } from 'react-redux';
 import StarRating from 'react-native-star-rating-widget';
-import { logout } from '../../store/redux/features/auth/authSlice';
-import * as Yup from 'yup';
+
+import { useDispatch, useSelector } from 'react-redux';
 import { useGetProductQuery } from '../../store/redux/services/products/productsApi';
-import { setUserData } from '../../store/redux/features/auth/authActions';
-
-import { validationSchema } from '../../store/validationSchema';
-import { mock } from '../../store/mocks/login-mock';
-
-import { BackgroundWrapper } from '../../components/BackgroundWrapper';
-import { FormTemplate } from '../../components/FormTemplate';
-import { ButtonTemplate } from '../../components/ButtonTemplate';
-import { ErrorMessage } from '../../components/ErrorMessage';
-import {
-  CartIcon,
-  CheckIcon,
-  HeartIcon,
-  Logo,
-  MinusIcon,
-  PlusIcon,
-  UserIcon,
-} from '../../assets/icons';
-
-import { styles } from './style';
-import { colors } from '../../constants';
-import { ProductsList } from '../../components/ProductsList';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { ProductsItem } from '../../components/ProductsItem';
-import { CatalogHeader } from '../../components/CatalogHeader';
-import { Loader } from '../../components/Loader';
-import Carousel from 'react-native-snap-carousel';
-import {
-  handleBackClick,
-  setProductsWishList,
-  updateProductsCartList,
-} from '../../utils';
-import { CustomHeader } from '../../components/CustomHeader';
-import { SkeletonProductDetails } from '../../components/Skeletons/SkeletonProductDetails';
 import {
   selectCartList,
   selectWishList,
 } from '../../store/redux/features/products/productsSelectors';
 import { updateWishList } from '../../store/redux/features/products/productsActions';
-import { QuantitySelect } from '../../components/QuantitySelect';
 import { setCartList } from '../../store/redux/features/products/productsSlice';
+
+import { ButtonTemplate } from '../../components/ButtonTemplate';
+import { QuantitySelect } from '../../components/QuantitySelect';
+import {
+  CartIcon,
+  CheckIcon,
+  HeartIcon,
+} from '../../assets/icons';
+import { CustomHeader } from '../../components/CustomHeader';
+import { SkeletonProductDetails } from '../../components/Skeletons/SkeletonProductDetails';
+
+import { colors } from '../../constants';
+import {
+  handleBackClick,
+  setProductsWishList,
+  updateProductsCartList,
+} from '../../utils';
+
+import { styles } from './style';
 
 export const ProductDetails = ({ route }) => {
   const stylesShema = styles();

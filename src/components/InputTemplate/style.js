@@ -40,10 +40,6 @@ export const styles = (error, icon, isSearch) => {
       fontFamily: 'Lato-Regular',
       fontSize: 10,
       color: colors.red,
-    },/* 
-    cancelButton: {
-      position: 'absolute',
-      right: 5,
-    }, */
+    },
   });
 };

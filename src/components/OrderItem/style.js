@@ -5,7 +5,7 @@ export const styles = () => {
   return StyleSheet.create({
     container: {
       flexDirection: 'row',
-      marginBottom: 12,
+      marginBottom: 10,
       padding: 10,
       width: '100%',
       minHeight: 130,
@@ -14,10 +14,10 @@ export const styles = () => {
     },
     imageContainer: {
       position: 'relative',
-      marginRight: 14,
+      marginRight: 10,
       padding: 20,
-      width: 110,
-      height: 110,
+      width: 70,
+      height: 80,
       backgroundColor: colors.white,
       borderRadius: 14,
     },
@@ -36,11 +36,14 @@ export const styles = () => {
     contentHeader: {
       flexDirection: 'row',
       justifyContent: 'space-between',
-      marginBottom: 20,
+      marginBottom: 8,
+      paddingBottom: 20,
       width: '100%',
+      borderBottomWidth: 1,
+      borderBottomColor: colors.lightGray,
     },
     content: {
-      width: '80%',
+      width: '100%',
     },
     titleContainer: {
       marginRight: 10,
@@ -68,18 +71,8 @@ export const styles = () => {
       marginRight: 6,
     },
     total: {
-      fontSize: 16,
       fontFamily: 'Lato-Bold',
       color: colors.darkGray,
-    },
-    skeletonContainer: {
-      flex: 1,
-      width: '100%',
-    },
-    skeletonItem: {
-      height: 189,
-      marginBottom: 12,
-      borderRadius: 20,
     },
   });
 };

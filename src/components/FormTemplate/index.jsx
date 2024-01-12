@@ -6,6 +6,8 @@ import { InputTemplate } from '../InputTemplate';
 import { ButtonTemplate } from '../ButtonTemplate';
 
 import { styles } from './style';
+import { getCountry } from '../../store/geoData';
+import { DownArrow } from '../../assets/icons';
 
 export const FormTemplate = ({
   initialValues,
@@ -21,7 +23,8 @@ export const FormTemplate = ({
     <Formik
       initialValues={initialValues}
       onSubmit={handleSubmitForm}
-      validationSchema={validationSchema}>
+      validationSchema={validationSchema}
+    >
       {({ handleChange, handleSubmit, values, errors, touched }) => (
         <View style={stylesShema.container}>
           <View style={stylesShema.input}>
@@ -37,6 +40,7 @@ export const FormTemplate = ({
                   error={touched[field.name] && errors[field.name]}
                   errors={errors[field.name]}
                   keyboardType={field.keyboardType}
+                  name={field.name}
                 />
               );
             })}

@@ -31,4 +31,14 @@ export const validationSchema = {
   repeatPassword: Yup.string()
     .required('inputPasswordRequired')
     .oneOf([Yup.ref('newPassword')], 'inputPasswordMatch'),
+  firstName: Yup.string()
+    .required('inputUserFirstNameRequired')
+    .min(2, 'inputUserFirstNameRequired'),
+  lastName: Yup.string()
+    .required('inputUserLastNameRequired')
+    .min(2, 'inputUserLastNameRequired'),
+  country: Yup.string().required('inputCountryRequired'),
+  street: Yup.string()
+    .required('inputStreetRequired')
+    .min(4, 'inputStreetRequired'),
 };

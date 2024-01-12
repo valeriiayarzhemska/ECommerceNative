@@ -71,10 +71,9 @@ export const Cart = () => {
 
     setTotalPrice(newTotalPrice);
   };
-
   const handleCheckOut = () => {
     navigation.navigate('Checkout', {
-      products: cart,
+      totalPrice: totalPrice,
       goFrom: 'Cart',
     });
   };

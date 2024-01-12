@@ -3,7 +3,7 @@ import { View, TextInput, TouchableOpacity, Text } from 'react-native';
 import { TextInputMask } from 'react-native-masked-text';
 import { useTranslation } from 'react-i18next';
 
-import { Eye, PhoneIcon } from '../../assets/icons';
+import { DownArrow, Eye, PhoneIcon } from '../../assets/icons';
 
 import { colors } from '../../constants';
 
@@ -19,10 +19,10 @@ export const InputTemplate = ({
   error,
   errors,
   keyboardType,
+  name,
   isSearch = false,
 }) => {
   const stylesShema = styles(error, icon, isSearch);
-
   const [isFocused, setIsFocused] = useState(value.length > 0 ? true : false);
   const [isPasswordVisible, setIsPasswordVisible] = useState(secureTextEntry);
   const [isInit, setIsInit] = useState(true);
@@ -40,7 +40,7 @@ export const InputTemplate = ({
       clearTimeout(timerId);
     };
   }, []);
-
+  
   return (
     <View style={stylesShema.inputWrapper}>
       {IconComponent && (
@@ -51,7 +51,7 @@ export const InputTemplate = ({
         </View>
       )}
 
-      {icon === PhoneIcon ? (
+      {name === 'phone' ? (
         <TextInputMask
           type={'custom'}
           options={{
@@ -105,16 +105,6 @@ export const InputTemplate = ({
           <Text style={stylesShema.errorText}>{t(errors)}</Text>
         </View>
       )}
-
-      {/* {isSearch && (
-        <View style={stylesShema.cancelButton}>
-          <ButtonTemplate
-            handleClick={handleSearchClose}
-            text={t('buttonCancel')}
-            isMiddle={true}
-          />
-        </View>
-      )} */}
 
       {secureTextEntry && (
         <TouchableOpacity

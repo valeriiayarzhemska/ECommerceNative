@@ -1,8 +1,17 @@
 import React, { useCallback, useRef, useState } from 'react';
-import { Image, ScrollView, Text, View, Animated, Button } from 'react-native';
+import {
+  Image,
+  ScrollView,
+  Text,
+  View,
+  Animated,
+  Button,
+  TouchableOpacity,
+} from 'react-native';
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
 import StarRating from 'react-native-star-rating-widget';
+import * as Yup from 'yup';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { useGetProductQuery } from '../../store/redux/services/products/productsApi';
@@ -21,6 +30,7 @@ import {
   DownArrow,
   EditIcon,
   HeartIcon,
+  UpArrow,
 } from '../../assets/icons';
 import { CustomHeader } from '../../components/CustomHeader';
 import { SkeletonProductDetails } from '../../components/Skeletons/SkeletonProductDetails';
@@ -35,6 +45,10 @@ import {
 
 import { styles } from './style';
 import { selectUser } from '../../store/redux/features/auth/authSelectors';
+import { OrderItem } from '../../components/OrderItem';
+import { FormTemplateAddress } from '../../components/FormTemplateAddress';
+import { validationSchema } from '../../store/validationSchema';
+import { mock } from '../../store/mocks/delivery-mock';
 
 export const Checkout = ({ route }) => {
   const stylesShema = styles();
@@ -43,8 +57,8 @@ export const Checkout = ({ route }) => {
   const navigation = useNavigation();
 
   const { params } = route;
-  const { goFrom } = params;
-  const [quantity, setQuantity] = useState('1');
+  const { totalPrice, goFrom } = params;
+  const [isOrderOpen, setIsOrderOpen] = useState(false);
   const [isAddingLoading, setIsAddingLoading] = useState(false);
   const [isPickUpActive, setIsPickUpActive] = useState(false);
   const [showAddedToCart, setShowAddedToCart] = useState(false);
@@ -53,6 +67,9 @@ export const Checkout = ({ route }) => {
   const user = useSelector(selectUser);
   const { name, address } = user;
   const { city, street, zipcode } = address;
+  const cityName = capitalizedValue(city);
+  const streetName = capitalizedValue(street);
+  const userAddress = `${cityName}, ${streetName}, ${zipcode}`;
 
   const handleCartClick = () => {
     navigation.navigate('Cart', {
@@ -66,6 +83,14 @@ export const Checkout = ({ route }) => {
 
   const handlePickUpClick = () => {
     setIsPickUpActive(!isPickUpActive);
+  };
+
+  const handleOpenOrders = () => {
+    setIsOrderOpen(!isOrderOpen);
+  };
+
+  const handleSubmit = () => {
+    console.log('5555555')
   };
 
   useFocusEffect(handleBackClick(goFrom, navigation, useCallback));
@@ -100,64 +125,113 @@ export const Checkout = ({ route }) => {
               />
             </View>
 
-            <View style={stylesShema.orderContainer}>
-              <TouchableOpacity style={stylesShema.orderButton}>
-                <Text>{t('order')}</Text>
+            <TouchableOpacity
+              style={[stylesShema.ordersButton, stylesShema.itemContainer]}
+              onPress={handleOpenOrders}
+            >
+              <Text style={stylesShema.title}>{t('order')}</Text>
 
-                <DownArrow />
-              </TouchableOpacity>
+              {isOrderOpen ? <UpArrow /> : <DownArrow />}
+            </TouchableOpacity>
 
-              <View style={stylesShema.ordersContainer}>
-                {}
+            {isOrderOpen && (
+              <View style={stylesShema.orders}>
+                {userCartList.map(product => (
+                  <OrderItem product={product} />
+                ))}
               </View>
-            </View>
+            )}
 
-            <View style={stylesShema.paymentContainer}>
+            <View
+              style={[stylesShema.paymentContainer, stylesShema.itemContainer]}
+            >
               <View style={stylesShema.payment}>
-                <View style={stylesShema.text}>
-                  <Text>{t('paymentSum')}</Text>
+                <View style={stylesShema.titleContainer}>
+                  <Text style={stylesShema.title}>{t('paymentSum')}</Text>
                 </View>
 
-                <View style={stylesShema.cash}>
-                  <Text>{t('cash')}</Text>
+                <View style={stylesShema.cashContainer}>
+                  <Text style={stylesShema.cash}>{t('cash')}</Text>
                 </View>
-              </View>
-
-              <View style={stylesShema.deliveryFee}>
-                <Text>{t('deliveryFee')}</Text>
-              </View>
-
-              <View style={stylesShema.totalPrice}>
-                <Text>{t('totalPrice')}</Text>
-              </View>
-            </View>
-
-            <View style={stylesShema.delivery}>
-              <View style={stylesShema.delivery}>
-                <Text>{t('deliveryAddress')}</Text>
-              </View>
-
-              <View style={stylesShema.delivery}>
-                <Text>
-                  {`${capitalizedValue(name.firstname)} ${capitalizedValue(
-                    name.lastname,
-                  )}`}
-                </Text>
-              </View>
-
-              <View style={stylesShema.delivery}>
-                <Text>{}</Text>
               </View>
 
               <View
-                style={stylesShema.editButton}
-                handleClick={handleDeliveryClick}
+                style={[
+                  stylesShema.deliveryFeeContainer,
+                  stylesShema.priceContainer,
+                ]}
               >
-                <View>
-                  <EditIcon />
+                <Text style={stylesShema.price}>{t('deliveryFee')}</Text>
+                <Text style={[stylesShema.price, stylesShema.priceNumber]}>
+                  &#36; 0
+                </Text>
+              </View>
+
+              <View style={stylesShema.priceContainer}>
+                <Text style={stylesShema.price}>{t('totalPrice')}</Text>
+                <Text style={[stylesShema.price, stylesShema.priceNumber]}>
+                  &#36; {totalPrice.toFixed(2)}
+                </Text>
+              </View>
+            </View>
+
+            <View
+              style={[stylesShema.deliveryContainer, stylesShema.itemContainer]}
+            >
+              <View style={stylesShema.userData}>
+                <View style={stylesShema.titleContainer}>
+                  <Text style={stylesShema.title}>{t('deliveryAddress')}</Text>
                 </View>
 
-                <Text>{t('editAddress')}</Text>
+                <View style={stylesShema.deliveryContent}>
+                  <Text style={stylesShema.userNameText}>
+                    {`${capitalizedValue(name.firstname)} ${capitalizedValue(
+                      name.lastname,
+                    )}`}
+                  </Text>
+                </View>
+
+                <View style={stylesShema.deliveryContent}>
+                  <Text>{userAddress}</Text>
+                </View>
+
+                <TouchableOpacity
+                  style={stylesShema.editButton}
+                  onPress={handleDeliveryClick}
+                >
+                  <View>
+                    <EditIcon width={16} height={16} />
+                  </View>
+
+                  <Text style={stylesShema.editButtonText}>
+                    {t('editAddress')}
+                  </Text>
+                </TouchableOpacity>
+              </View>
+
+              <View style={stylesShema.form}>
+                <FormTemplateAddress
+                  initialValues={{
+                    firstName: '',
+                    lastName: '',
+                    country: '',
+                    state: '',
+                    city: '',
+                    street: '',
+                    zipcode: '',
+                  }}
+                  validationSchema={Yup.object({
+                    firstName: validationSchema?.firstName,
+                    lastName: validationSchema?.lastName,
+                    country: validationSchema?.country,
+                    state: validationSchema?.state,
+                    city: validationSchema?.city,
+                    street: validationSchema?.street,
+                  })}
+                  handleSubmitForm={handleSubmit}
+                  buttonText={t('saveText')}
+                  //isLoadingData={isLoading}
+                />
               </View>
             </View>
 
@@ -168,6 +242,7 @@ export const Checkout = ({ route }) => {
               <ButtonTemplate
                 text={t('checkOut')}
                 handleClick={handleDeliveryClick}
+                isOutline={true}
               />
             </TouchableOpacity>
           </View>

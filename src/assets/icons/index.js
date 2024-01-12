@@ -2,6 +2,7 @@ export { Logo } from './Logo';
 export { Eye } from './Eye';
 export { BackArrow } from './BackArrow';
 export { DownArrow } from './DownArrow';
+export { UpArrow } from './UpArrow';
 export { EmailIcon } from './EmailIcon';
 export { PasswordIcon } from './PasswordIcon';
 export { PhoneIcon } from './PhoneIcon';

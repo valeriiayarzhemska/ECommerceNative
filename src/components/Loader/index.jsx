@@ -1,6 +1,7 @@
+import React from 'react';
 import { Text, View } from 'react-native';
 import LoaderKit from 'react-native-loader-kit';
-import { useTranslation } from "react-i18next";
+import { useTranslation } from 'react-i18next';
 
 import { colors } from '../../constants';
 

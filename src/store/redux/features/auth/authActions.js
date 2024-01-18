@@ -15,6 +15,10 @@ export const setUserData =
     }
   };
 
+export const setUserInfo = info => async dispatch => {
+  dispatch(setUser.fulfilled({ data: info }));
+};
+
 export const changeLang = lang => dispatch => {
   dispatch(setLang(lang));
 };

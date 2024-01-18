@@ -8,19 +8,17 @@ export const styles = () => {
       height: '100%',
       backgroundColor: colors.white,
     },
-
-    containerList: { height: windowHeight - 210 },
+    containerList: { height: '82%'  },
     listContent: {
       paddingHorizontal: '6%',
     },
     footer: {
-      position: 'absolute',
       bottom: 0,
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'space-between',
-      paddingBottom: 26,
       paddingHorizontal: '6%',
+      paddingBottom: windowHeight < 700 ? '8%' : 0,
       width: windowWidth,
       borderTopEndRadius: 20,
       borderTopStartRadius: 20,
@@ -29,7 +27,7 @@ export const styles = () => {
     },
     buttonContainer: {
       paddingTop: 16,
-      paddingBottom: 20,
+      paddingBottom: '2%',
       width: '45%',
     },
     totalPriceText: {

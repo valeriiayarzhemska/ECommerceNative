@@ -18,3 +18,4 @@ export { CrossIcon } from './CrossIcon';
 export { StarIcon } from './StarIcon';
 export { CheckIcon } from './CheckIcon';
 export { EditIcon } from './EditIcon';
+export { LogoutIcon } from './LogoutIcon';

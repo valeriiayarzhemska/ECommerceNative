@@ -71,6 +71,7 @@ export const Cart = () => {
 
     setTotalPrice(newTotalPrice);
   };
+
   const handleCheckOut = () => {
     navigation.navigate('Checkout', {
       totalPrice: totalPrice,
@@ -95,52 +96,46 @@ export const Cart = () => {
     loadCart();
   }, [data]);
 
+  useEffect(() => {
+    if (cart.length === 0) {
+      setTotalPrice(0);
+    }
+  }, [cart]);
+
   return (
     <SafeAreaView style={stylesShema.container}>
-      <View style={stylesShema.containerList}>
-        <FlatList
-          contentContainerStyle={stylesShema.listContent}
-          numColumns={1}
-          key={1}
-          data={cart}
-          renderItem={({ item }) => (
-            <CartListItem
-              product={item}
-              setTotalPrice={setTotalPrice}
-              updateTotalPrice={updateTotalPrice}
-            />
-          )}
-          keyExtractor={item => item.id}
-          ListHeaderComponent={
-            <CustomHeader
-              isButtonLeft={true}
-              buttonLeft={<Logo width={44} height={44} />}
-              isButtonRight={true}
-              title={t('titleCartList')}
-              isTitled={true}
-              buttonRight={
-                <ButtonTemplate
-                  icon={UserIcon}
-                  iconWidth={30}
-                  iconHeight={30}
-                  handleClick={handleUserIconClick}
-                  isRounded={true}
-                />
-              }
-            />
-          }
-          ListEmptyComponent={
-            isUserCartListError ? (
-              <ErrorComponentMessage message={'errorWentWrong'} />
-            ) : isUserCartListLoading ? (
-              <SkeletonCartlist isLoading={true} />
-            ) : (
-              <ErrorComponentMessage message={'emptyCartList'} />
-            )
-          }
-          initialNumToRender={8}
-        />
-      </View>
+      <FlatList
+        contentContainerStyle={stylesShema.listContent}
+        numColumns={1}
+        key={1}
+        data={cart}
+        renderItem={({ item }) => (
+          <CartListItem
+            product={item}
+            setTotalPrice={setTotalPrice}
+            updateTotalPrice={updateTotalPrice}
+          />
+        )}
+        keyExtractor={item => item.id}
+        ListHeaderComponent={
+          <CustomHeader
+            isButtonLeft={true}
+            buttonLeft={<Logo width={44} height={44} />}
+            title={t('titleCartList')}
+            isTitled={true}
+          />
+        }
+        ListEmptyComponent={
+          isUserCartListError ? (
+            <ErrorComponentMessage message={'errorWentWrong'} />
+          ) : isUserCartListLoading ? (
+            <SkeletonCartlist isLoading={true} />
+          ) : (
+            <ErrorComponentMessage message={'emptyCartList'} />
+          )
+        }
+        initialNumToRender={8}
+      />
 
       <View style={stylesShema.footer}>
         <Text style={stylesShema.totalPriceText}>

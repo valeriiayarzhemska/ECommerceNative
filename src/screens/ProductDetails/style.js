@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { colors } from '../../constants';
+import { colors, windowHeight } from '../../constants';
 
 export const styles = () => {
   return StyleSheet.create({
@@ -11,7 +11,7 @@ export const styles = () => {
     },
     header: {
       position: 'absolute',
-      top: 40,
+      top: windowHeight > 845 ? 56 : 40,
       right: '6%',
       left: '6%',
       zIndex: 1,
@@ -160,10 +160,7 @@ export const styles = () => {
       fontSize: 14,
       color: colors.darkGray,
     },
-    buttons: {
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      alignItems: 'center',
+    button: {
       width: '100%',
     },
   });

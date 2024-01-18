@@ -1,17 +1,19 @@
-import { StyleSheet, Platform } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { colors, containerWidth } from '../../constants';
 
 export const styles = () => {
   return StyleSheet.create({
     container: {
       flex: 1,
+      paddingHorizontal: '6%',
       width: '100%',
       height: '100%',
       backgroundColor: colors.white,
     },
     headerContainer: {
       flexDirection: 'row',
-      paddingLeft: '6%',
+      justifyContent: 'center',
+      width: '100%',
       zIndex: 10,
     },
     searchContainer: {

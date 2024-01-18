@@ -25,7 +25,7 @@ const MainTabNavigator = () => {
         tabBarActiveTintColor: colors.white,
         tabBarShowLabel: false,
         tabBarStyle: {
-          height: 80,
+          height: '10%',
           backgroundColor: colors.darkGray,
           borderTopColor: colors.darkGray,
           elevation: 0,

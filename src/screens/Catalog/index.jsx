@@ -95,12 +95,6 @@ export const Catalog = () => {
         </View>
       </View>
 
-      {isError && (
-        <View style={stylesShema.productsContainer}>
-          <Text>{t('errorWentWrong')}</Text>
-        </View>
-      )}
-
       {isDataFetching ||
         (isDataLoading && <SkeletonCatalog isLoading={true} />)}
 
@@ -126,7 +120,7 @@ export const Catalog = () => {
         ListEmptyComponent={
           isDataFetching || isDataLoading ? (
             <SkeletonCatalog isLoading={true} />
-          ) : isLoading ? (
+          ) : isLoading && !isError && !error ? (
             <SkeletonCatalogItem isLoading={true} />
           ) : (
             <ErrorComponentMessage message={'emptyProductsList'} />

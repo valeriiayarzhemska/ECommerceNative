@@ -1,11 +1,5 @@
 import React, { useCallback, useRef, useState } from 'react';
-import {
-  Image,
-  ScrollView,
-  Text,
-  View,
-  Animated,
-} from 'react-native';
+import { Image, ScrollView, Text, View, Animated } from 'react-native';
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
 import StarRating from 'react-native-star-rating-widget';
@@ -21,11 +15,7 @@ import { setCartList } from '../../store/redux/features/products/productsSlice';
 
 import { ButtonTemplate } from '../../components/ButtonTemplate';
 import { QuantitySelect } from '../../components/QuantitySelect';
-import {
-  CartIcon,
-  CheckIcon,
-  HeartIcon,
-} from '../../assets/icons';
+import { CartIcon, CheckIcon, HeartIcon } from '../../assets/icons';
 import { CustomHeader } from '../../components/CustomHeader';
 import { SkeletonProductDetails } from '../../components/Skeletons/SkeletonProductDetails';
 
@@ -230,21 +220,12 @@ export const ProductDetails = ({ route }) => {
           )}
         </View>
 
-        <View style={stylesShema.buttons}>
+        <View style={stylesShema.button}>
           <ButtonTemplate
             text={t('addToCart')}
             handleClick={handleAddToCart}
-            isOutline={true}
-            isHalfed={true}
             isLoadingData={isLoading || isFetching}
             disabled={isAddingLoading}
-          />
-
-          <ButtonTemplate
-            text={t('buyNow')}
-            handleClick={handleAddToCart}
-            isHalfed={true}
-            isLoadingData={isLoading || isFetching}
           />
         </View>
       </View>

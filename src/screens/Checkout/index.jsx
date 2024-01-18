@@ -19,7 +19,10 @@ import {
   selectCartList,
   selectWishList,
 } from '../../store/redux/features/products/productsSelectors';
-import { updateWishList } from '../../store/redux/features/products/productsActions';
+import {
+  deleteCartData,
+  updateWishList,
+} from '../../store/redux/features/products/productsActions';
 import { setCartList } from '../../store/redux/features/products/productsSlice';
 
 import { ButtonTemplate } from '../../components/ButtonTemplate';
@@ -48,7 +51,9 @@ import { selectUser } from '../../store/redux/features/auth/authSelectors';
 import { OrderItem } from '../../components/OrderItem';
 import { FormTemplateAddress } from '../../components/FormTemplateAddress';
 import { validationSchema } from '../../store/validationSchema';
-import { mock } from '../../store/mocks/delivery-mock';
+import { setUserInfo } from '../../store/redux/features/auth/authActions';
+import { GeoMap } from '../../components/GeoMap';
+import { ModalWindow } from '../../components/ModalWindow';
 
 export const Checkout = ({ route }) => {
   const stylesShema = styles();
@@ -59,26 +64,38 @@ export const Checkout = ({ route }) => {
   const { params } = route;
   const { totalPrice, goFrom } = params;
   const [isOrderOpen, setIsOrderOpen] = useState(false);
-  const [isAddingLoading, setIsAddingLoading] = useState(false);
+  const [isEditOpen, setIsEditOpen] = useState(false);
+  const [isLoadingData, setIsLoadingData] = useState(false);
   const [isPickUpActive, setIsPickUpActive] = useState(false);
-  const [showAddedToCart, setShowAddedToCart] = useState(false);
+  const [isCheckOut, setIsCheckOut] = useState(false);
 
   const userCartList = useSelector(selectCartList);
   const user = useSelector(selectUser);
   const { name, address } = user;
   const { city, street, zipcode } = address;
+  const userFirstName = capitalizedValue(name.firstname);
+  const userLastName = capitalizedValue(name.lastname);
+  const countryName = address.country ? capitalizedValue(address.country) : '';
+  const stateName = address.state ? capitalizedValue(address.state) : '';
   const cityName = capitalizedValue(city);
   const streetName = capitalizedValue(street);
-  const userAddress = `${cityName}, ${streetName}, ${zipcode}`;
+  let userAddress = `${cityName}, ${streetName}, ${zipcode}`;
 
-  const handleCartClick = () => {
-    navigation.navigate('Cart', {
-      goFrom: 'ProductDetails',
-    });
-  };
+  if (countryName && !cityName) {
+    userAddress = `${countryName}, ${streetName}, ${zipcode}`;
+  } else if (countryName && cityName) {
+    userAddress = `${countryName}, ${stateName}, ${cityName}, ${streetName}, ${zipcode}`;
+  }
 
   const handleDeliveryClick = () => {
-    setIsPickUpActive(!isPickUpActive);
+    setIsCheckOut(true);
+  };
+
+  const handleModalClose = async () => {
+    await dispatch(deleteCartData());
+
+    setIsCheckOut(false);
+    navigation.goBack();
   };
 
   const handlePickUpClick = () => {
@@ -89,8 +106,31 @@ export const Checkout = ({ route }) => {
     setIsOrderOpen(!isOrderOpen);
   };
 
-  const handleSubmit = () => {
-    console.log('5555555')
+  const handleSubmit = async ({
+    firstName,
+    lastName,
+    country,
+    state,
+    city,
+    street,
+    zipcode,
+  }) => {
+    setIsLoadingData(true);
+
+    try {
+      await dispatch(
+        setUserInfo({
+          name: { firstname: firstName, lastname: lastName },
+          address: { country, state, city, street, zipcode },
+        }),
+      );
+
+      setIsEditOpen(false);
+      console.log(isEditOpen);
+      setIsLoadingData(false);
+    } catch (error) {
+      console.log('error: ', error);
+    }
   };
 
   useFocusEffect(handleBackClick(goFrom, navigation, useCallback));
@@ -101,11 +141,6 @@ export const Checkout = ({ route }) => {
         <View style={stylesShema.header}>
           <CustomHeader isButtonBack={true} />
         </View>
-
-        {/* {isLoading ||
-          (isFetching && (
-            <SkeletonProductDetails isLoading={isLoading || isFetching} />
-          ))} */}
 
         {userCartList && user && (
           <View style={stylesShema.containerContent}>
@@ -137,7 +172,7 @@ export const Checkout = ({ route }) => {
             {isOrderOpen && (
               <View style={stylesShema.orders}>
                 {userCartList.map(product => (
-                  <OrderItem product={product} />
+                  <OrderItem product={product} key={product.id} />
                 ))}
               </View>
             )}
@@ -178,61 +213,85 @@ export const Checkout = ({ route }) => {
             <View
               style={[stylesShema.deliveryContainer, stylesShema.itemContainer]}
             >
-              <View style={stylesShema.userData}>
-                <View style={stylesShema.titleContainer}>
-                  <Text style={stylesShema.title}>{t('deliveryAddress')}</Text>
-                </View>
+              <View style={stylesShema.titleContainer}>
+                <Text style={stylesShema.title}>{t('deliveryAddress')}</Text>
+              </View>
 
-                <View style={stylesShema.deliveryContent}>
-                  <Text style={stylesShema.userNameText}>
-                    {`${capitalizedValue(name.firstname)} ${capitalizedValue(
-                      name.lastname,
-                    )}`}
-                  </Text>
-                </View>
+              {isPickUpActive ? (
+                <View style={stylesShema.userData}>
+                  <View style={stylesShema.deliveryContent}>
+                    <View style={stylesShema.deliveryContent}>
+                      <Text>
+                        {t('receiver')}
+                        {`${userFirstName} ${userLastName}`}
+                      </Text>
+                    </View>
 
-                <View style={stylesShema.deliveryContent}>
-                  <Text>{userAddress}</Text>
-                </View>
-
-                <TouchableOpacity
-                  style={stylesShema.editButton}
-                  onPress={handleDeliveryClick}
-                >
-                  <View>
-                    <EditIcon width={16} height={16} />
+                    <View style={stylesShema.deliveryContent}>
+                      <Text>
+                        {t('pickupAddress')}
+                        {t('companyAddress')}
+                      </Text>
+                    </View>
                   </View>
 
-                  <Text style={stylesShema.editButtonText}>
-                    {t('editAddress')}
-                  </Text>
-                </TouchableOpacity>
-              </View>
+                  <GeoMap />
+                </View>
+              ) : (
+                <>
+                  {isEditOpen ? (
+                    <View style={stylesShema.form}>
+                      <FormTemplateAddress
+                        initialValues={{
+                          firstName: userFirstName,
+                          lastName: userLastName,
+                          country: '',
+                          state: '',
+                          city: '',
+                          street: streetName,
+                          zipcode: address.zipcode,
+                        }}
+                        validationSchema={Yup.object({
+                          firstName: validationSchema?.firstName,
+                          lastName: validationSchema?.lastName,
+                          country: validationSchema?.country,
+                          state: validationSchema?.state,
+                          city: validationSchema?.city,
+                          street: validationSchema?.street,
+                        })}
+                        handleSubmitForm={handleSubmit}
+                        buttonText={t('saveText')}
+                        isLoadingData={isLoadingData}
+                      />
+                    </View>
+                  ) : (
+                    <View style={stylesShema.userData}>
+                      <View style={stylesShema.deliveryContent}>
+                        <Text style={stylesShema.userNameText}>
+                          {`${userFirstName} ${userLastName}`}
+                        </Text>
+                      </View>
 
-              <View style={stylesShema.form}>
-                <FormTemplateAddress
-                  initialValues={{
-                    firstName: '',
-                    lastName: '',
-                    country: '',
-                    state: '',
-                    city: '',
-                    street: '',
-                    zipcode: '',
-                  }}
-                  validationSchema={Yup.object({
-                    firstName: validationSchema?.firstName,
-                    lastName: validationSchema?.lastName,
-                    country: validationSchema?.country,
-                    state: validationSchema?.state,
-                    city: validationSchema?.city,
-                    street: validationSchema?.street,
-                  })}
-                  handleSubmitForm={handleSubmit}
-                  buttonText={t('saveText')}
-                  //isLoadingData={isLoading}
-                />
-              </View>
+                      <View style={stylesShema.deliveryContent}>
+                        <Text>{userAddress}</Text>
+                      </View>
+
+                      <TouchableOpacity
+                        style={stylesShema.editButton}
+                        onPress={() => setIsEditOpen(true)}
+                      >
+                        <View>
+                          <EditIcon width={16} height={16} />
+                        </View>
+
+                        <Text style={stylesShema.editButtonText}>
+                          {t('editAddress')}
+                        </Text>
+                      </TouchableOpacity>
+                    </View>
+                  )}
+                </>
+              )}
             </View>
 
             <TouchableOpacity
@@ -247,6 +306,15 @@ export const Checkout = ({ route }) => {
             </TouchableOpacity>
           </View>
         )}
+
+        <ModalWindow
+          isCheckOut={isCheckOut}
+          setIsCheckOut={setIsCheckOut}
+          modalText={t('succesOrder')}
+          secondModalText={t('contactYou')}
+          closeText={t('buttonCancel')}
+          handleCloseButtonClick={handleModalClose}
+        />
       </ScrollView>
     </>
   );

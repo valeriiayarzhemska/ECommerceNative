@@ -33,7 +33,7 @@ const authSlice = createSlice({
   extraReducers: builder => {
     builder
       .addCase(setUser.fulfilled, (state, action) => {
-        state.user = action.payload.data;
+        state.user = { ...state.user, ...action.payload.data };
       })
       .addCase(setUserId.fulfilled, (state, action) => {
         state.userId = action.payload.data;
@@ -46,7 +46,7 @@ const authSlice = createSlice({
         state.authError = null;
       })
       .addMatcher(userApi.endpoints.login.matchFulfilled, (state, action) => {
-        console.log('login fulfilled', action.payload.token);
+        console.log('login fulfilled');
         state.token = action.payload.token;
       })
       .addMatcher(userApi.endpoints.login.matchRejected, (state, action) => {

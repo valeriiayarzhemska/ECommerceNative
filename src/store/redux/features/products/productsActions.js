@@ -1,4 +1,4 @@
-import { setProducts, setCartList, setWishList } from './productsSlice';
+import { setProducts, setCartList, setWishList, deleteCartList } from './productsSlice';
 
 export const setProductsData =
   ({ data }) =>
@@ -20,6 +20,17 @@ export const setCartData = data => async dispatch => {
     dispatch(setCartList.fulfilled(data));
   } catch (error) {
     dispatch(setCartList.rejected());
+    console.log('cartList error: ', error);
+  }
+};
+
+export const deleteCartData = () => async dispatch => {
+  dispatch(deleteCartList.pending());
+
+  try {
+    dispatch(deleteCartList.fulfilled());
+  } catch (error) {
+    dispatch(deleteCartList.rejected());
     console.log('cartList error: ', error);
   }
 };

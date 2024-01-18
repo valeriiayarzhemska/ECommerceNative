@@ -16,7 +16,7 @@ export const CustomHeader = ({
   isButtonLeft = false,
   isButtonRight = false,
 }) => {
-  const stylesShema = styles();
+  const stylesShema = styles(isButtonLeft, isButtonRight, isTitled);
   const navigation = useNavigation();
 
   const handleClickArrow = () => {

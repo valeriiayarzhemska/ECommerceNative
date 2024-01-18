@@ -16,30 +16,6 @@ export const mockName = [
 ];
 
 export const mockAddress = [
- /*  {
-    id: 3,
-    placeholder: 'userInputCountry',
-    keyboardType: 'default',
-    secureTextEntry: false,
-    select: true,
-    name: 'country',
-  },
-  {
-    id: 4,
-    placeholder: 'userInputState',
-    keyboardType: 'default',
-    secureTextEntry: false,
-    select: true,
-    name: 'state',
-  },
-  {
-    id: 5,
-    placeholder: 'userInputCity',
-    keyboardType: 'default',
-    secureTextEntry: false,
-    select: true,
-    name: 'city',
-  }, */
   {
     id: 6,
     placeholder: 'userInputStreet',

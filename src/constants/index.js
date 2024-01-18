@@ -30,3 +30,9 @@ export const sortOptionsValues = {
 export const windowHeight = Dimensions.get('window').height;
 export const windowWidth = Dimensions.get('window').width;
 export const containerWidth = windowWidth - (windowWidth / 100) * 12;
+
+export const GEO_PERMISSION_LIST = {
+  authorized: 'authorized',
+  denied: 'denied',
+  restricted: 'restricted'
+}

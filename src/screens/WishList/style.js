@@ -1,5 +1,5 @@
 import { StyleSheet, Platform } from 'react-native';
-import { colors } from '../../constants';
+import { colors, windowHeight } from '../../constants';
 
 export const styles = () => {
   return StyleSheet.create({
@@ -11,6 +11,7 @@ export const styles = () => {
     },
     listContent: {
       paddingHorizontal: '6%',
+      paddingBottom: windowHeight < 700 ? '8%' : 0,
     },
   });
 };

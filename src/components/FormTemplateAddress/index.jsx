@@ -34,7 +34,7 @@ export const FormTemplateAddress = ({
   const [selectedState, setSelectedState] = useState(null);
   const [selectedCity, setSelectedCity] = useState(null);
   const [isStateEnabled, setIsStateEnabled] = useState(false);
-  const [isCityStateEnabled, setIsCityStateEnabled] = useState(false);
+  const [isCityEnabled, setIsCityEnabled] = useState(false);
 
   const statesDropdownRef = useRef();
   const citiesDropdownRef = useRef();
@@ -43,7 +43,7 @@ export const FormTemplateAddress = ({
     state: isStateEnabled
       ? Yup.string().required('inputStateRequired')
       : Yup.string(),
-    city: isCityStateEnabled
+    city: isCityEnabled
       ? Yup.string().required('inputCityRequired')
       : Yup.string(),
   });
@@ -81,7 +81,6 @@ export const FormTemplateAddress = ({
     errors,
     touched,
     setFieldValue,
-    setFieldError,
   } = addressFromik;
 
   const handleCountrySelect = countryData => {
@@ -94,11 +93,11 @@ export const FormTemplateAddress = ({
     setSelectedCity(null);
     setFieldValue('country', countryData ? countryData.name : '', true);
     addressFromik.setFieldError('country', undefined);
-    console.log(statesData);
   };
 
   const handleStateSelect = stateData => {
     citiesDropdownRef.current.reset();
+    setIsCityEnabled(false);
 
     setSelectedState(stateData);
     setSelectedCity(null);
@@ -109,11 +108,14 @@ export const FormTemplateAddress = ({
     setSelectedCity(cityData);
     setFieldValue('city', cityData ? cityData.name : '', true);
   };
-  console.log(errors);
 
   useEffect(() => {
     if (statesData.length > 0 && !selectedState) {
       setIsStateEnabled(true);
+    }
+
+    if (citiesData.length > 0 && !selectedCity) {
+      setIsCityEnabled(true);
     }
   }, [statesData, citiesData]);
 

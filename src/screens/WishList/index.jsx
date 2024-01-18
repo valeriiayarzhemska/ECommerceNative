@@ -59,18 +59,8 @@ export const WishList = () => {
             <CustomHeader
               isButtonLeft={true}
               buttonLeft={<Logo width={44} height={44} />}
-              isButtonRight={true}
               title={t('titleWishList')}
               isTitled={true}
-              buttonRight={
-                <ButtonTemplate
-                  icon={UserIcon}
-                  iconWidth={30}
-                  iconHeight={30}
-                  handleClick={handleLogOut}
-                  isRounded={true}
-                />
-              }
             />
           }
           ListEmptyComponent={

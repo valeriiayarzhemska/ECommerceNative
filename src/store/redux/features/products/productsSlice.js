@@ -33,6 +33,11 @@ export const setCartList = createAsyncThunk(
   async payload => payload,
 );
 
+export const deleteCartList = createAsyncThunk(
+  'products/deleteCartList',
+  async payload => payload,
+);
+
 const productsSlice = createSlice({
   name: 'products',
   initialState,
@@ -72,6 +77,18 @@ const productsSlice = createSlice({
       })
       .addCase(setCartList.rejected, (state, action) => {
         state.cartError = 'errorWentWrong';
+      })
+
+      .addCase(deleteCartList.pending, (state, action) => {
+        state.cartError = null;
+        state.isCartListLoading = true;
+      })
+      .addCase(deleteCartList.fulfilled, (state, action) => {
+        state.isCartListLoading = false;
+        state.cartList = [];
+      })
+      .addCase(deleteCartList.rejected, (state, action) => {
+        state.productsError = 'errorWentWrong';
       })
 
       .addMatcher(productsApi.endpoints.getProducts.matchPending, (state, action) => {

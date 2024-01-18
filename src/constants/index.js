@@ -12,11 +12,7 @@ export const colors = {
   yellow: '#FFDF00',
 };
 
-export const sortOptions = [
-  'sortPopularity',
-  'sortLowHigh',
-  'sortHighLow',
-];
+export const sortOptions = ['sortPopularity', 'sortLowHigh', 'sortHighLow'];
 
 export const sortOptionsValues = {
   sortPopularityEn: 'Most Popular',
@@ -34,5 +30,5 @@ export const containerWidth = windowWidth - (windowWidth / 100) * 12;
 export const GEO_PERMISSION_LIST = {
   authorized: 'authorized',
   denied: 'denied',
-  restricted: 'restricted'
-}
+  restricted: 'restricted',
+};

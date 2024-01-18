@@ -95,6 +95,11 @@ const resources = {
       companyAddress: 'Khmelnitskyi, street Proskurivska',
       succesOrder: `Order is succesful`,
       contactYou: `We will contact you soon!`,
+      editProfile: `Edit account`,
+      editDeliveryAddress: `Edit address`,
+      changeLanguage: `Change language`,
+      logout: `Logout`,
+      removeAccount: `Remove account`,
     },
   },
   uk: {
@@ -179,6 +184,11 @@ const resources = {
       companyAddress: `м. Хмельницький, вул. Проскурівська`,
       succesOrder: `Замовлення успішне`,
       contactYou: `Ми скоро зв'яжемось з вами!`,
+      editProfile: `Відредагувати акаунт`,
+      editDeliveryAddress: `Відредагувати адресу`,
+      changeLanguage: `Змінити мову`,
+      logout: `Вийти з акаунту`,
+      removeAccount: `Видалити акаунт`,
     },
   },
 };

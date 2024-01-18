@@ -5,7 +5,6 @@ export const styles = () => {
   return StyleSheet.create({
     container: {
       flex: 1,
-      paddingHorizontal: '6%',
       width: '100%',
       height: '100%',
       backgroundColor: colors.white,
@@ -13,50 +12,43 @@ export const styles = () => {
     headerContainer: {
       flexDirection: 'row',
       justifyContent: 'center',
+      marginBottom: 14,
       width: '100%',
-      zIndex: 10,
     },
-    searchContainer: {
-      position: 'absolute',
-      marginLeft: '6.4%',
+    contentContainer: {
+      alignItems: 'center',
+      width: '100%',
     },
-    list: {
-      justifyContent: 'space-between',
-    },
-    listContent: {
-      paddingHorizontal: '6%',
-      paddingBottom: '7%',
-    },
-    skeletonSlider: {
+    avatar: {
       marginBottom: 20,
-      width: containerWidth,
-      height: 140,
-      borderRadius: 30,
+      padding: 14,
+      width: 88,
+      backgroundColor: colors.lightestGray,
+      borderRadius: 50,
     },
-    skeletonCategories: {
-      marginBottom: 16,
-      width: containerWidth,
-      height: 33,
-      borderRadius: 30,
+    nameContainer: {
+      marginBottom: 8,
     },
-    skeletonSort: {
-      marginBottom: 10,
-      width: containerWidth,
-      height: 39,
-      borderRadius: 30,
+    name: {
+      fontFamily: 'Lato-Bold',
+      fontSize: 18,
+      color: colors.darkGray,
     },
-    skeletonList: {
-      flexDirection: 'row',
-      
-      width: containerWidth,
-      height: 253,
+    marginBottom: 8,
+    emailContainer: {
+      marginBottom: 30,
     },
-    skeletonItem: {
-      marginHorizontal: 6,
-      marginBottom: 12,
-      width: '48%',
-      height: 241,
-      borderRadius: 20,
+    email: {
+      fontFamily: 'Lato-Light',
+      fontSize: 14,
+      color: colors.darkGray,
+    },
+    settingsContainer: {
+      paddingHorizontal: '6%',
+      height: '100%',
+      backgroundColor: colors.lightestGray,
+      borderTopRightRadius: 50,
+      borderTopLeftRadius: 50,
     },
   });
 };

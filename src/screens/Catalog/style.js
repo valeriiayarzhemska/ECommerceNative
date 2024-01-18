@@ -52,7 +52,7 @@ export const styles = () => {
     skeletonItem: {
       marginHorizontal: 6,
       marginBottom: 12,
-      width: '48%',
+      width: '47%',
       height: 241,
       borderRadius: 20,
     },

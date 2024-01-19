@@ -5,15 +5,19 @@ export const styles = () => {
   return StyleSheet.create({
     container: {
       flex: 1,
-      paddingHorizontal: '6%',
       width: '100%',
       height: '100%',
       backgroundColor: colors.white,
+    },
+    containerScroll: {
+      paddingTop: 10,
+      paddingHorizontal: '6%',
     },
     buttons: {
       flexDirection: 'row',
       justifyContent: 'space-between',
       alignItems: 'center',
+      marginTop: windowHeight > 845 ? 94 : 86,
       marginBottom: 10,
       width: '100%',
     },

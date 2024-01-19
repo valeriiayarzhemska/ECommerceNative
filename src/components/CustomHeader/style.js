@@ -1,8 +1,9 @@
 import { StyleSheet } from 'react-native';
 
-export const styles = (isButtonLeft, isButtonRight, isTitled) => {
-  const titled = isTitled && !isButtonLeft && !isButtonRight;
-  const titledWithLeftButton = isTitled && isButtonLeft && !isButtonRight;
+export const styles = (isButtonLeft, isButtonRight, isButtonBack, isTitled) => {
+  const titled = isTitled && !isButtonLeft && !isButtonBack && !isButtonRight;
+  const titledWithLeftButton =
+    isTitled && (isButtonLeft || isButtonBack) && !isButtonRight;
 
   return StyleSheet.create({
     header: {
@@ -17,6 +18,7 @@ export const styles = (isButtonLeft, isButtonRight, isTitled) => {
       justifyContent: 'center',
       alignItems: 'center',
       height: 44,
+      zIndex: -1,
     },
     title: {
       fontFamily: 'Lato-Bold',

@@ -26,12 +26,9 @@ export const ButtonTemplate = ({
 }) => {
   const stylesShema = styles(
     size,
-    isProduct,
     isOutline,
     isSided,
     isRoundedSmall,
-    isHalfed,
-    isSmall,
   );
   const IconComponent = icon;
 
@@ -51,6 +48,7 @@ export const ButtonTemplate = ({
           isSmall ? stylesShema.buttonSmall : null,
           isMiddle ? stylesShema.buttonMiddle : null,
           isSearch ? stylesShema.buttonSearch : null,
+          isDisabled ? stylesShema.buttonDisabled : null,
         ]}
         onPress={handleClick}
         disabled={isLoadingData || isDisabled}

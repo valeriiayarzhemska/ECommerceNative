@@ -25,6 +25,7 @@ export const FormTemplateAddress = ({
   validationSchema,
   handleSubmitForm,
   buttonText,
+  isDelivery = false,
   isLoadingData,
 }) => {
   const stylesShema = styles();
@@ -57,7 +58,7 @@ export const FormTemplateAddress = ({
   const addressFromik = useFormik({
     initialValues: initialValues,
     onSubmit: handleSubmitForm,
-    validationSchema: getValidationSchema(),
+    validationSchema: isDelivery ? getValidationSchema() : validationSchema,
   });
 
   const countriesData = getCountry(Country);
@@ -74,14 +75,8 @@ export const FormTemplateAddress = ({
     ? getUpdatedCitiesByCountry(City, selectedCountry.isoCode)
     : [];
 
-  const {
-    handleChange,
-    handleSubmit,
-    values,
-    errors,
-    touched,
-    setFieldValue,
-  } = addressFromik;
+  const { handleChange, handleSubmit, values, errors, touched, setFieldValue } =
+    addressFromik;
 
   const handleCountrySelect = countryData => {
     statesDropdownRef.current.reset();
@@ -121,24 +116,26 @@ export const FormTemplateAddress = ({
 
   return (
     <View style={stylesShema.container}>
-      <View style={stylesShema.input}>
-        {mockName.map(field => {
-          return (
-            <InputTemplate
-              key={field.id}
-              icon={field.icon}
-              placeholder={field.placeholder}
-              secureTextEntry={field.secureTextEntry}
-              value={values[field.name]}
-              onChangeText={handleChange(field.name)}
-              error={touched[field.name] && errors[field.name]}
-              errors={errors[field.name]}
-              keyboardType={field.keyboardType}
-              name={field.name}
-            />
-          );
-        })}
-      </View>
+      {isDelivery && (
+        <View style={stylesShema.input}>
+          {mockName.map(field => {
+            return (
+              <InputTemplate
+                key={field.id}
+                icon={field.icon}
+                placeholder={field.placeholder}
+                secureTextEntry={field.secureTextEntry}
+                value={values[field.name]}
+                onChangeText={handleChange(field.name)}
+                error={touched[field.name] && errors[field.name]}
+                errors={errors[field.name]}
+                keyboardType={field.keyboardType}
+                name={field.name}
+              />
+            );
+          })}
+        </View>
+      )}
 
       <View style={stylesShema.selectsContainer}>
         <SelectDropdown

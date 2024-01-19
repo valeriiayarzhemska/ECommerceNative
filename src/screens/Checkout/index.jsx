@@ -1,6 +1,6 @@
 import React, { useCallback, useRef, useState } from 'react';
 import {
-  Image,
+  SafeAreaView,
   ScrollView,
   Text,
   View,
@@ -136,7 +136,7 @@ export const Checkout = ({ route }) => {
   useFocusEffect(handleBackClick(goFrom, navigation, useCallback));
 
   return (
-    <>
+    <SafeAreaView style={stylesShema.container}>
       <ScrollView style={stylesShema.container}>
         <View style={stylesShema.header}>
           <CustomHeader isButtonBack={true} />
@@ -147,7 +147,7 @@ export const Checkout = ({ route }) => {
             <View style={stylesShema.buttons}>
               <ButtonTemplate
                 text={t('delivery')}
-                handleClick={handleDeliveryClick}
+                handleClick={handlePickUpClick}
                 isTransparent={isPickUpActive}
                 isHalfed={true}
               />
@@ -261,6 +261,7 @@ export const Checkout = ({ route }) => {
                         })}
                         handleSubmitForm={handleSubmit}
                         buttonText={t('saveText')}
+                        isDelivery={true}
                         isLoadingData={isLoadingData}
                       />
                     </View>
@@ -316,6 +317,6 @@ export const Checkout = ({ route }) => {
           handleCloseButtonClick={handleModalClose}
         />
       </ScrollView>
-    </>
+    </SafeAreaView>
   );
 };

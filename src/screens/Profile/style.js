@@ -1,18 +1,23 @@
 import { StyleSheet } from 'react-native';
-import { colors, containerWidth } from '../../constants';
+import { colors, containerWidth, windowHeight } from '../../constants';
 
 export const styles = () => {
   return StyleSheet.create({
     container: {
       flex: 1,
       width: '100%',
-      height: '100%',
+      height: windowHeight,
       backgroundColor: colors.white,
+    },
+    containerScroll: {
+      flex: 1,
+      width: '100%',
+      height: '100%',
     },
     headerContainer: {
       flexDirection: 'row',
       justifyContent: 'center',
-      marginBottom: 14,
+      marginBottom: 10,
       width: '100%',
     },
     contentContainer: {
@@ -44,11 +49,28 @@ export const styles = () => {
       color: colors.darkGray,
     },
     settingsContainer: {
+      marginBottom: 10,
+      paddingVertical: 20,
       paddingHorizontal: '6%',
       height: '100%',
       backgroundColor: colors.lightestGray,
-      borderTopRightRadius: 50,
-      borderTopLeftRadius: 50,
+      borderTopRightRadius: 30,
+      borderTopLeftRadius: 30,
+    },
+    settingsWrapper: {
+      marginBottom: 24,
+    },
+    settings: {
+      backgroundColor: colors.white,
+      borderRadius: 12,
+    },
+    titleContainer: {
+      marginBottom: 8,
+    },
+    title: {
+      fontFamily: 'Lato-Bold',
+      fontSize: 16,
+      color: colors.darkGray,
     },
   });
 };

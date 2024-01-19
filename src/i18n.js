@@ -100,6 +100,8 @@ const resources = {
       changeLanguage: `Change language`,
       logout: `Logout`,
       removeAccount: `Remove account`,
+      settingsGeneral: `General`,
+      settingsSystem: `System`,
     },
   },
   uk: {
@@ -189,6 +191,8 @@ const resources = {
       changeLanguage: `Змінити мову`,
       logout: `Вийти з акаунту`,
       removeAccount: `Видалити акаунт`,
+      settingsGeneral: `Загальні`,
+      settingsSystem: `Системні`,
     },
   },
 };

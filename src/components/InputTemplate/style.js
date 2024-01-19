@@ -13,7 +13,7 @@ export const styles = (error, icon, isSearch) => {
       flex: 1,
       paddingVertical: 14,
       paddingHorizontal: 18,
-      paddingLeft: icon ? 42 : 18,
+      paddingLeft: 18,
       paddingLeft: isSearch && !icon ? 50 : 18,
       paddingRight: isSearch && !icon ? 96 : 18,
       fontFamily: 'Lato-Regular',
@@ -24,9 +24,13 @@ export const styles = (error, icon, isSearch) => {
       borderRadius: 30,
       backgroundColor: colors.white,
     },
+    inputIcon: {
+      paddingLeft: 42,
+    },
     icon: {
       position: 'absolute',
       left: 18,
+      zIndex: 10,
     },
     eyeIcon: {
       position: 'absolute',

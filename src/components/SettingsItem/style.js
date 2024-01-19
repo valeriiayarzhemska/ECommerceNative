@@ -1,35 +1,27 @@
 import { StyleSheet } from 'react-native';
 import { colors } from '../../constants';
 
-export const styles = () => {
+export const styles = (isRed) => {
   return StyleSheet.create({
-    container: {
-      width: '100%',
-      height: 140,
-      borderRadius: 30,
+    itemContainer: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      padding: 14,
+      borderBottomWidth: 1,
+      borderBottomColor: colors.lightestGray,
     },
-    imageContainer: {
-      width: '100%',
-      height: '100%',
-      borderRadius: 30,
+    contentContainer: {
+      flexDirection: 'row',
+      alignItems: 'center',
     },
-    image: {
-      width: '100%',
-      height: '100%',
-      borderRadius: 24,
+    icon: {
+      marginRight: 14,
     },
-    textContainer: {
-      position: 'absolute',
-      right: 6,
-      bottom: 6,
-      paddingVertical: 8,
-      paddingHorizontal: 18,
-      backgroundColor: colors.green,
-      borderRadius: 30,
+    title: {
+      fontFamily: 'Lato-Regular',
+      fontSize: 14,
+      color: isRed ? colors.red : colors.darkGray,
     },
-    text: {
-      fontFamily: 'Lato-Bold',
-      fontSize: 16,
-    }
   });
 };

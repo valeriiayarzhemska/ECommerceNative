@@ -40,7 +40,7 @@ export const InputTemplate = ({
       clearTimeout(timerId);
     };
   }, []);
-  
+
   return (
     <View style={stylesShema.inputWrapper}>
       {IconComponent && (
@@ -58,7 +58,10 @@ export const InputTemplate = ({
             mask: '+ 99 (999) 999 99 99',
           }}
           ref={inputRef}
-          style={stylesShema.input}
+          style={[
+            stylesShema.input,
+            IconComponent ? stylesShema.inputIcon : null,
+          ]}
           placeholder={t(placeholder)}
           placeholderTextColor={colors.lightGray}
           value={value}
@@ -79,7 +82,10 @@ export const InputTemplate = ({
       ) : (
         <TextInput
           ref={inputRef}
-          style={stylesShema.input}
+          style={[
+            stylesShema.input,
+            IconComponent ? stylesShema.inputIcon : null,
+          ]}
           placeholder={t(placeholder)}
           secureTextEntry={isPasswordVisible}
           placeholderTextColor={colors.lightGray}

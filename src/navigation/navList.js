@@ -8,6 +8,8 @@ import { Cart } from '../screens/Cart';
 import { WishList } from '../screens/WishList';
 import { Checkout } from '../screens/Checkout';
 import { Profile } from '../screens/Profile';
+import { SettingsGeneral } from '../screens/SettingsGeneral';
+import { SettingsSystem } from '../screens/SettingsSystem';
 
 export const tabScreenData = [
   {
@@ -80,6 +82,24 @@ export const stackScreenData = [
   {
     name: 'Checkout',
     component: Checkout,
+    isAuthorized: true,
+    options: {
+      headerShown: false,
+      animation: 'none',
+    },
+  },
+  {
+    name: 'SettingsGeneral',
+    component: SettingsGeneral,
+    isAuthorized: true,
+    options: {
+      headerShown: false,
+      animation: 'none',
+    },
+  },
+  {
+    name: 'SettingsSystem',
+    component: SettingsSystem,
     isAuthorized: true,
     options: {
       headerShown: false,

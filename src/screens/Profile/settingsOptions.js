@@ -1,31 +1,40 @@
-import { HomeIcon, UserIcon } from '../../assets/icons';
+import {
+  HomeIcon,
+  LogoutIcon,
+  SettingsIcon,
+  UserDeleteIcon,
+  UserIcon,
+} from '../../assets/icons';
 
 export const settingsGeneral = [
   {
     id: 1,
     name: 'editProfile',
-    goTo: '',
+    goTo: 'SettingsGeneral',
     icon: UserIcon,
+    isNewScreen: true,
     isModal: false,
     isRed: false,
   },
   {
     id: 2,
     name: 'editDeliveryAddress',
-    goTo: '',
+    goTo: 'SettingsSystem',
     icon: HomeIcon,
+    isNewScreen: true,
     isModal: false,
     isRed: false,
   },
 ];
 
-const settingsSystem = [
+export const settingsSystem = [
   {
     id: 1,
     name: 'changeLanguage',
     goTo: '',
-    icon: UserIcon,
-    isModal: false,
+    icon: SettingsIcon,
+    isNewScreen: false,
+    isModal: true,
     isRed: false,
   },
 ];
@@ -35,7 +44,8 @@ export const settingsRed = [
     id: 1,
     name: 'logout',
     goTo: '',
-    icon: HomeIcon,
+    icon: LogoutIcon,
+    isNewScreen: false,
     isModal: true,
     isRed: true,
   },
@@ -43,7 +53,8 @@ export const settingsRed = [
     id: 2,
     name: 'removeAccount',
     goTo: '',
-    icon: HomeIcon,
+    icon: UserDeleteIcon,
+    isNewScreen: false,
     isModal: true,
     isRed: true,
   },

@@ -3,12 +3,9 @@ import { colors } from '../../constants';
 
 export const styles = (
   size,
-  isProduct,
   isOutline,
   isSided,
   isRoundedSmall,
-  isHalfed,
-  isSmall,
 ) => {
   return StyleSheet.create({
     container: {
@@ -65,6 +62,9 @@ export const styles = (
       paddingVertical: 8,
       paddingHorizontal: 8,
       paddingRight: 8,
+    },
+    buttonDisabled: {
+      backgroundColor: colors.lightGray,
     },
     text: {
       color: isOutline ? colors.purple : colors.darkGray,

@@ -44,7 +44,11 @@ import { SkeletonCatalogItem } from '../../components/Skeletons/SkeletonCatalogI
 import { ErrorComponentMessage } from '../../components/ErrorComponentMessage';
 import { selectUser } from '../../store/redux/features/auth/authSelectors';
 import { SettingsItem } from '../../components/SettingsItem';
-import { settingsGeneral } from './settingsOptions';
+import {
+  settingsGeneral,
+  settingsRed,
+  settingsSystem,
+} from './settingsOptions';
 
 export const Profile = () => {
   const stylesShema = styles();
@@ -53,7 +57,6 @@ export const Profile = () => {
 
   const [isLoading, setIsLoading] = useState(false);
   const user = useSelector(selectUser);
-  console.log(user)
 
   const { name, email, password, phone, address, zipcode } = user;
 
@@ -66,13 +69,12 @@ export const Profile = () => {
   };
 
   useEffect(() => {
-    console.log('1')
     setIsLoading(user ? false : true);
   }, []);
 
   return (
-    <SafeAreaView>
-      <ScrollView style={stylesShema.container}>
+    <SafeAreaView style={stylesShema.container}>
+      <ScrollView style={stylesShema.containerScroll}>
         <View style={stylesShema.headerContainer}>
           <CustomHeader title={t('account')} isTitled={true} />
         </View>
@@ -96,13 +98,34 @@ export const Profile = () => {
             </View>
 
             <View style={stylesShema.settingsContainer}>
-              <View style={stylesShema.settingsGeneral}>
+              <View style={stylesShema.settingsWrapper}>
                 <View style={stylesShema.titleContainer}>
-                  <Text style={stylesShema.titleContainer}>General</Text>
+                  <Text style={stylesShema.title}>{t('settingsGeneral')}</Text>
                 </View>
 
                 <View style={stylesShema.settings}>
                   {settingsGeneral.map(item => (
+                    <SettingsItem item={item} key={item.id} />
+                  ))}
+                </View>
+              </View>
+
+              <View style={stylesShema.settingsWrapper}>
+                <View style={stylesShema.titleContainer}>
+                  <Text style={stylesShema.title}>{t('settingsSystem')}</Text>
+                </View>
+
+                <View style={stylesShema.settings}>
+                  {settingsSystem.map(item => (
+                    <SettingsItem item={item} key={item.id} />
+                  ))}
+                </View>
+              </View>
+
+              <View style={stylesShema.settingsWrapper}>
+
+                <View style={stylesShema.settings}>
+                  {settingsRed.map(item => (
                     <SettingsItem item={item} key={item.id} />
                   ))}
                 </View>

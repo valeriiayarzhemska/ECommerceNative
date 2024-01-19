@@ -8,16 +8,18 @@ import { CrossIcon, PlusIcon } from '../../assets/icons';
 import { colors } from '../../constants';
 
 import { styles } from './style';
-import { selectWishList } from '../../store/redux/features/products/productsSelectors';
-import { setProductsWishList } from '../../utils';
+import { selectCartList, selectWishList } from '../../store/redux/features/products/productsSelectors';
+import { setProductsWishList, updateProductsCartList } from '../../utils';
 import { updateWishList } from '../../store/redux/features/products/productsActions';
 import { useTranslation } from 'react-i18next';
+import { setCartList } from '../../store/redux/features/products/productsSlice';
 
 export const WishListItem = ({ product }) => {
   const stylesShema = styles();
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const { t } = useTranslation();
+  const userCartList = useSelector(selectCartList);
   const userWishList = useSelector(selectWishList);
   const [isLiked, setIsLiked] = useState(
     userWishList.some(item => item.id === product.id),
@@ -36,7 +38,27 @@ export const WishListItem = ({ product }) => {
     setProductsWishList(product, userWishList, dispatch, updateWishList);
   };
 
-  const handleAddToCart = () => {};
+  const handleAddToCart = async () => {
+    setIsAddingLoading(true);
+
+    try {
+      updateProductsCartList(
+        product,
+        1,
+        userCartList,
+        dispatch,
+        setCartList,
+      );
+
+      setShowAddedToCart(true);
+      fadeIn();
+
+      setIsAddingLoading(false);
+    } catch (error) {
+      console.log(error);
+      setIsAddingLoading(false);
+    }
+  };
 
   return (
     <TouchableOpacity

@@ -143,7 +143,7 @@ export const Cart = () => {
         </Text>
 
         <View style={stylesShema.buttonContainer}>
-          <ButtonTemplate text={t('checkOut')} handleClick={handleCheckOut} />
+          <ButtonTemplate text={t('checkOut')} handleClick={handleCheckOut} isDisabled={Number(totalPrice) < 1} />
         </View>
       </View>
     </SafeAreaView>

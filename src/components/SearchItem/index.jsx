@@ -6,19 +6,14 @@ import { StarRatingDisplay } from 'react-native-star-rating-widget';
 import { sliceProductTitle } from '../../utils';
 
 import { styles } from './style';
-import { StarIcon } from '../../assets/icons';
-import { colors } from '../../constants';
 
 export const SearchItem = ({ product }) => {
   const stylesShema = styles();
-
   const navigation = useNavigation();
 
   const { id, title, image, price, rating } = product;
 
   const titleSplited = sliceProductTitle(title);
-
-  const handleRating = () => {};
 
   const handleClickResult = id => {
     navigation.navigate('ProductDetails', {

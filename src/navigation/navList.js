@@ -2,14 +2,14 @@ import { Login } from '../screens/Login';
 import { Registration } from '../screens/Registration';
 import { Catalog } from '../screens/Catalog';
 import { ProductDetails } from '../screens/ProductDetails';
-
-import { CartIcon, HeartIcon, HomeIcon, UserIcon } from '../assets/icons';
 import { Cart } from '../screens/Cart';
 import { WishList } from '../screens/WishList';
 import { Checkout } from '../screens/Checkout';
 import { Profile } from '../screens/Profile';
-import { SettingsGeneral } from '../screens/SettingsGeneral';
-import { SettingsSystem } from '../screens/SettingsSystem';
+import { EditProfile } from '../screens/EditProfile';
+import { EditAddress } from '../screens/EditAddress';
+
+import { CartIcon, HeartIcon, HomeIcon, UserIcon } from '../assets/icons';
 
 export const tabScreenData = [
   {
@@ -37,7 +37,9 @@ export const tabScreenData = [
     name: 'Profile',
     component: Profile,
     options: {
-      tabBarIcon: ({ color, size }) => <UserIcon width={size} height={size} color={color} />,
+      tabBarIcon: ({ color, size }) => (
+        <UserIcon width={size} height={size} color={color} />
+      ),
     },
   },
 ];
@@ -89,8 +91,8 @@ export const stackScreenData = [
     },
   },
   {
-    name: 'SettingsGeneral',
-    component: SettingsGeneral,
+    name: 'EditProfile',
+    component: EditProfile,
     isAuthorized: true,
     options: {
       headerShown: false,
@@ -98,8 +100,17 @@ export const stackScreenData = [
     },
   },
   {
-    name: 'SettingsSystem',
-    component: SettingsSystem,
+    name: 'EditAddress',
+    component: EditAddress,
+    isAuthorized: true,
+    options: {
+      headerShown: false,
+      animation: 'none',
+    },
+  },
+  {
+    name: 'Profile',
+    component: Profile,
     isAuthorized: true,
     options: {
       headerShown: false,

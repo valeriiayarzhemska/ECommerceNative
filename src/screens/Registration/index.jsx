@@ -1,18 +1,17 @@
 import React, { useState } from 'react';
-import { Text, View, TouchableOpacity } from 'react-native';
+import { Text, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
 import * as Yup from 'yup';
 import { useGetUserQuery } from '../../store/redux/services/user/userApi';
 
-import { validationSchema } from '../../store/validationSchema';
-import { mock } from '../../store/mocks/registration-mock';
-
 import { BackgroundWrapper } from '../../components/BackgroundWrapper';
 import { FormTemplate } from '../../components/FormTemplate';
 import { ButtonTemplate } from '../../components/ButtonTemplate';
-
 import { BackArrow } from '../../assets/icons';
+
+import { validationSchema } from '../../store/validationSchema';
+import { mock } from '../../store/mocks/registration-mock';
 
 import { styles } from './style';
 

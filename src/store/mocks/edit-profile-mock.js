@@ -1,4 +1,8 @@
-import { EmailIcon, PasswordIcon, UserIcon, PhoneIcon } from '../../assets/icons';
+import {
+  EmailIcon,
+  PasswordIcon,
+  PhoneIcon,
+} from '../../assets/icons';
 
 export const mock = [
   {

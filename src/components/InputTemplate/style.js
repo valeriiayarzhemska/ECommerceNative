@@ -1,11 +1,11 @@
-import { StyleSheet, Platform } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { colors } from '../../constants';
 
 export const styles = (error, icon, isSearch) => {
   return StyleSheet.create({
     inputWrapper: {
       flexDirection: 'row',
-      marginBottom: isSearch? 0 : 20,
+      marginBottom: isSearch ? 0 : 20,
       width: '100%',
       alignItems: 'center',
     },

@@ -91,29 +91,47 @@ const productsSlice = createSlice({
         state.productsError = 'errorWentWrong';
       })
 
-      .addMatcher(productsApi.endpoints.getProducts.matchPending, (state, action) => {
-        state.productsError = null;
-        state.isProductListLoading = true;
-      })
-      .addMatcher(productsApi.endpoints.getProducts.matchFulfilled, (state, action) => {
-        state.products = action.payload;
-        state.isProductListLoading = false;
-      })
-      .addMatcher(productsApi.endpoints.getProducts.matchRejected, (state, action) => {
-        state.productsError = 'errorWentWrong';
-      })
+      .addMatcher(
+        productsApi.endpoints.getProducts.matchPending,
+        (state, action) => {
+          state.productsError = null;
+          state.isProductListLoading = true;
+        },
+      )
+      .addMatcher(
+        productsApi.endpoints.getProducts.matchFulfilled,
+        (state, action) => {
+          state.products = action.payload;
+          state.isProductListLoading = false;
+        },
+      )
+      .addMatcher(
+        productsApi.endpoints.getProducts.matchRejected,
+        (state, action) => {
+          state.productsError = 'errorWentWrong';
+        },
+      )
 
-      .addMatcher(productsApi.endpoints.getUserCart.matchPending, (state, action) => {
-        state.cartError = null;
-        state.isCartListLoading = true;
-      })
-      .addMatcher(productsApi.endpoints.getUserCart.matchFulfilled, (state, action) => {
-        state.cartList = action.payload;
-        state.isCartListLoading = false;
-      })
-      .addMatcher(productsApi.endpoints.getUserCart.matchRejected, (state, action) => {
-        state.cartError = 'errorWentWrong';
-      })
+      .addMatcher(
+        productsApi.endpoints.getUserCart.matchPending,
+        (state, action) => {
+          state.cartError = null;
+          state.isCartListLoading = true;
+        },
+      )
+      .addMatcher(
+        productsApi.endpoints.getUserCart.matchFulfilled,
+        (state, action) => {
+          state.cartList = action.payload;
+          state.isCartListLoading = false;
+        },
+      )
+      .addMatcher(
+        productsApi.endpoints.getUserCart.matchRejected,
+        (state, action) => {
+          state.cartError = 'errorWentWrong';
+        },
+      );
   },
 });
 

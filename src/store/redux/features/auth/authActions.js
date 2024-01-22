@@ -6,8 +6,8 @@ export const setUserData =
     if (users && !usersError) {
       const loginedUser = users.filter(user => user.username === nickname);
 
-      dispatch(setUser.fulfilled({ data: loginedUser[0] }));
-      dispatch(setUserId.fulfilled({ data: loginedUser[0].id }));
+      await dispatch(setUser.fulfilled({ data: loginedUser[0] }));
+      await dispatch(setUserId.fulfilled({ data: loginedUser[0].id }));
     }
 
     if (usersError) {
@@ -16,9 +16,9 @@ export const setUserData =
   };
 
 export const setUserInfo = info => async dispatch => {
-  dispatch(setUser.fulfilled({ data: info }));
+  await dispatch(setUser.fulfilled({ data: info }));
 };
 
-export const changeLang = lang => dispatch => {
-  dispatch(setLang(lang));
+export const changeLang = lang => async dispatch => {
+  await dispatch(setLang(lang));
 };

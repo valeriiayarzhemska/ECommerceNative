@@ -34,7 +34,8 @@ const MainTabNavigator = () => {
           marginTop: -30,
         },
       }}
-      initialRouteName="Catalog">
+      initialRouteName="Catalog"
+    >
       {tabScreenData.map(screen => {
         return (
           <Tab.Screen
@@ -80,7 +81,8 @@ export const AppNavigator = () => {
       screenOptions={{
         headerShown: false,
         animation: 'none',
-      }}>
+      }}
+    >
       {userToken && <Stack.Screen name="Main" component={MainTabNavigator} />}
 
       {stackScreenData.map(screen => {

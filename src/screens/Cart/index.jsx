@@ -1,53 +1,37 @@
 import React, { useEffect, useState } from 'react';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { FlatList, Text, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
+
 import { useDispatch, useSelector } from 'react-redux';
-import { logout } from '../../store/redux/features/auth/authSlice';
-import * as Yup from 'yup';
-import { useGetProductsQuery } from '../../store/redux/services/products/productsApi';
-import { setUserData } from '../../store/redux/features/auth/authActions';
 import {
   selectCartList,
   selectCartListError,
   selectCartListLoading,
   selectProducts,
 } from '../../store/redux/features/products/productsSelectors';
-
-import { validationSchema } from '../../store/validationSchema';
-import { mock } from '../../store/mocks/login-mock';
-
-import { BackgroundWrapper } from '../../components/BackgroundWrapper';
-import { FormTemplate } from '../../components/FormTemplate';
-import { ButtonTemplate } from '../../components/ButtonTemplate';
-import { ErrorMessage } from '../../components/ErrorMessage';
-import { Logo, UserIcon } from '../../assets/icons';
-
-import { styles } from './style';
-import { colors } from '../../constants';
-import { ProductsList } from '../../components/ProductsList';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { ProductsItem } from '../../components/ProductsItem';
-import { CatalogHeader } from '../../components/CatalogHeader';
-import { Loader } from '../../components/Loader';
+import { selectUserId } from '../../store/redux/features/auth/authSelectors';
 import { useGetUserCartQuery } from '../../store/redux/services/products/productsApi';
 import { setCartData } from '../../store/redux/features/products/productsActions';
-import { handleUserIconClick, setProductsCartList } from '../../utils';
+
+import { ButtonTemplate } from '../../components/ButtonTemplate';
+import { Logo } from '../../assets/icons';
 import { CustomHeader } from '../../components/CustomHeader';
 import { ErrorComponentMessage } from '../../components/ErrorComponentMessage';
-import {
-  selectUser,
-  selectUserId,
-} from '../../store/redux/features/auth/authSelectors';
-import { WishListItem } from '../../components/WishListItem';
 import { CartListItem } from '../../components/CartListItem';
 import { SkeletonCartlist } from '../../components/Skeletons/SkeletonCartlist';
+
+import { setProductsCartList } from '../../utils';
+
+import { styles } from './style';
 
 export const Cart = () => {
   const stylesShema = styles();
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const { t } = useTranslation();
+
   const userId = useSelector(selectUserId);
   const {
     data,
@@ -143,7 +127,11 @@ export const Cart = () => {
         </Text>
 
         <View style={stylesShema.buttonContainer}>
-          <ButtonTemplate text={t('checkOut')} handleClick={handleCheckOut} isDisabled={Number(totalPrice) < 1} />
+          <ButtonTemplate
+            text={t('checkOut')}
+            handleClick={handleCheckOut}
+            isDisabled={Number(totalPrice) < 1}
+          />
         </View>
       </View>
     </SafeAreaView>

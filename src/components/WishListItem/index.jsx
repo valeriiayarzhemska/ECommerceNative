@@ -1,24 +1,28 @@
 import React, { useState } from 'react';
 import { Image, Text, TouchableOpacity, View } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 
+import {
+  selectCartList,
+  selectWishList,
+} from '../../store/redux/features/products/productsSelectors';
+import { updateWishList } from '../../store/redux/features/products/productsActions';
+import { setCartList } from '../../store/redux/features/products/productsSlice';
+
 import { ButtonTemplate } from '../ButtonTemplate';
-import { CrossIcon, PlusIcon } from '../../assets/icons';
-import { colors } from '../../constants';
+import { CrossIcon } from '../../assets/icons';
+import { setProductsWishList, updateProductsCartList } from '../../utils';
 
 import { styles } from './style';
-import { selectCartList, selectWishList } from '../../store/redux/features/products/productsSelectors';
-import { setProductsWishList, updateProductsCartList } from '../../utils';
-import { updateWishList } from '../../store/redux/features/products/productsActions';
-import { useTranslation } from 'react-i18next';
-import { setCartList } from '../../store/redux/features/products/productsSlice';
 
 export const WishListItem = ({ product }) => {
   const stylesShema = styles();
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const { t } = useTranslation();
+
   const userCartList = useSelector(selectCartList);
   const userWishList = useSelector(selectWishList);
   const [isLiked, setIsLiked] = useState(
@@ -42,13 +46,7 @@ export const WishListItem = ({ product }) => {
     setIsAddingLoading(true);
 
     try {
-      updateProductsCartList(
-        product,
-        1,
-        userCartList,
-        dispatch,
-        setCartList,
-      );
+      updateProductsCartList(product, 1, userCartList, dispatch, setCartList);
 
       setShowAddedToCart(true);
       fadeIn();

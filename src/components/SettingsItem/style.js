@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 import { colors } from '../../constants';
 
-export const styles = (isRed) => {
+export const styles = isRed => {
   return StyleSheet.create({
     itemContainer: {
       flexDirection: 'row',
@@ -23,5 +23,6 @@ export const styles = (isRed) => {
       fontSize: 14,
       color: isRed ? colors.red : colors.darkGray,
     },
+    modalContainer: { position: 'absolute' },
   });
 };

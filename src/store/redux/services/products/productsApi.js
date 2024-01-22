@@ -22,4 +22,5 @@ export const productsApi = api.injectEndpoints({
   overrideExisting: true,
 });
 
-export const { useGetProductsQuery, useGetProductQuery, useGetUserCartQuery } = productsApi;
+export const { useGetProductsQuery, useGetProductQuery, useGetUserCartQuery } =
+  productsApi;

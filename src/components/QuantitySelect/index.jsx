@@ -1,8 +1,9 @@
 import React from 'react';
-import { View, TouchableOpacity, Text, TextInput } from 'react-native';
+import { View, TouchableOpacity, TextInput } from 'react-native';
+
+import { MinusIcon, PlusIcon } from '../../assets/icons';
 
 import { styles } from './style';
-import { MinusIcon, PlusIcon } from '../../assets/icons';
 
 export const QuantitySelect = ({
   quantity,

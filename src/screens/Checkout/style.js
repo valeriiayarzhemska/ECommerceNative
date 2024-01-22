@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { colors, windowHeight } from '../../constants';
+import { colors } from '../../constants';
 
 export const styles = () => {
   return StyleSheet.create({
@@ -47,7 +47,7 @@ export const styles = () => {
       paddingHorizontal: 10,
       paddingVertical: 6,
       height: 30,
-      width: 50,
+      width: 68,
       borderRadius: 50,
       borderWidth: 1,
       borderColor: colors.purple,
@@ -87,7 +87,7 @@ export const styles = () => {
       alignItems: 'center',
       paddingVertical: 6,
       paddingHorizontal: 8,
-      width: 120,
+      maxWidth: 150,
       borderRadius: 50,
       borderWidth: 1,
       borderColor: colors.lightGray,

@@ -1,21 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import { Image, Text, TouchableOpacity, View } from 'react-native';
-import { useDispatch, useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
+import { useTranslation } from 'react-i18next';
+
+import { useDispatch, useSelector } from 'react-redux';
+import { selectCartList } from '../../store/redux/features/products/productsSelectors';
+import { updateCartData } from '../../store/redux/features/products/productsActions';
+import { setCartList } from '../../store/redux/features/products/productsSlice';
 
 import { ButtonTemplate } from '../ButtonTemplate';
+import { QuantitySelect } from '../QuantitySelect';
 import { CrossIcon } from '../../assets/icons';
 
-import { styles } from './style';
-import { selectCartList } from '../../store/redux/features/products/productsSelectors';
 import {
   deleteProductInCartList,
   updateProductCartQuantity,
 } from '../../utils';
-import { updateCartData } from '../../store/redux/features/products/productsActions';
-import { useTranslation } from 'react-i18next';
-import { QuantitySelect } from '../QuantitySelect';
-import { setCartList } from '../../store/redux/features/products/productsSlice';
+
+import { styles } from './style';
 
 export const CartListItem = ({ product, setTotalPrice, updateTotalPrice }) => {
   const stylesShema = styles();
@@ -25,9 +27,6 @@ export const CartListItem = ({ product, setTotalPrice, updateTotalPrice }) => {
 
   const { id, image, price, quantity, title } = product;
   const userCartList = useSelector(selectCartList);
-  const [isInCart, setIsInCart] = useState(
-    userCartList.some(item => item.id === id),
-  );
   const [quantityCart, setQuantityCart] = useState('1');
   const [totalPriceProduct, setTotalPriceProduct] = useState(
     (price * quantity).toFixed(2),

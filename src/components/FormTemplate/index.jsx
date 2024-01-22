@@ -4,10 +4,9 @@ import { Formik } from 'formik';
 
 import { InputTemplate } from '../InputTemplate';
 import { ButtonTemplate } from '../ButtonTemplate';
+import { SelectTemplate } from '../SelectTemplate';
 
 import { styles } from './style';
-import { getCountry } from '../../store/geoData';
-import { DownArrow } from '../../assets/icons';
 
 export const FormTemplate = ({
   initialValues,
@@ -16,6 +15,8 @@ export const FormTemplate = ({
   inputList,
   buttonText,
   isLoadingData,
+  statesDropdownRef = false,
+  citiesDropdownRef = false,
 }) => {
   const stylesShema = styles();
 
@@ -25,11 +26,35 @@ export const FormTemplate = ({
       onSubmit={handleSubmitForm}
       validationSchema={validationSchema}
     >
-      {({ handleChange, handleSubmit, values, errors, touched }) => (
+      {({
+        handleChange,
+        handleSubmit,
+        values,
+        errors,
+        touched,
+        setFieldValue,
+      }) => (
         <View style={stylesShema.container}>
           <View style={stylesShema.input}>
             {inputList.map(field => {
-              return (
+              return field.isSelect ? (
+                <SelectTemplate
+                  data={field.data}
+                  handleSelect={selectedItem =>
+                    field.handleSelect(selectedItem, setFieldValue)
+                  }
+                  defaultText={field.placeholder}
+                  errors={errors}
+                  name={field.name}
+                  ref={
+                    field.name === 'state'
+                      ? statesDropdownRef
+                      : field.name === 'city'
+                      ? citiesDropdownRef
+                      : null
+                  }
+                />
+              ) : (
                 <InputTemplate
                   key={field.id}
                   icon={field.icon}

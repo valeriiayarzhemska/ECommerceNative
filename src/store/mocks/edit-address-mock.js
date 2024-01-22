@@ -1,20 +1,6 @@
 export const mockName = [
   {
     id: 1,
-    placeholder: 'userInputName',
-    keyboardType: 'default',
-    secureTextEntry: false,
-    name: 'firstName',
-  },
-  {
-    id: 2,
-    placeholder: 'userInputLastName',
-    keyboardType: 'default',
-    secureTextEntry: false,
-    name: 'lastName',
-  },
-  {
-    id: 3,
     placeholder: 'selectCountry',
     keyboardType: 'default',
     secureTextEntry: false,
@@ -22,7 +8,7 @@ export const mockName = [
     isSelect: true,
   },
   {
-    id: 4,
+    id: 2,
     placeholder: 'selectState',
     keyboardType: 'default',
     secureTextEntry: false,
@@ -30,7 +16,7 @@ export const mockName = [
     isSelect: true,
   },
   {
-    id: 5,
+    id: 3,
     placeholder: 'selectCity',
     keyboardType: 'default',
     secureTextEntry: false,
@@ -38,14 +24,14 @@ export const mockName = [
     isSelect: true,
   },
   {
-    id: 6,
+    id: 4,
     placeholder: 'userInputStreet',
     keyboardType: 'default',
     secureTextEntry: false,
     name: 'street',
   },
   {
-    id: 7,
+    id: 5,
     placeholder: 'userInputZipcode',
     keyboardType: 'default',
     secureTextEntry: false,

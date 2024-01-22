@@ -1,14 +1,14 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { FlatList, View, TouchableOpacity, Text, Modal } from 'react-native';
+import { View, TouchableOpacity, Text, Modal } from 'react-native';
 import { useTranslation } from 'react-i18next';
-
 import { Picker } from '@react-native-picker/picker';
-import { CategoriesItem } from '../CategoriesItem';
+
+import { DownArrow } from '../../assets/icons';
+
+import { sortOptions } from '../../constants';
+import { sortProducts } from '../../utils';
 
 import { styles } from './style';
-import { sortOptions } from '../../constants';
-import { DownArrow } from '../../assets/icons';
-import { sortProducts } from '../../utils';
 
 export const SortList = ({
   filteredProducts,
@@ -18,8 +18,8 @@ export const SortList = ({
   setSelectedSortOption,
 }) => {
   const stylesShema = styles();
-
   const { t } = useTranslation();
+
   const [modalVisible, setModalVisible] = useState(false);
 
   const handlePress = () => {

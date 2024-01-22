@@ -8,16 +8,16 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setUserInfo } from '../../store/redux/features/auth/authActions';
 import { selectUser } from '../../store/redux/features/auth/authSelectors';
 
-import { FormTemplate } from '../../components/FormTemplate';
 import { CustomHeader } from '../../components/CustomHeader';
+import { FormAddress } from '../../components/FormAddress';
 
-import { capitalizedValue, handleBackClick } from '../../utils';
 import { validationSchema } from '../../store/validationSchema';
-import { mock } from '../../store/mocks/edit-profile-mock';
+import { mockName } from '../../store/mocks/edit-address-mock';
+import { capitalizedValue, handleBackClick } from '../../utils';
 
 import { styles } from './style';
 
-export const SettingsGeneral = ({ route }) => {
+export const EditAddress = ({ route }) => {
   const stylesShema = styles();
   const dispatch = useDispatch();
   const { t } = useTranslation();
@@ -28,29 +28,17 @@ export const SettingsGeneral = ({ route }) => {
 
   const [isLoadingData, setIsLoadingData] = useState(false);
   const user = useSelector(selectUser);
-  const { name, email, phone } = user;
-  const userFirstName = capitalizedValue(name.firstname);
-  const userLastName = capitalizedValue(name.lastname);
+  const { address } = user;
+  const { street, zipcode } = address;
+  const streetName = capitalizedValue(street);
 
-  const handleSubmit = async ({
-    firstName,
-    lastName,
-    email,
-    phone,
-    newPassword,
-  }) => {
+  const handleSubmit = async ({ country, state, city, street, zipcode }) => {
     setIsLoadingData(true);
 
     try {
       await dispatch(
         setUserInfo({
-          name: {
-            firstname: firstName,
-            lastname: lastName,
-          },
-          email,
-          phone,
-          password: newPassword,
+          address: { country, state, city, street, zipcode },
         }),
       );
 
@@ -70,30 +58,27 @@ export const SettingsGeneral = ({ route }) => {
           <CustomHeader
             isButtonBack={true}
             isTitled={true}
-            title={t('editProfile')}
+            title={t('editDeliveryAddress')}
           />
         </View>
 
         <View style={stylesShema.form}>
-          <FormTemplate
+          <FormAddress
             initialValues={{
-              firstName: userFirstName,
-              lastName: userLastName,
-              email: email,
-              phone: phone,
-              newPassword: '',
-              repeatPassword: '',
+              country: '',
+              state: '',
+              city: '',
+              street: streetName,
+              zipcode: zipcode,
             }}
             validationSchema={Yup.object({
-              firstName: validationSchema?.firstName,
-              lastName: validationSchema?.lastName,
-              email: validationSchema?.email,
-              phone: validationSchema?.phone,
-              newPassword: validationSchema?.newPassword,
-              repeatPassword: validationSchema?.repeatPassword,
+              country: validationSchema?.country,
+              state: validationSchema?.state,
+              city: validationSchema?.city,
+              street: validationSchema?.street,
             })}
             handleSubmitForm={handleSubmit}
-            inputList={mock}
+            mock={mockName}
             buttonText={t('saveText')}
             isLoadingData={isLoadingData}
           />

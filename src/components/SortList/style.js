@@ -24,7 +24,7 @@ export const styles = () => {
       alignItems: 'center',
       paddingVertical: 8,
       paddingHorizontal: 10,
-      width: 146,
+      minWidth: 146,
       backgroundColor: colors.white,
       borderWidth: 2,
       borderColor: colors.lightestGray,

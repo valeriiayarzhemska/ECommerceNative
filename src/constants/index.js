@@ -23,6 +23,7 @@ export const sortOptionsValues = {
   sortHighLowUa: 'Ціна: висока - низька',
 };
 
+export const screenHeight = Dimensions.get('screen').height;
 export const windowHeight = Dimensions.get('window').height;
 export const windowWidth = Dimensions.get('window').width;
 export const containerWidth = windowWidth - (windowWidth / 100) * 12;

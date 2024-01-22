@@ -2,16 +2,18 @@ import React, { useState } from 'react';
 import { Text, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
-import { useDispatch, useSelector } from 'react-redux';
 import * as Yup from 'yup';
+
+import { useDispatch, useSelector } from 'react-redux';
 import {
   useGetUsersQuery,
   useLoginMutation,
 } from '../../store/redux/services/user/userApi';
 import { setUserData } from '../../store/redux/features/auth/authActions';
-
-import { validationSchema } from '../../store/validationSchema';
-import { mock } from '../../store/mocks/login-mock';
+import {
+  selectError,
+  selectToken,
+} from '../../store/redux/features/auth/authSelectors';
 
 import { BackgroundWrapper } from '../../components/BackgroundWrapper';
 import { FormTemplate } from '../../components/FormTemplate';
@@ -19,18 +21,17 @@ import { ButtonTemplate } from '../../components/ButtonTemplate';
 import { ErrorMessage } from '../../components/ErrorMessage';
 import { Logo } from '../../assets/icons';
 
+import { validationSchema } from '../../store/validationSchema';
+import { mock } from '../../store/mocks/login-mock';
+
 import { styles } from './style';
-import {
-  selectError,
-  selectToken,
-} from '../../store/redux/features/auth/authSelectors';
 
 export const Login = () => {
   const stylesShema = styles();
-
-  const [error, setError] = useState(null);
   const navigation = useNavigation();
   const { t } = useTranslation();
+
+  const [error, setError] = useState(null);
   const loginError = useSelector(selectError);
   const [login, { isLoading }] = useLoginMutation();
   const { data: users, error: usersError } = useGetUsersQuery();

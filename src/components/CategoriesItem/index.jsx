@@ -3,8 +3,9 @@ import { TouchableOpacity, Text } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectProducts } from '../../store/redux/features/products/productsSelectors';
 
-import { styles } from './style';
 import { filterProducts } from '../../utils';
+
+import { styles } from './style';
 
 export const CategoriesItem = ({
   categoryItem,

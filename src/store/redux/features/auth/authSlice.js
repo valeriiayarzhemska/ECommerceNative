@@ -6,7 +6,7 @@ const initialState = {
   userId: null,
   token: null,
   authError: null,
-  lang: 'en',
+  lang: '',
 };
 
 export const setUser = createAsyncThunk(
@@ -53,13 +53,28 @@ const authSlice = createSlice({
         console.log('login rejected', action);
         state.authError = 'errorWentWrong';
       })
+
       .addMatcher(userApi.endpoints.getUser.matchFulfilled, (state, action) => {
         console.log('user fulfilled', action);
         state.user = action.payload;
       })
       .addMatcher(userApi.endpoints.getUser.matchRejected, (state, action) => {
         console.log('user rejected', action);
-      });
+      })
+
+      .addMatcher(
+        userApi.endpoints.deleteUser.matchFulfilled,
+        (state, action) => {
+          console.log('user deleted', action);
+          state.user = null;
+        },
+      )
+      .addMatcher(
+        userApi.endpoints.deleteUser.matchRejected,
+        (state, action) => {
+          console.log('user deleting rejected', action);
+        },
+      );
   },
 });
 

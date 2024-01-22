@@ -3,14 +3,7 @@ import { colors } from '../../constants';
 
 export const styles = () => {
   return StyleSheet.create({
-    container: {
-      justifyContent: 'center',
-    },
-    input: {},
-    button: {
-      marginTop: 10,
-      alignItems: 'center',
-    },
+    
     dropdownButton: {
       position: 'relative',
       marginBottom: 20,
@@ -46,17 +39,9 @@ export const styles = () => {
     },
     dropdownRow: {},
     dropdownRowText: {},
-    errorWrapperCountry: {
+    errorWrapper: {
       position: 'absolute',
-      top: 50,
-    },
-    errorWrapperState: {
-      position: 'absolute',
-      top: 120,
-    },
-    errorWrapperCity: {
-      position: 'absolute',
-      top: 190,
+      top: 52,
     },
     errorText: {
       fontFamily: 'Lato-Regular',

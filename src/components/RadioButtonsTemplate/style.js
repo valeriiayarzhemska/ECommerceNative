@@ -4,16 +4,12 @@ import { colors } from '../../constants';
 export const styles = () => {
   return StyleSheet.create({
     container: {
-      justifyContent: 'center',
-      alignItems: 'center',
-      paddingVertical: 10,
+      alignItems: 'flex-start',
     },
-    text: {
-      color: colors.lightGray,
-      fontSize: 14,
+    itemContainer: {
       fontFamily: 'Lato-Regular',
-      textAlign: 'center',
-      marginBottom: 10,
+      fontSize: 16,
+      color: colors.darkGray,
     },
   });
 };

@@ -1,5 +1,6 @@
 export const selectProducts = state => state.products.products;
-export const selectProductsLoading = state => state.products.isProductListLoading;
+export const selectProductsLoading = state =>
+  state.products.isProductListLoading;
 export const selectProductsError = state => state.products.productsError;
 
 export const selectCartList = state => state.products.cartList;

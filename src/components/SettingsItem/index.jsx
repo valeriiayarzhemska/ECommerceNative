@@ -1,33 +1,41 @@
 import React, { useState } from 'react';
-import { Image, View, Text, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
+import i18n from 'i18next';
 import { useTranslation } from 'react-i18next';
+import { useDispatch } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 
-import { styles } from './style';
-import { colors } from '../../constants';
-import { RightArrow } from '../../assets/icons';
+import { logout, setLang } from '../../store/redux/features/auth/authSlice';
+import { useDeleteUserMutation } from '../../store/redux/services/user/userApi';
 
-export const SettingsItem = ({ item }) => {
+import { RightArrow } from '../../assets/icons';
+import { ModalWindow } from '../ModalWindow';
+import { colors } from '../../constants';
+
+import { styles } from './style';
+
+export const SettingsItem = ({ userId = '', item }) => {
+  const stylesShema = styles(isRed);
+  const { t } = useTranslation();
+  const dispatch = useDispatch();
+  const navigation = useNavigation();
+  const IconComponent = icon;
+
   const [isModalActive, setIsModalActive] = useState(false);
+  const [selectedRadioButton, setSelectedRadioButton] = useState('');
+
   const {
-    id,
     name,
     goTo = '',
+    title = '',
     icon,
     isNewScreen = false,
     isModal = false,
     isRed = false,
+    isRadioButtons = false,
+    radioButtons = [],
   } = item;
-  const IconComponent = icon;
-  const stylesShema = styles(isRed);
-  const { t } = useTranslation();
-  const navigation = useNavigation();
-
-  /* const initialValues = [
-    {'editProfile': {
-      
-    },}
-  ]; */
+  const [deleteUser, { isLoading: isDeleting }] = useDeleteUserMutation();
 
   const handleItemClick = () => {
     if (isNewScreen) {
@@ -42,32 +50,99 @@ export const SettingsItem = ({ item }) => {
     }
   };
 
+  const handleLangChange = async () => {
+    try {
+      await dispatch(setLang(selectedRadioButton));
+      await i18n.changeLanguage(selectedRadioButton);
+      setIsModalActive(false);
+    } catch (error) {
+      console.log('Can not change the language: ', error);
+      setIsModalActive(false);
+    }
+  };
+
+  const handleLogOut = async () => {
+    await dispatch(logout());
+    setIsModalActive(false);
+  };
+
+  const handleRemoveUser = async () => {
+    try {
+      await deleteUser(userId);
+      await dispatch(logout());
+
+      setIsModalActive(false);
+    } catch (error) {
+      console.log('Can not delete the user: ', error);
+      setIsModalActive(false);
+    }
+  };
+
+  const handleModalClose = () => {
+    switch (name) {
+      case 'changeLanguage':
+        handleLangChange();
+        break;
+
+      case 'logout':
+        handleLogOut();
+        break;
+
+      case 'removeAccount':
+        handleRemoveUser();
+        break;
+
+      default:
+        setIsModalActive(false);
+        console.log('default');
+    }
+  };
+
   return (
-    <TouchableOpacity
-      style={stylesShema.itemContainer}
-      onPress={handleItemClick}
-    >
-      <View style={stylesShema.contentContainer}>
-        <View style={stylesShema.icon}>
-          {IconComponent && (
-            <IconComponent
-              width={20}
-              height={20}
-              color={isRed ? colors.red : colors.lightGray}
-            />
-          )}
+    <>
+      <TouchableOpacity
+        style={stylesShema.itemContainer}
+        onPress={handleItemClick}
+      >
+        <View style={stylesShema.contentContainer}>
+          <View style={stylesShema.icon}>
+            {IconComponent && (
+              <IconComponent
+                width={20}
+                height={20}
+                color={isRed ? colors.red : colors.lightGray}
+              />
+            )}
+          </View>
+
+          <View style={stylesShema.titleContainer}>
+            <Text style={stylesShema.title}>{t(`${name}`)}</Text>
+          </View>
         </View>
 
-        <View style={stylesShema.titleContainer}>
-          <Text style={stylesShema.title}>{t(`${name}`)}</Text>
-        </View>
-      </View>
+        {isNewScreen && (
+          <View style={stylesShema.arrowContainer}>
+            <RightArrow color={colors.lightGray} width={24} height={24} />
+          </View>
+        )}
+      </TouchableOpacity>
 
-      {isNewScreen && (
-        <View style={stylesShema.arrowContainer}>
-          <RightArrow color={colors.lightGray} width={24} height={24} />
+      {isModal && (
+        <View style={stylesShema.modalContainer}>
+          <ModalWindow
+            isClicked={isModalActive}
+            setIsClicked={setIsModalActive}
+            closeText={t('okText')}
+            title={t(title)}
+            modalText={t(title)}
+            isRadioButtons={isRadioButtons}
+            radioButtons={radioButtons}
+            handleOkButtonClick={handleModalClose}
+            selectedRadioButton={selectedRadioButton}
+            setSelectedRadioButton={setSelectedRadioButton}
+          />
         </View>
       )}
-    </TouchableOpacity>
+    </>
   );
 };

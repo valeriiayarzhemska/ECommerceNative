@@ -1,4 +1,9 @@
-import { setProducts, setCartList, setWishList, deleteCartList } from './productsSlice';
+import {
+  setProducts,
+  setCartList,
+  setWishList,
+  deleteCartList,
+} from './productsSlice';
 
 export const setProductsData =
   ({ data }) =>

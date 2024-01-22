@@ -1,19 +1,18 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Image, Text, TouchableOpacity, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 
 import { ButtonTemplate } from '../ButtonTemplate';
-import { HeartIcon, PlusIcon, StarIcon } from '../../assets/icons';
+import { HeartIcon, StarIcon } from '../../assets/icons';
+
+import { selectWishList } from '../../store/redux/features/products/productsSelectors';
+import { updateWishList } from '../../store/redux/features/products/productsActions';
+
+import { setProductsWishList, sliceProductTitle } from '../../utils';
 import { colors } from '../../constants';
 
 import { styles } from './style';
-import {
-  selectProducts,
-  selectWishList,
-} from '../../store/redux/features/products/productsSelectors';
-import { setProductsWishList, sliceProductTitle } from '../../utils';
-import { updateWishList } from '../../store/redux/features/products/productsActions';
 
 export const ProductsItem = ({ product }) => {
   const stylesShema = styles();
@@ -33,8 +32,6 @@ export const ProductsItem = ({ product }) => {
   const handleAddToWishList = () => {
     setProductsWishList(product, userWishList, dispatch, updateWishList);
   };
-
-  const handleAddToCart = () => {};
 
   return (
     <TouchableOpacity

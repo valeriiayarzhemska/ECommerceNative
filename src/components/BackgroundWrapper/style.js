@@ -1,14 +1,11 @@
-import { StyleSheet, Dimensions } from 'react-native';
-
-const WINDOW_HEIGHT = Dimensions.get('window').height;
-const SCREEN_HEIGHT = Dimensions.get('screen').height;
-
+import { StyleSheet } from 'react-native';
+import { screenHeight, windowHeight } from '../../constants';
 
 export const styles = (color = '#fff') => {
   return StyleSheet.create({
     container: {
       position: 'relative',
-      height: SCREEN_HEIGHT,
+      height: screenHeight,
     },
     background: {
       position: 'absolute',
@@ -19,9 +16,9 @@ export const styles = (color = '#fff') => {
     },
     children: {
       position: 'relative',
-      minHeight: WINDOW_HEIGHT - (Platform.OS === 'ios' ? SCREEN_HEIGHT - WINDOW_HEIGHT + 50 : 25),
-      /* justifyContent: 'center',
-      alignItems: 'center', */
+      minHeight:
+        windowHeight -
+        (Platform.OS === 'ios' ? screenHeight - windowHeight + 50 : 25),
     },
   });
 };

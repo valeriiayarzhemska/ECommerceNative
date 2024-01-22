@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 import { colors } from '../../constants';
 
-export const styles = ({ isCartSelect }) => {
+export const styles = () => {
   return StyleSheet.create({
     quantitySelect: {
       flexDirection: 'row',

@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import {
-  ScrollView,
   View,
   Animated,
   LayoutAnimation,
@@ -20,13 +19,13 @@ import { ButtonTemplate } from '../ButtonTemplate';
 import { InputTemplate } from '../InputTemplate';
 import { SearchItem } from '../SearchItem';
 import { SearchIcon } from '../../assets/icons';
+import { Loader } from '../Loader';
 
 import { inputList } from '../../store/mocks/search-mock';
 import { containerWidth, windowHeight, windowWidth } from '../../constants';
 import { filterSearchedProducts } from '../../utils';
 
 import { styles } from './style';
-import { Loader } from '../Loader';
 
 if (
   Platform.OS === 'android' &&
@@ -37,14 +36,14 @@ if (
 
 export const SearchBar = () => {
   const stylesShema = styles();
+  const { t } = useTranslation();
+
   const [searchedProducts, setSearchedProducts] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isInputVisible, setIsInputVisible] = useState(false);
   const formikRef = useRef(null);
   const products = useSelector(selectProducts);
   const containerWidthAnim = useRef(new Animated.Value(0)).current;
-
-  const { t } = useTranslation();
 
   const handleSearchDebounce = useCallback(
     debounce(async values => {

@@ -3,12 +3,11 @@ import { View, TextInput, TouchableOpacity, Text } from 'react-native';
 import { TextInputMask } from 'react-native-masked-text';
 import { useTranslation } from 'react-i18next';
 
-import { DownArrow, Eye, PhoneIcon } from '../../assets/icons';
+import { Eye } from '../../assets/icons';
 
 import { colors } from '../../constants';
 
 import { styles } from './style';
-import { ButtonTemplate } from '../ButtonTemplate';
 
 export const InputTemplate = ({
   icon,

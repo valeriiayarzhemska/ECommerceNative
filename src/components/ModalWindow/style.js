@@ -1,8 +1,14 @@
-import { StyleSheet, Platform } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { colors } from '../../constants';
 
 export const styles = () => {
   return StyleSheet.create({
+    cancelButton: {
+      position: 'absolute',
+      top: 10,
+      right: 10,
+      zIndex: 2,
+    },
     centeredView: {
       flex: 1,
       justifyContent: 'center',
@@ -12,20 +18,32 @@ export const styles = () => {
     },
     modalView: {
       backgroundColor: colors.white,
-      borderRadius: 20,
-      padding: 30,
+      borderRadius: 10,
+      paddingTop: 40,
+      paddingBottom: 20,
+      paddingHorizontal: 30,
       alignItems: 'center',
     },
-    modalInfo: {},
-    textStyle: {
-      color: 'white',
-      fontWeight: 'bold',
+    modalRadioButtons: {
+      alignItems: 'flex-start',
+    },
+    modalTitle: {
+      marginBottom: 10,
+    },
+    modalTitleText: {
+      maxWidth: 300,
+      fontFamily: 'Lato-Bold',
+      fontSize: 18,
     },
     modalText: {
       textAlign: 'center',
     },
-    modalTextFirst: {
-      marginBottom: 6,
+    modalTextSecond: {
+      fontFamily: 'Lato-Regular',
+      fontSize: 16,
+    },
+    modalTextAdditional: {
+      marginBottom: 8,
     },
     button: {
       width: 120,

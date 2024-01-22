@@ -7,7 +7,7 @@ export const userApi = api.injectEndpoints({
       query: credentials => ({
         url: links.login,
         method: 'POST',
-        body: credentials
+        body: credentials,
       }),
     }),
     getUsers: build.query({
@@ -21,8 +21,22 @@ export const userApi = api.injectEndpoints({
       query: id => links.getUser,
       providesTags: (_post, _err, id) => [{ type: 'User', id }],
     }),
+    deleteUser: build.mutation({
+      query(id) {
+        return {
+          url: `${links.getUser}${id}`,
+          method: 'DELETE',
+        };
+      },
+      invalidatesTags: (result, error, id) => [{ type: 'User', id }],
+    }),
   }),
   overrideExisting: true,
 });
 
-export const { useLoginMutation, useGetUsersQuery, useGetUserQuery } = userApi;
+export const {
+  useLoginMutation,
+  useGetUsersQuery,
+  useGetUserQuery,
+  useDeleteUserMutation,
+} = userApi;

@@ -1,5 +1,4 @@
 import { BackHandler } from 'react-native';
-import { useTranslation } from 'react-i18next';
 import { sortOptionsValues } from '../constants';
 
 export const refresh = (setRefreshing, useCallback) => {
@@ -129,8 +128,6 @@ export const deleteProductInCartList = (item, list, dispatch, setCartList) => {
   }
 };
 
-export const handleUserIconClick = () => {};
-
 export const sliceProductTitle = title => {
   const productTitleSplited = title.split(' ');
   const productTitleSliced = productTitleSplited.slice(0, 3).join(' ');
@@ -250,6 +247,6 @@ export const shouldItemUpdate = (prev, next) => {
   return hasChanged;
 };
 
-export const capitalizedValue = value => {
+export const capitalizedValue = (value = '') => {
   return value.charAt(0).toUpperCase() + value.slice(1);
 };

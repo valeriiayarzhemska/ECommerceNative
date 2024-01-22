@@ -72,7 +72,7 @@ export const ButtonTemplate = ({
           style={[
             stylesShema.text,
             isProduct ? stylesShema.textProduct : null,
-            isSmall ? stylesShema.textSmall : null,
+            isSmall || isMiddle ? stylesShema.textSmall : null,
           ]}
         >
           {text}

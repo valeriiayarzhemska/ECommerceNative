@@ -11,14 +11,13 @@ import { selectUser } from '../../store/redux/features/auth/authSelectors';
 import { FormTemplate } from '../../components/FormTemplate';
 import { CustomHeader } from '../../components/CustomHeader';
 
-import { capitalizedValue, handleBackClick } from '../../utils';
 import { validationSchema } from '../../store/validationSchema';
 import { mock } from '../../store/mocks/edit-profile-mock';
+import { capitalizedValue, handleBackClick } from '../../utils';
 
 import { styles } from './style';
-import { FormTemplateAddress } from '../../components/FormTemplateAddress';
 
-export const SettingsSystem = ({ route }) => {
+export const EditProfile = ({ route }) => {
   const stylesShema = styles();
   const dispatch = useDispatch();
   const { t } = useTranslation();
@@ -29,9 +28,9 @@ export const SettingsSystem = ({ route }) => {
 
   const [isLoadingData, setIsLoadingData] = useState(false);
   const user = useSelector(selectUser);
-  const { address } = user;
-  const { street, zipcode } = address;
-  const streetName = capitalizedValue(street);
+  const { name, email, phone } = user;
+  const userFirstName = capitalizedValue(name.firstname);
+  const userLastName = capitalizedValue(name.lastname);
 
   const handleSubmit = async ({
     firstName,
@@ -71,28 +70,31 @@ export const SettingsSystem = ({ route }) => {
           <CustomHeader
             isButtonBack={true}
             isTitled={true}
-            title={t('editDeliveryAddress')}
+            title={t('editProfile')}
           />
         </View>
 
         <View style={stylesShema.form}>
-          <FormTemplateAddress
+          <FormTemplate
             initialValues={{
-              country: '',
-              state: '',
-              city: '',
-              street: streetName,
-              zipcode: zipcode,
+              firstName: userFirstName,
+              lastName: userLastName,
+              email: email,
+              phone: phone,
+              newPassword: '',
+              repeatPassword: '',
             }}
             validationSchema={Yup.object({
-              country: validationSchema?.country,
-              state: validationSchema?.state,
-              city: validationSchema?.city,
-              street: validationSchema?.street,
+              firstName: validationSchema?.firstName,
+              lastName: validationSchema?.lastName,
+              email: validationSchema?.email,
+              phone: validationSchema?.phone,
+              newPassword: validationSchema?.newPassword,
+              repeatPassword: validationSchema?.repeatPassword,
             })}
             handleSubmitForm={handleSubmit}
+            inputList={mock}
             buttonText={t('saveText')}
-            isDelivery={true}
             isLoadingData={isLoadingData}
           />
         </View>

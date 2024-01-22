@@ -1,36 +1,26 @@
 import React, { useEffect, useState } from 'react';
+import { View } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { useDispatch } from 'react-redux';
+import { useTranslation } from 'react-i18next';
+
 import MapView, { Marker, Polyline } from 'react-native-maps';
 import {
   requestMultiple,
   PERMISSIONS,
   RESULTS,
 } from 'react-native-permissions';
-
-import Geolocation, { GeoPosition } from 'react-native-geolocation-service';
-import { Button, Image, Text, TouchableOpacity, View } from 'react-native';
-import { useDispatch, useSelector } from 'react-redux';
-import { useNavigation } from '@react-navigation/native';
+import Geolocation from 'react-native-geolocation-service';
 
 import { ButtonTemplate } from '../ButtonTemplate';
-import { CrossIcon } from '../../assets/icons';
+import { PermissionPlaceholder } from '../PermissionPlaceholder';
+
+import { GEO_PERMISSION_LIST, colors } from '../../constants';
 
 import { styles } from './style';
-import { selectCartList } from '../../store/redux/features/products/productsSelectors';
-import {
-  deleteProductInCartList,
-  updateProductCartQuantity,
-} from '../../utils';
-import { updateCartData } from '../../store/redux/features/products/productsActions';
-import { useTranslation } from 'react-i18next';
-import { QuantitySelect } from '../QuantitySelect';
-import { setCartList } from '../../store/redux/features/products/productsSlice';
-import { GEO_PERMISSION_LIST, colors } from '../../constants';
-import { PermissionPlaceholder } from '../PermissionPlaceholder';
 
 export const GeoMap = ({}) => {
   const stylesShema = styles();
-  const navigation = useNavigation();
-  const dispatch = useDispatch();
   const { t } = useTranslation();
 
   const [geoPermission, setGeoPermission] = useState(RESULTS.null);

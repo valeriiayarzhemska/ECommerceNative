@@ -53,10 +53,10 @@ export const styles = (
       backgroundColor: 'transparent',
     },
     buttonMiddle: {
-      paddingVertical: 10,
+      paddingVertical: 11,
       paddingHorizontal: 16,
       paddingRight: 16,
-      width: 86,
+      width: 90,
     },
     buttonSmall: {
       paddingVertical: 8,

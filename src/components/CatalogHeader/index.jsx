@@ -1,14 +1,13 @@
 import React from 'react';
 import { View } from 'react-native';
-import { useDispatch } from 'react-redux';
 
 import { SliderCatalog } from '../SliderCatalog';
 import { CategoriesList } from '../CategoriesList';
+import { SortList } from '../SortList';
 
 import { filterProductsCategories } from '../../utils';
 
 import { styles } from './style';
-import { SortList } from '../SortList';
 
 export const CatalogHeader = ({
   products,
@@ -20,12 +19,7 @@ export const CatalogHeader = ({
   setSelectedSortOption,
 }) => {
   const stylesShema = styles();
-  const dispatch = useDispatch();
   const productsCategories = filterProductsCategories(products);
-
-  const handleLogOut = () => {
-    dispatch(logout());
-  };
 
   return (
     <>

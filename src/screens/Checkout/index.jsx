@@ -1,59 +1,34 @@
-import React, { useCallback, useRef, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import {
   SafeAreaView,
   ScrollView,
   Text,
   View,
-  Animated,
-  Button,
   TouchableOpacity,
 } from 'react-native';
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
-import StarRating from 'react-native-star-rating-widget';
 import * as Yup from 'yup';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { useGetProductQuery } from '../../store/redux/services/products/productsApi';
-import {
-  selectCartList,
-  selectWishList,
-} from '../../store/redux/features/products/productsSelectors';
-import {
-  deleteCartData,
-  updateWishList,
-} from '../../store/redux/features/products/productsActions';
-import { setCartList } from '../../store/redux/features/products/productsSlice';
-
-import { ButtonTemplate } from '../../components/ButtonTemplate';
-import { QuantitySelect } from '../../components/QuantitySelect';
-import {
-  CartIcon,
-  CheckIcon,
-  DownArrow,
-  EditIcon,
-  HeartIcon,
-  UpArrow,
-} from '../../assets/icons';
-import { CustomHeader } from '../../components/CustomHeader';
-import { SkeletonProductDetails } from '../../components/Skeletons/SkeletonProductDetails';
-
-import { colors } from '../../constants';
-import {
-  capitalizedValue,
-  handleBackClick,
-  setProductsWishList,
-  updateProductsCartList,
-} from '../../utils';
-
-import { styles } from './style';
+import { selectCartList } from '../../store/redux/features/products/productsSelectors';
+import { deleteCartData } from '../../store/redux/features/products/productsActions';
 import { selectUser } from '../../store/redux/features/auth/authSelectors';
-import { OrderItem } from '../../components/OrderItem';
-import { FormTemplateAddress } from '../../components/FormTemplateAddress';
 import { validationSchema } from '../../store/validationSchema';
 import { setUserInfo } from '../../store/redux/features/auth/authActions';
-import { GeoMap } from '../../components/GeoMap';
+import { mockName } from '../../store/mocks/delivery-mock';
+
+import { ButtonTemplate } from '../../components/ButtonTemplate';
+import { OrderItem } from '../../components/OrderItem';
+import { DownArrow, EditIcon, UpArrow } from '../../assets/icons';
+import { CustomHeader } from '../../components/CustomHeader';
 import { ModalWindow } from '../../components/ModalWindow';
+import { FormAddress } from '../../components/FormAddress';
+import { GeoMap } from '../../components/GeoMap';
+
+import { capitalizedValue, handleBackClick } from '../../utils';
+
+import { styles } from './style';
 
 export const Checkout = ({ route }) => {
   const stylesShema = styles();
@@ -91,7 +66,7 @@ export const Checkout = ({ route }) => {
     setIsCheckOut(true);
   };
 
-  const handleModalClose = async () => {
+  const handleModalSave = async () => {
     await dispatch(deleteCartData());
 
     setIsCheckOut(false);
@@ -241,7 +216,7 @@ export const Checkout = ({ route }) => {
                 <>
                   {isEditOpen ? (
                     <View style={stylesShema.form}>
-                      <FormTemplateAddress
+                      <FormAddress
                         initialValues={{
                           firstName: userFirstName,
                           lastName: userLastName,
@@ -260,8 +235,8 @@ export const Checkout = ({ route }) => {
                           street: validationSchema?.street,
                         })}
                         handleSubmitForm={handleSubmit}
+                        mock={mockName}
                         buttonText={t('saveText')}
-                        isDelivery={true}
                         isLoadingData={isLoadingData}
                       />
                     </View>
@@ -309,12 +284,12 @@ export const Checkout = ({ route }) => {
         )}
 
         <ModalWindow
-          isCheckOut={isCheckOut}
-          setIsCheckOut={setIsCheckOut}
+          isClicked={isCheckOut}
+          setIsClicked={setIsCheckOut}
           modalText={t('succesOrder')}
           secondModalText={t('contactYou')}
           closeText={t('buttonCancel')}
-          handleCloseButtonClick={handleModalClose}
+          handleOkButtonClick={handleModalSave}
         />
       </ScrollView>
     </SafeAreaView>

@@ -1,9 +1,9 @@
 import React from 'react';
-import { FlatList, Text, View } from 'react-native';
+import { Text, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 import { ButtonTemplate } from '../ButtonTemplate';
-import { BackArrow, Logo, UserIcon } from '../../assets/icons';
+import { BackArrow } from '../../assets/icons';
 
 import { styles } from './style';
 
@@ -16,7 +16,12 @@ export const CustomHeader = ({
   isButtonLeft = false,
   isButtonRight = false,
 }) => {
-  const stylesShema = styles(isButtonLeft, isButtonRight, isButtonBack, isTitled);
+  const stylesShema = styles(
+    isButtonLeft,
+    isButtonRight,
+    isButtonBack,
+    isTitled,
+  );
   const navigation = useNavigation();
 
   const handleClickArrow = () => {

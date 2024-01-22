@@ -1,4 +1,4 @@
-import { StyleSheet, Platform } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { colors, containerWidth } from '../../constants';
 
 export const styles = () => {
@@ -45,7 +45,7 @@ export const styles = () => {
     },
     skeletonList: {
       flexDirection: 'row',
-      
+
       width: containerWidth,
       height: 253,
     },

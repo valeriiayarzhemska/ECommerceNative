@@ -12,6 +12,8 @@ if (!Intl.PluralRules) {
 const resources = {
   en: {
     translations: {
+      englishLang: 'English',
+      ukLang: 'Ukrainian',
       loginTitle: `Sign in to your account`,
       registrationTitle: `Create your account`,
       emailPlaceholderText: `Enter your email or phone number`,
@@ -93,8 +95,8 @@ const resources = {
       receiver: 'Receiver: ',
       pickupAddress: 'PickUp address: ',
       companyAddress: 'Khmelnitskyi, street Proskurivska',
-      succesOrder: `Order is succesful`,
-      contactYou: `We will contact you soon!`,
+      succesOrder: `You will make an order`,
+      contactYou: `And we will contact you soon!`,
       editProfile: `Edit account`,
       editDeliveryAddress: `Edit address`,
       changeLanguage: `Change language`,
@@ -102,10 +104,16 @@ const resources = {
       removeAccount: `Remove account`,
       settingsGeneral: `General`,
       settingsSystem: `System`,
+      chooseLang: `Choose your language`,
+      wantLogOut: `Do you want to logout?`,
+      wantRemoveAccount: `Do you want to remove your account?`,
+      okText: `Ok`,
     },
   },
   uk: {
     translations: {
+      englishLang: 'Англійська',
+      ukLang: 'Українська',
       loginTitle: `Увійдіть в акаунт`,
       registrationTitle: `Створіть свій акаунт`,
       emailPlaceholderText: `Введіть ваші пошту або телефон`,
@@ -150,7 +158,7 @@ const resources = {
       buttonCancel: `Відміна`,
       placeholderTitle: `Немає доступних товарів`,
       placeholderText: `Перевірте пізніше`,
-      addToCart: `Додати до корзини`,
+      addToCart: `У кошик`,
       buyNow: `Придбати зараз`,
       titleCartList: `Корзина`,
       totalPrice: `Усього:`,
@@ -184,8 +192,8 @@ const resources = {
       receiver: `Отримувач: `,
       pickupAddress: `Адреса видачі: `,
       companyAddress: `м. Хмельницький, вул. Проскурівська`,
-      succesOrder: `Замовлення успішне`,
-      contactYou: `Ми скоро зв'яжемось з вами!`,
+      succesOrder: `Ви зробите замовлення`,
+      contactYou: `І ми скоро зв'яжемось з вами!`,
       editProfile: `Відредагувати акаунт`,
       editDeliveryAddress: `Відредагувати адресу`,
       changeLanguage: `Змінити мову`,
@@ -193,6 +201,10 @@ const resources = {
       removeAccount: `Видалити акаунт`,
       settingsGeneral: `Загальні`,
       settingsSystem: `Системні`,
+      chooseLang: `Виберіть мову`,
+      wantLogOut: `Ви хочете вийти з акаунту?`,
+      wantRemoveAccount: `Ви хочете вийти видалити акаунт?`,
+      okText: `Ок`,
     },
   },
 };
@@ -218,5 +230,18 @@ i18n.use(initReactI18next).init({
 Promise.all([i18n.loadLanguages('en'), i18n.loadLanguages('uk')]).then(() => {
   i18n.changeLanguage('en');
 });
+
+export const langRadioButtons = [
+  {
+    id: 'en',
+    label: 'englishLang',
+    value: 'en',
+  },
+  {
+    id: 'uk',
+    label: 'ukLang',
+    value: 'uk',
+  },
+];
 
 export default i18n;

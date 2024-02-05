@@ -17,6 +17,7 @@ export const styles = () => {
     title: {
       fontFamily: 'Lato-Regular',
       fontSize: 14,
+      color: colors.darkGray,
     },
     inputContainer: {
       flexDirection: 'row',

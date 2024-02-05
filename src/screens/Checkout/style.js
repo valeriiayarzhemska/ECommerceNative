@@ -1,11 +1,11 @@
-import { StyleSheet } from 'react-native';
+import { Platform, StyleSheet } from 'react-native';
 import { colors } from '../../constants';
 
 export const styles = () => {
   return StyleSheet.create({
     container: {
       flex: 1,
-      paddingHorizontal: '6%',
+      paddingHorizontal: Platform.OS === 'ios' ? '6%' : '2.8%',
       width: '100%',
       height: '100%',
       backgroundColor: colors.white,

@@ -12,6 +12,9 @@ export const styles = () => {
     listContent: {
       paddingHorizontal: '6%',
     },
+    emptyList: {
+      height: 160,
+    },
     footer: {
       bottom: 0,
       flexDirection: 'row',
@@ -34,6 +37,7 @@ export const styles = () => {
       marginRight: 10,
       fontFamily: 'Lato-Bold',
       fontSize: 16,
+      color: colors.darkGray,
     },
   });
 };

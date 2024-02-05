@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { Platform, StyleSheet } from 'react-native';
 import { colors, windowHeight } from '../../constants';
 
 export const styles = () => {
@@ -11,7 +11,7 @@ export const styles = () => {
     },
     header: {
       position: 'absolute',
-      top: windowHeight > 845 ? 56 : 40,
+      top: Platform.OS === 'ios' ? (windowHeight > 845 ? 56 : 40) : 16,
       right: '6%',
       left: '6%',
       zIndex: 1,
@@ -89,6 +89,11 @@ export const styles = () => {
       marginLeft: 2,
     },
     review: {
+      fontFamily: 'Lato-Regular',
+      fontSize: 14,
+      color: colors.darkGray,
+    },
+    description: {
       fontFamily: 'Lato-Regular',
       fontSize: 14,
       color: colors.darkGray,

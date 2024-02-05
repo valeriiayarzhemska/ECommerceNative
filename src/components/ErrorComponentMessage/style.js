@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { Platform, StyleSheet } from 'react-native';
 import { colors } from '../../constants';
 
 export const styles = () => {
@@ -14,6 +14,7 @@ export const styles = () => {
       fontSize: 18,
       textAlign: 'center',
       color: colors.darkGray,
+      lineHeight: Platform.OS === 'ios' ? 'auto' : 30,
     },
   });
 };

@@ -20,6 +20,7 @@ export const styles = () => {
     text: {
       fontFamily: 'Lato-Bold',
       fontSize: 14,
+      color: colors.darkGray,
     },
   });
 };

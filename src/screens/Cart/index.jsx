@@ -115,7 +115,9 @@ export const Cart = () => {
           ) : isUserCartListLoading ? (
             <SkeletonCartlist isLoading={true} />
           ) : (
-            <ErrorComponentMessage message={'emptyCartList'} />
+            <View style={stylesShema.emptyList}>
+              <ErrorComponentMessage message={'emptyCartList'} />
+            </View>
           )
         }
         initialNumToRender={8}

@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { Platform, StyleSheet } from 'react-native';
 import { colors, containerWidth } from '../../constants';
 
 export const styles = () => {
@@ -15,7 +15,7 @@ export const styles = () => {
     },
     seacrhButton: {
       position: 'absolute',
-      top: 4.5,
+      top: Platform.OS === 'ios' ? 4.5 : 12,
       paddingLeft: 5,
       zIndex: 4,
     },
@@ -25,9 +25,13 @@ export const styles = () => {
       backgroundColor: colors.white,
       zIndex: 3,
     },
+    form: {
+      marginTop: Platform.OS === 'ios' ? 0 : 8,
+      height: Platform.OS === 'ios' ? 'auto' : 48,
+    },
     cancelButton: {
       position: 'absolute',
-      top: 4.5,
+      top: Platform.OS === 'ios' ? 4.5 : 12,
       right: 5,
     },
     resultsEmpty: {
@@ -35,7 +39,7 @@ export const styles = () => {
     },
     results: {
       position: 'absolute',
-      top: 14,
+      top: Platform.OS === 'ios' ? 14 : 26,
       paddingTop: 34,
       width: '100%',
       minHeight: 134,

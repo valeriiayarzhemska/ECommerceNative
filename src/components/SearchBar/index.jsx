@@ -203,7 +203,7 @@ export const SearchBar = () => {
           {
             height: isInputVisible ? windowHeight : 0,
             width: isInputVisible ? windowWidth : 0,
-            pointerEvents: isInputVisible ? 'visible' : 'none',
+            pointerEvents: isInputVisible ? 'auto' : 'none',
           },
         ]}
         onPress={handleOuterClick}

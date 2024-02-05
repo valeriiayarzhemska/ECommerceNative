@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { Platform, StyleSheet } from 'react-native';
 import { colors } from '../../constants';
 
 export const styles = () => {
@@ -22,6 +22,10 @@ export const styles = () => {
     },
     quantityInput: {
       paddingHorizontal: 4,
+      paddingLeft: Platform.OS === 'ios' ? 4 : 13,
+      fontFamily: 'Lato-Regular',
+      fontSize: 14,
+      color: colors.darkGray,
     },
     quantityButton: {
       alignItems: 'center',

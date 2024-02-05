@@ -38,7 +38,7 @@ export const styles = (error, icon, isSearch) => {
     },
     errorWrapper: {
       position: 'absolute',
-      top: 50,
+      top: Platform.OS === 'ios' ? 50 : 60,
     },
     errorText: {
       fontFamily: 'Lato-Regular',

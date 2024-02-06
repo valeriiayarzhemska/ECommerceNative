@@ -14,7 +14,7 @@ export const styles = () => {
       fontSize: 18,
       textAlign: 'center',
       color: colors.darkGray,
-      lineHeight: Platform.OS === 'ios' ? 'auto' : 30,
+      lineHeight: Platform.OS === 'ios' ? 20 : 30,
     },
   });
 };

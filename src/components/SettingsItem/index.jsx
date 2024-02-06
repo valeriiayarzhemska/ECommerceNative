@@ -19,23 +19,23 @@ export const SettingsItem = ({ userId = '', item }) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const navigation = useNavigation();
-  const IconComponent = icon;
 
   const [isModalActive, setIsModalActive] = useState(false);
   const [selectedRadioButton, setSelectedRadioButton] = useState('');
+  const [deleteUser, { isLoading: isDeleting }] = useDeleteUserMutation();
 
   const {
     name,
     goTo = '',
     title = '',
-    icon,
+    icon = '',
     isNewScreen = false,
     isModal = false,
     isRed = false,
     isRadioButtons = false,
     radioButtons = [],
   } = item;
-  const [deleteUser, { isLoading: isDeleting }] = useDeleteUserMutation();
+  const IconComponent = icon;
 
   const handleItemClick = () => {
     if (isNewScreen) {

@@ -196,14 +196,14 @@ export const Checkout = ({ route }) => {
                 <View style={stylesShema.userData}>
                   <View style={stylesShema.deliveryContent}>
                     <View style={stylesShema.deliveryContent}>
-                      <Text>
+                      <Text style={stylesShema.deliveryContentText}>
                         {t('receiver')}
                         {`${userFirstName} ${userLastName}`}
                       </Text>
                     </View>
 
                     <View style={stylesShema.deliveryContent}>
-                      <Text>
+                      <Text style={stylesShema.deliveryContentText}>
                         {t('pickupAddress')}
                         {t('companyAddress')}
                       </Text>

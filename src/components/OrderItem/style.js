@@ -74,5 +74,10 @@ export const styles = () => {
       fontFamily: 'Lato-Bold',
       color: colors.darkGray,
     },
+    footerText: {
+      fontFamily: 'Lato-Regular',
+      fontSize: 14,
+      color: colors.darkGray,
+    },
   });
 };

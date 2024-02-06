@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { View } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
 import MapView, { Marker, Polyline } from 'react-native-maps';

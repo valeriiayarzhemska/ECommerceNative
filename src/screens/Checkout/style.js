@@ -36,6 +36,7 @@ export const styles = () => {
     title: {
       fontFamily: 'Lato-Bold',
       fontSize: 18,
+      color: colors.darkGray,
     },
     payment: {
       flexDirection: 'row',
@@ -63,9 +64,11 @@ export const styles = () => {
     },
     price: {
       fontFamily: 'Lato-Regular',
+      color: colors.darkGray,
       fontSize: 16,
     },
     priceNumber: {
+      color: colors.darkGray,
       fontFamily: 'Lato-Bold',
     },
     deliveryFeeContainer: {
@@ -74,12 +77,17 @@ export const styles = () => {
     deliveryContent: {
       marginBottom: 8,
     },
+    deliveryContentText: {
+      fontFamily: 'Lato-Regular',
+      color: colors.darkGray,
+    },
     deliveryContainer: {
       marginBottom: 20,
     },
     userNameText: {
       fontFamily: 'Lato-Bold',
       fontSize: 16,
+      color: colors.darkGray,
     },
     editButton: {
       flexDirection: 'row',

@@ -37,6 +37,7 @@ export const styles = () => {
     },
     modalText: {
       textAlign: 'center',
+      color: colors.darkGray,
     },
     modalTextSecond: {
       fontFamily: 'Lato-Regular',

@@ -13,5 +13,8 @@ export const styles = () => {
       paddingHorizontal: '6%',
       paddingBottom: windowHeight < 700 ? '8%' : 0,
     },
+    emptyList: {
+      height: 160,
+    },
   });
 };

@@ -4,10 +4,10 @@ import {
   Animated,
   LayoutAnimation,
   UIManager,
-  FlatList,
   Keyboard,
   TouchableOpacity,
 } from 'react-native';
+import { FlatList } from 'react-native-gesture-handler'
 import { Formik } from 'formik';
 import { debounce } from 'lodash';
 
@@ -179,11 +179,13 @@ export const SearchBar = () => {
                 ]}
               >
                 <FlatList
+                  contentContainerStyle={stylesShema.listContent}
                   data={searchedProducts}
                   renderItem={({ item }) => {
                     return <SearchItem key={item.id} product={item} />;
                   }}
                   keyExtractor={item => item.id}
+                  scrollEnabled={true}
                   ListEmptyComponent={
                     <View style={stylesShema.resultsEmpty}>
                       <Loader isLoading={isLoading} />

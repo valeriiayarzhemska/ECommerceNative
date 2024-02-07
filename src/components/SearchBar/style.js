@@ -13,6 +13,10 @@ export const styles = () => {
       flexDirection: 'row-reverse',
       zIndex: 3,
     },
+    formContainer: {
+      position: 'absolute',
+
+    },
     seacrhButton: {
       position: 'absolute',
       top: Platform.OS === 'ios' ? 4.5 : 12,
@@ -28,11 +32,13 @@ export const styles = () => {
     form: {
       marginTop: Platform.OS === 'ios' ? 0 : 8,
       height: Platform.OS === 'ios' ? 'auto' : 48,
+      zIndex: 2,
     },
     cancelButton: {
       position: 'absolute',
       top: Platform.OS === 'ios' ? 4.5 : 12,
       right: 5,
+      zIndex: 3
     },
     resultsEmpty: {
       height: 96,
@@ -54,8 +60,8 @@ export const styles = () => {
       },
       shadowOpacity: 0.18,
       shadowRadius: 0.6,
+      zIndex: 1,
       elevation: 1,
-      zIndex: -1,
     },
   });
 };

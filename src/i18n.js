@@ -203,7 +203,7 @@ const resources = {
       settingsSystem: `Системні`,
       chooseLang: `Виберіть мову`,
       wantLogOut: `Ви хочете вийти з акаунту?`,
-      wantRemoveAccount: `Ви хочете вийти видалити акаунт?`,
+      wantRemoveAccount: `Ви хочете видалити акаунт?`,
       okText: `Ок`,
     },
   },

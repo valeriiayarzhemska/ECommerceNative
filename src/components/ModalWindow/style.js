@@ -34,6 +34,7 @@ export const styles = () => {
       maxWidth: 300,
       fontFamily: 'Lato-Bold',
       fontSize: 18,
+      color: colors.darkGray,
     },
     modalText: {
       textAlign: 'center',

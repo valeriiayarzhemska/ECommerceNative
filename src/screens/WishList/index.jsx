@@ -1,6 +1,6 @@
 import React from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { FlatList } from 'react-native';
+import { FlatList, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -49,7 +49,9 @@ export const WishList = () => {
             ) : isUserWishListLoading ? (
               <SkeletonWishlist isLoading={isUserWishListLoading} />
             ) : (
-              <ErrorComponentMessage message={'emptyWishList'} />
+              <View style={stylesShema.emptyList}>
+                <ErrorComponentMessage message={'emptyWishList'} />
+              </View>
             )
           }
           initialNumToRender={8}

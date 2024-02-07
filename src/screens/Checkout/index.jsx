@@ -288,7 +288,7 @@ export const Checkout = ({ route }) => {
           setIsClicked={setIsCheckOut}
           modalText={t('succesOrder')}
           secondModalText={t('contactYou')}
-          closeText={t('buttonCancel')}
+          closeText={t('okText')}
           handleOkButtonClick={handleModalSave}
         />
       </ScrollView>

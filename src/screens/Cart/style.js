@@ -16,12 +16,11 @@ export const styles = () => {
       height: 160,
     },
     footer: {
-      bottom: 0,
+      bottom: '10%',
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'space-between',
       paddingHorizontal: '6%',
-      paddingBottom: windowHeight < 700 ? '8%' : 0,
       width: windowWidth,
       borderTopEndRadius: 20,
       borderTopStartRadius: 20,

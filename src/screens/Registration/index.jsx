@@ -36,10 +36,6 @@ export const Registration = () => {
     }
   };
 
-  const handleSignInClick = () => {
-    navigation.goBack();
-  };
-
   const handleContinueClick = () => {
     navigation.navigate('Login');
   };
@@ -47,7 +43,7 @@ export const Registration = () => {
   return (
     <BackgroundWrapper>
       <ButtonTemplate
-        handleClick={handleSignInClick}
+        handleClick={handleContinueClick}
         icon={BackArrow}
         isSided={true}
       />

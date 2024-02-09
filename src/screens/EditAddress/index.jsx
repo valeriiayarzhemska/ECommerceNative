@@ -32,7 +32,10 @@ export const EditAddress = ({ route }) => {
   const { street, zipcode } = address;
   const streetName = capitalizedValue(street);
 
-  const handleSubmit = async ({ country, state, city, street, zipcode }) => {
+  const handleSubmit = async (
+    { country, state, city, street, zipcode },
+    { resetForm },
+  ) => {
     setIsLoadingData(true);
 
     try {
@@ -43,7 +46,9 @@ export const EditAddress = ({ route }) => {
       );
 
       setIsLoadingData(false);
-      navigation.goBack();
+      resetForm();
+      
+      navigation.navigate(goFrom);
     } catch (error) {
       console.log('error: ', error);
     }
@@ -57,6 +62,7 @@ export const EditAddress = ({ route }) => {
         <View style={stylesShema.header}>
           <CustomHeader
             isButtonBack={true}
+            backScreen={goFrom}
             isTitled={true}
             title={t('editDeliveryAddress')}
           />

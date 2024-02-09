@@ -55,7 +55,6 @@ export const AppNavigator = () => {
   const { i18n } = useTranslation();
   const userToken = useSelector(selectToken);
   const language = useSelector(selectLanguage);
-  const dispatch = useDispatch();
   const navigation = useNavigation();
   const [isNavigating, setIsNavigating] = useState(false);
 
@@ -69,6 +68,7 @@ export const AppNavigator = () => {
     const unsubscribe = navigation.addListener('state', () => {
       setIsNavigating(true);
     });
+    
     return unsubscribe;
   }, [navigation]);
 

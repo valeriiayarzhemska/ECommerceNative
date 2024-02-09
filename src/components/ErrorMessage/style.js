@@ -12,7 +12,7 @@ export const styles = () => {
       fontFamily: 'Lato-Regular',
       fontSize: 10,
       lineHeight: 10,
-      color: colors.darkRed,
+      color: colors.red,
     },
   });
 };

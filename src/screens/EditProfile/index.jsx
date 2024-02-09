@@ -32,13 +32,10 @@ export const EditProfile = ({ route }) => {
   const userFirstName = capitalizedValue(name.firstname);
   const userLastName = capitalizedValue(name.lastname);
 
-  const handleSubmit = async ({
-    firstName,
-    lastName,
-    email,
-    phone,
-    newPassword,
-  }) => {
+  const handleSubmit = async (
+    { firstName, lastName, email, phone, newPassword },
+    { resetForm },
+  ) => {
     setIsLoadingData(true);
 
     try {
@@ -53,14 +50,15 @@ export const EditProfile = ({ route }) => {
           password: newPassword,
         }),
       );
-
+      resetForm();
       setIsLoadingData(false);
-      navigation.goBack();
+
+      navigation.navigate(goFrom);
     } catch (error) {
       console.log('error: ', error);
     }
   };
-
+  
   useFocusEffect(handleBackClick(goFrom, navigation, useCallback));
 
   return (
@@ -69,6 +67,7 @@ export const EditProfile = ({ route }) => {
         <View style={stylesShema.header}>
           <CustomHeader
             isButtonBack={true}
+            backScreen={goFrom}
             isTitled={true}
             title={t('editProfile')}
           />

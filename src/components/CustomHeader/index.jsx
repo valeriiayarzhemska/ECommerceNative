@@ -13,6 +13,7 @@ export const CustomHeader = ({
   buttonRight,
   isTitled = false,
   isButtonBack = false,
+  backScreen = '',
   isButtonLeft = false,
   isButtonRight = false,
 }) => {
@@ -25,7 +26,7 @@ export const CustomHeader = ({
   const navigation = useNavigation();
 
   const handleClickArrow = () => {
-    navigation.goBack();
+    navigation.navigate(backScreen);
   };
 
   return (

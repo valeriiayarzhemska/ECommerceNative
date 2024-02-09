@@ -42,18 +42,41 @@ export const tabScreenData = [
       ),
     },
   },
+  {
+    name: 'ProductDetails',
+    component: ProductDetails,
+    options: {
+      tabBarStyle: { display: 'none' },
+      tabBarButton: () => null,
+    },
+  },
+  {
+    name: 'Checkout',
+    component: Checkout,
+    options: {
+      tabBarStyle: { display: 'none' },
+      tabBarButton: () => null,
+    },
+  },
+  {
+    name: 'EditProfile',
+    component: EditProfile,
+    options: {
+      tabBarStyle: { display: 'none' },
+      tabBarButton: () => null,
+    },
+  },
+  {
+    name: 'EditAddress',
+    component: EditAddress,
+    options: {
+      tabBarStyle: { display: 'none' },
+      tabBarButton: () => null,
+    },
+  },
 ];
 
 export const stackScreenData = [
-  {
-    name: 'Catalog',
-    component: Catalog,
-    isAuthorized: true,
-    options: {
-      headerShown: false,
-      animation: 'none',
-    },
-  },
   {
     name: 'Login',
     component: Login,
@@ -67,51 +90,6 @@ export const stackScreenData = [
     name: 'Registration',
     component: Registration,
     isAuthorized: false,
-    options: {
-      headerShown: false,
-      animation: 'none',
-    },
-  },
-  {
-    name: 'ProductDetails',
-    component: ProductDetails,
-    isAuthorized: true,
-    options: {
-      headerShown: false,
-      animation: 'none',
-    },
-  },
-  {
-    name: 'Checkout',
-    component: Checkout,
-    isAuthorized: true,
-    options: {
-      headerShown: false,
-      animation: 'none',
-    },
-  },
-  {
-    name: 'EditProfile',
-    component: EditProfile,
-    isAuthorized: true,
-    options: {
-      headerShown: false,
-      animation: 'none',
-    },
-  },
-  {
-    name: 'EditAddress',
-    component: EditAddress,
-    isAuthorized: true,
-    options: {
-      headerShown: false,
-      animation: 'none',
-    },
-  },
-  {
-    name: 'Profile',
-    component: Profile,
-    isAuthorized: true,
     options: {
       headerShown: false,
       animation: 'none',

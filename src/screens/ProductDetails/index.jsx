@@ -115,6 +115,7 @@ export const ProductDetails = ({ route }) => {
         <View style={stylesShema.header}>
           <CustomHeader
             isButtonBack={true}
+            backScreen={params.goFrom}
             isButtonRight={true}
             buttonRight={
               <ButtonTemplate

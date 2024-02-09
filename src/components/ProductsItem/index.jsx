@@ -25,7 +25,7 @@ export const ProductsItem = ({ product }) => {
   const handleClick = productId => {
     navigation.navigate('ProductDetails', {
       id: productId,
-      goFrom: 'ProductsItem',
+      goFrom: 'Catalog',
     });
   };
 

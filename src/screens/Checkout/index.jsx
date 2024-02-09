@@ -70,7 +70,7 @@ export const Checkout = ({ route }) => {
     await dispatch(deleteCartData());
 
     setIsCheckOut(false);
-    navigation.goBack();
+    navigation.navigate(goFrom);
   };
 
   const handlePickUpClick = () => {
@@ -114,7 +114,7 @@ export const Checkout = ({ route }) => {
     <SafeAreaView style={stylesShema.container}>
       <ScrollView style={stylesShema.container}>
         <View style={stylesShema.header}>
-          <CustomHeader isButtonBack={true} />
+          <CustomHeader isButtonBack={true} backScreen={goFrom} />
         </View>
 
         {userCartList && user && (

@@ -115,6 +115,7 @@ export const InputTemplate = ({
         <TouchableOpacity
           style={stylesShema.eyeIcon}
           onPress={() => setIsPasswordVisible(!isPasswordVisible)}
+          hitSlop={{ top: 14, bottom: 14, left: 14, right: 14 }}
         >
           {isPasswordVisible ? <Eye /> : <Eye color={colors.darkGray} />}
         </TouchableOpacity>

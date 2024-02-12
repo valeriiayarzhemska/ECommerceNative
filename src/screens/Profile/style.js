@@ -10,9 +10,13 @@ export const styles = () => {
       backgroundColor: colors.white,
     },
     containerScroll: {
-      flex: 1,
       width: '100%',
-      height: '100%',
+      height: windowHeight,
+      backgroundColor: colors.white,
+    },
+    containerFull: {
+      minHeight: '100%',
+      height: windowHeight - 160,
     },
     headerContainer: {
       flexDirection: 'row',
@@ -49,7 +53,6 @@ export const styles = () => {
       color: colors.darkGray,
     },
     settingsContainer: {
-      marginBottom: 10,
       paddingVertical: 20,
       paddingHorizontal: '6%',
       height: '100%',

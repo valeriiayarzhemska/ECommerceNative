@@ -1,7 +1,11 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { ScrollView, View, SafeAreaView } from 'react-native';
 import * as Yup from 'yup';
-import { useNavigation, useFocusEffect } from '@react-navigation/native';
+import {
+  useNavigation,
+  useFocusEffect,
+  useIsFocused,
+} from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
 
 import { useDispatch, useSelector } from 'react-redux';
@@ -26,6 +30,9 @@ export const EditAddress = ({ route }) => {
   const { params } = route;
   const { goFrom } = params;
 
+  const isFocused = useIsFocused();
+  const [refreshKey, setRefreshKey] = useState(0);
+
   const [isLoadingData, setIsLoadingData] = useState(false);
   const user = useSelector(selectUser);
   const { address } = user;
@@ -47,7 +54,7 @@ export const EditAddress = ({ route }) => {
 
       setIsLoadingData(false);
       resetForm();
-      
+
       navigation.navigate(goFrom);
     } catch (error) {
       console.log('error: ', error);
@@ -56,8 +63,14 @@ export const EditAddress = ({ route }) => {
 
   useFocusEffect(handleBackClick(goFrom, navigation, useCallback));
 
+  useEffect(() => {
+    if (!isFocused) {
+      setRefreshKey(prevKey => prevKey + 1);
+    }
+  }, [isFocused]);
+
   return (
-    <SafeAreaView style={stylesShema.container}>
+    <SafeAreaView style={stylesShema.container} key={refreshKey}>
       <ScrollView style={stylesShema.containerScroll}>
         <View style={stylesShema.header}>
           <CustomHeader

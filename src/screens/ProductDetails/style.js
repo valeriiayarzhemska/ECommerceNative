@@ -7,7 +7,7 @@ export const styles = () => {
       flex: 1,
       width: '100%',
       height: '100%',
-      backgroundColor: colors.white,
+      backgroundColor: colors.lightestGray,
     },
     header: {
       position: 'absolute',
@@ -18,7 +18,6 @@ export const styles = () => {
     },
     imageContainer: {
       position: 'relative',
-      marginBottom: 10,
       padding: 60,
       width: '100%',
       height: 370,
@@ -34,16 +33,6 @@ export const styles = () => {
       paddingHorizontal: '6%',
       height: '100%',
       backgroundColor: colors.lightestGray,
-      borderTopLeftRadius: 20,
-      borderTopRightRadius: 20,
-      shadowColor: colors.darkGray,
-      shadowOffset: {
-        width: 0,
-        height: 2,
-      },
-      shadowOpacity: 0.2,
-      shadowRadius: 3.84,
-      elevation: 5,
     },
     contentSkeleton: {
       marginVertical: 24,
@@ -119,6 +108,9 @@ export const styles = () => {
       flexDirection: 'row',
       alignItems: 'center',
       marginBottom: 20,
+      backgroundColor: colors.white,
+      borderTopLeftRadius: 20,
+      borderTopRightRadius: 20,
     },
     quantityContainer: {
       flexDirection: 'row',

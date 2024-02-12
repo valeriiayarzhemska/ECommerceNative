@@ -79,6 +79,7 @@ export const styles = () => {
     },
     deliveryContentText: {
       fontFamily: 'Lato-Regular',
+      fontSize: 14,
       color: colors.darkGray,
     },
     deliveryContainer: {

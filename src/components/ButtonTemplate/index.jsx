@@ -24,12 +24,7 @@ export const ButtonTemplate = ({
   isSearch = false,
   isDisabled = false,
 }) => {
-  const stylesShema = styles(
-    size,
-    isOutline,
-    isSided,
-    isRoundedSmall,
-  );
+  const stylesShema = styles(size, isOutline, isSided, isRoundedSmall);
   const IconComponent = icon;
 
   return (
@@ -52,6 +47,7 @@ export const ButtonTemplate = ({
         ]}
         onPress={handleClick}
         disabled={isLoadingData || isDisabled}
+        hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
       >
         {IconComponent && (
           <View

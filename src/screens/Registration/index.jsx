@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Text, View } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useIsFocused } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
 import * as Yup from 'yup';
 import { useGetUserQuery } from '../../store/redux/services/user/userApi';
@@ -24,6 +24,9 @@ export const Registration = () => {
   const { t } = useTranslation();
   const { data: user, error: userError, isLoading } = useGetUserQuery('1');
 
+  const isFocused = useIsFocused();
+  const [refreshKey, setRefreshKey] = useState(0);
+
   const handleSubmit = async values => {
     setError(null);
 
@@ -40,6 +43,12 @@ export const Registration = () => {
     navigation.navigate('Login');
   };
 
+  useEffect(() => {
+    if (!isFocused) {
+      setRefreshKey(prevKey => prevKey + 1);
+    }
+  }, [isFocused]);
+
   return (
     <BackgroundWrapper>
       <ButtonTemplate
@@ -48,7 +57,7 @@ export const Registration = () => {
         isSided={true}
       />
 
-      <View style={stylesShema.container}>
+      <View style={stylesShema.container} key={refreshKey}>
         {isFormSubmitted ? (
           <View style={stylesShema.dataContainer}>
             <View style={stylesShema.titleWrapper}>

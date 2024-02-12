@@ -31,6 +31,7 @@ export const QuantitySelect = ({
         onPress={
           isCartSelect ? handleQuantityDecreaseCart : handleQuantityDecrease
         }
+        hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
       >
         <MinusIcon width={8} />
       </TouchableOpacity>
@@ -50,6 +51,7 @@ export const QuantitySelect = ({
         onPress={
           isCartSelect ? handleQuantityIncreaseCart : handleQuantityIncrease
         }
+        hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
       >
         <PlusIcon width={8} />
       </TouchableOpacity>

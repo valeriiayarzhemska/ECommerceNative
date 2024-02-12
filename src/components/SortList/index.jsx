@@ -1,11 +1,11 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, TouchableOpacity, Text, Modal } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { Picker } from '@react-native-picker/picker';
 
 import { DownArrow } from '../../assets/icons';
 
-import { sortOptions } from '../../constants';
+import { colors, sortOptions } from '../../constants';
 import { sortProducts } from '../../utils';
 
 import { styles } from './style';
@@ -69,13 +69,14 @@ export const SortList = ({
               style={stylesShema.pickerStyles}
               selectedValue={selectedSortOption}
               onValueChange={handleValueChange}
-              mode={'dropdown'}
+              mode={'dialog'}
             >
               {sortOptions.map(option => (
                 <Picker.Item
                   key={t(option)}
                   label={t(option)}
                   value={t(option)}
+                  color={colors.darkGray}
                 />
               ))}
             </Picker>

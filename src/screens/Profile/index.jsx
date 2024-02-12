@@ -48,7 +48,7 @@ export const Profile = () => {
         {isLoading ? (
           <Loader />
         ) : (
-          <>
+          <View style={stylesShema.containerFull}>
             <View style={stylesShema.contentContainer}>
               <View style={stylesShema.avatar}>
                 <UserIcon width={60} height={60} color={colors.lightGray} />
@@ -96,7 +96,7 @@ export const Profile = () => {
                 </View>
               </View>
             </View>
-          </>
+          </View>
         )}
       </ScrollView>
     </SafeAreaView>

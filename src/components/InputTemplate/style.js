@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { Platform, StyleSheet } from 'react-native';
 import { colors } from '../../constants';
 
 export const styles = (error, icon, isSearch) => {
@@ -39,6 +39,7 @@ export const styles = (error, icon, isSearch) => {
     errorWrapper: {
       position: 'absolute',
       top: Platform.OS === 'ios' ? 50 : 60,
+      left: 22,
     },
     errorText: {
       fontFamily: 'Lato-Regular',

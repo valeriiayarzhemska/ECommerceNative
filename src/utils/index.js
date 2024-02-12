@@ -1,6 +1,12 @@
 import { BackHandler } from 'react-native';
 import { sortOptionsValues } from '../constants';
 
+export const setToNullAfterDelay = (setState) => {
+  setTimeout(() => {
+    setState(null);
+  }, 3000);
+};
+
 export const refresh = (setRefreshing, useCallback) => {
   return useCallback(() => {
     setRefreshing(true);

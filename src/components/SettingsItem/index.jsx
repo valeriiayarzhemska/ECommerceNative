@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import i18n from 'i18next';
 import { useTranslation } from 'react-i18next';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 
 import { logout, setLang } from '../../store/redux/features/auth/authSlice';
@@ -13,6 +13,7 @@ import { ModalWindow } from '../ModalWindow';
 import { colors } from '../../constants';
 
 import { styles } from './style';
+import { selectLanguage } from '../../store/redux/features/auth/authSelectors';
 
 export const SettingsItem = ({ userId = '', item }) => {
   const stylesShema = styles(isRed);
@@ -20,6 +21,8 @@ export const SettingsItem = ({ userId = '', item }) => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
+  const userLang = useSelector(selectLanguage);
+  console.log(userLang)
   const [isModalActive, setIsModalActive] = useState(false);
   const [selectedRadioButton, setSelectedRadioButton] = useState('');
   const [deleteUser, { isLoading: isDeleting }] = useDeleteUserMutation();
@@ -49,6 +52,14 @@ export const SettingsItem = ({ userId = '', item }) => {
       setIsModalActive(true);
     }
   };
+
+  const updatedRadioButtons = radioButtons.map(lang => {
+    if (lang.value === userLang) {
+      return { ...lang, selected: true };
+    }
+
+    return lang;
+  });
 
   const handleLangChange = async () => {
     try {
@@ -136,7 +147,7 @@ export const SettingsItem = ({ userId = '', item }) => {
             title={t(title)}
             modalText={t(title)}
             isRadioButtons={isRadioButtons}
-            radioButtons={radioButtons}
+            radioButtons={radioButtons.length > 0 ? updatedRadioButtons : []}
             handleOkButtonClick={handleModalClose}
             selectedRadioButton={selectedRadioButton}
             setSelectedRadioButton={setSelectedRadioButton}

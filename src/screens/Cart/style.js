@@ -8,9 +8,10 @@ export const styles = () => {
       height: '100%',
       backgroundColor: colors.white,
     },
-    containerList: { height: '82%'  },
+    containerList: { height: '82%' },
     listContent: {
       paddingHorizontal: '6%',
+      paddingBottom: '10%',
     },
     emptyList: {
       height: 160,

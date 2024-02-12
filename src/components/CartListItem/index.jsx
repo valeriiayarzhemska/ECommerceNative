@@ -35,7 +35,7 @@ export const CartListItem = ({ product, setTotalPrice, updateTotalPrice }) => {
   const handleClick = idProduct => {
     navigation.navigate('ProductDetails', {
       id: idProduct,
-      goFrom: 'CartListItem',
+      goFrom: 'Cart',
     });
   };
 

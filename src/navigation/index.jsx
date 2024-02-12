@@ -68,7 +68,7 @@ export const AppNavigator = () => {
     const unsubscribe = navigation.addListener('state', () => {
       setIsNavigating(true);
     });
-    
+
     return unsubscribe;
   }, [navigation]);
 

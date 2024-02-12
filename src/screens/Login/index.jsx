@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Text, View } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useIsFocused } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
 import * as Yup from 'yup';
 
@@ -10,10 +10,7 @@ import {
   useLoginMutation,
 } from '../../store/redux/services/user/userApi';
 import { setUserData } from '../../store/redux/features/auth/authActions';
-import {
-  selectError,
-  selectToken,
-} from '../../store/redux/features/auth/authSelectors';
+import { selectError } from '../../store/redux/features/auth/authSelectors';
 
 import { BackgroundWrapper } from '../../components/BackgroundWrapper';
 import { FormTemplate } from '../../components/FormTemplate';
@@ -25,6 +22,7 @@ import { validationSchema } from '../../store/validationSchema';
 import { mock } from '../../store/mocks/login-mock';
 
 import { styles } from './style';
+import { setToNullAfterDelay } from '../../utils';
 
 export const Login = () => {
   const stylesShema = styles();
@@ -36,7 +34,9 @@ export const Login = () => {
   const [login, { isLoading }] = useLoginMutation();
   const { data: users, error: usersError } = useGetUsersQuery();
   const dispatch = useDispatch();
-  const userToken = useSelector(selectToken);
+
+  const isFocused = useIsFocused();
+  const [refreshKey, setRefreshKey] = useState(0);
 
   const handleSubmit = async ({ username, password }) => {
     setError(null);
@@ -59,10 +59,14 @@ export const Login = () => {
       ) {
         setError('wrongCredential');
 
+        setToNullAfterDelay(setError);
+
         return;
       }
     } catch (error) {
       setError('errorWentWrong');
+
+      setToNullAfterDelay(setError);
     }
   };
 
@@ -70,9 +74,15 @@ export const Login = () => {
     navigation.navigate('Registration');
   };
 
+  useEffect(() => {
+    if (!isFocused) {
+      setRefreshKey(prevKey => prevKey + 1);
+    }
+  }, [isFocused]);
+
   return (
     <BackgroundWrapper>
-      <View style={stylesShema.container}>
+      <View style={stylesShema.container} key={refreshKey}>
         <View style={stylesShema.logo}>
           <Logo width={90} height={86} />
         </View>

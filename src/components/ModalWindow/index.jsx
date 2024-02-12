@@ -39,6 +39,7 @@ export const ModalWindow = ({
               onPress={() => {
                 setIsClicked(!isClicked);
               }}
+              hitSlop={{ top: 14, bottom: 14, left: 14, right: 14 }}
             >
               <CrossIcon width={18} height={18} />
             </TouchableOpacity>

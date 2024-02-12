@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { Platform, StyleSheet } from 'react-native';
 import { colors } from '../../constants';
 
 export const styles = () => {
@@ -33,9 +33,9 @@ export const styles = () => {
     },
     errorContainer: {
       position: 'absolute',
-      bottom: '32%',
-      left: 0,
-      right: 0,
+      height: 22,
+      bottom: Platform.OS === 'ios' ? '32%' : '27%',
+      left: 22,
     },
   });
 };

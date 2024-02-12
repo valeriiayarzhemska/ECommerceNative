@@ -3,7 +3,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { FlatList, RefreshControl, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useGetProductsQuery } from '../../store/redux/services/products/productsApi';
 import {
   selectProductsError,
@@ -43,7 +43,6 @@ export const Catalog = () => {
     t('sortPopularity'),
   );
   const [refreshing, setRefreshing] = useState(false);
-  const dispatch = useDispatch();
 
   const setProductsFiltered = () => {
     if (data) {

@@ -249,7 +249,9 @@ export const Checkout = ({ route }) => {
                       </View>
 
                       <View style={stylesShema.deliveryContent}>
-                        <Text>{userAddress}</Text>
+                        <Text style={stylesShema.deliveryContentText}>
+                          {userAddress}
+                        </Text>
                       </View>
 
                       <TouchableOpacity

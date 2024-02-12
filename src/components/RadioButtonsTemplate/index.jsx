@@ -2,7 +2,6 @@ import React, { useMemo } from 'react';
 import { View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import { useNavigation } from '@react-navigation/native';
 
 import RadioGroup from 'react-native-radio-buttons-group';
 
@@ -14,7 +13,6 @@ export const RadioButtonsTemplate = ({
   setSelectedId,
 }) => {
   const stylesShema = styles();
-  const navigation = useNavigation();
   const dispatch = useDispatch();
   const { t } = useTranslation();
 

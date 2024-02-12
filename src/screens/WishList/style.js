@@ -11,7 +11,7 @@ export const styles = () => {
     },
     listContent: {
       paddingHorizontal: '6%',
-      paddingBottom: windowHeight < 700 ? '8%' : 0,
+      paddingBottom: '10%',
     },
     emptyList: {
       height: 160,

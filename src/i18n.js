@@ -1,5 +1,6 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
+import * as RNLocalize from 'react-native-localize';
 
 import 'intl';
 import IntlPluralRules from 'intl-pluralrules';
@@ -209,8 +210,12 @@ const resources = {
   },
 };
 
+let currentLocale = RNLocalize.getLocales()[0].languageTag;
+currentLocale = currentLocale.split('-')[0];
+
 i18n.use(initReactI18next).init({
   resources,
+  lng: currentLocale || 'en',
   fallbackLng: 'en',
   supportedLngs: ['en', 'uk'],
   debug: false,
@@ -228,7 +233,11 @@ i18n.use(initReactI18next).init({
 });
 
 Promise.all([i18n.loadLanguages('en'), i18n.loadLanguages('uk')]).then(() => {
-  i18n.changeLanguage('en');
+  if (currentLocale === 'uk') {
+    i18n.changeLanguage('uk');
+  } else {
+    i18n.changeLanguage('en');
+  }
 });
 
 export const langRadioButtons = [
@@ -236,11 +245,13 @@ export const langRadioButtons = [
     id: 'en',
     label: 'englishLang',
     value: 'en',
+    selected: currentLocale !== 'uk',
   },
   {
     id: 'uk',
     label: 'ukLang',
     value: 'uk',
+    selected: currentLocale === 'uk',
   },
 ];
 

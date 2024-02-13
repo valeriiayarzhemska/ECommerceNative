@@ -18,11 +18,10 @@ export const SliderCatalog = ({ productsCategories }) => {
         containerCustomStyle={styles.carouselContainer}
         sliderWidth={containerWidth}
         itemWidth={containerWidth}
+        enableMomentum={false}
+        decelerationRate={'fast'}
         renderItem={({ item }) => (
-          <SliderItem
-            key={item.category}
-            category={item.category}
-          />
+          <SliderItem key={item.category} category={item.category} />
         )}
       />
     </View>

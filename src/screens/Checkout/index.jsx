@@ -101,7 +101,6 @@ export const Checkout = ({ route }) => {
       );
 
       setIsEditOpen(false);
-      console.log(isEditOpen);
       setIsLoadingData(false);
     } catch (error) {
       console.log('error: ', error);

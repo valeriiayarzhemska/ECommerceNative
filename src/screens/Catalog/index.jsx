@@ -1,10 +1,13 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { FlatList, RefreshControl, View } from 'react-native';
+import { Button, FlatList, RefreshControl, View } from 'react-native';
 import { useTranslation } from 'react-i18next';
 
-import { useSelector } from 'react-redux';
-import { useGetProductsQuery } from '../../store/redux/services/products/productsApi';
+import { useSelector, useDispatch } from 'react-redux';
+import {
+  productsApi,
+  useGetProductsQuery,
+} from '../../store/redux/services/products/productsApi';
 import {
   selectProductsError,
   selectProductsLoading,
@@ -26,15 +29,14 @@ import { styles } from './style';
 export const Catalog = () => {
   const stylesShema = styles();
   const { t } = useTranslation();
+  const dispatch = useDispatch();
   const {
     data,
     isLoading: isDataLoading,
     isFetching: isDataFetching,
     error,
     refetch,
-  } = useGetProductsQuery({
-    refetchOnMountOrArgChange: true,
-  });
+  } = useGetProductsQuery({ refetchOnMountOrArgChange: true });
   const isLoading = useSelector(selectProductsLoading);
   const isError = useSelector(selectProductsError);
   const [filteredProducts, setFilteredProducts] = useState([]);
@@ -52,13 +54,9 @@ export const Catalog = () => {
     }
   };
 
-  const handleRefresh = refresh(setRefreshing, useCallback);
+  const handleRefresh = refresh(setRefreshing, refetch);
 
   useEffect(() => {
-    if (refreshing) {
-      refetch();
-    }
-
     setProductsFiltered();
   }, [refreshing]);
 
@@ -80,7 +78,8 @@ export const Catalog = () => {
       </View>
 
       {isDataFetching ||
-        (isDataLoading && <SkeletonCatalog isLoading={true} />)}
+        isDataLoading ||
+        (isLoading && <SkeletonCatalog isLoading={true} />)}
 
       <FlatList
         columnWrapperStyle={stylesShema.list}

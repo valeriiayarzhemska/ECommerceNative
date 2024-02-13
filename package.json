@@ -35,7 +35,7 @@
     "react-native-gesture-handler": "^2.14.0",
     "react-native-linear-gradient": "^2.8.3",
     "react-native-loader-kit": "^2.0.5",
-    "react-native-localize": "^3.0.4",
+    "react-native-localize": "^3.0.6",
     "react-native-maps": "^1.9.1",
     "react-native-masked-text": "^1.13.0",
     "react-native-permissions": "^4.0.4",

@@ -1,7 +1,9 @@
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { View } from 'react-native';
-import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
+
+import { useSelector } from 'react-redux';
+import { selectLanguage } from '../../store/redux/features/auth/authSelectors';
 
 import RadioGroup from 'react-native-radio-buttons-group';
 
@@ -13,8 +15,8 @@ export const RadioButtonsTemplate = ({
   setSelectedId,
 }) => {
   const stylesShema = styles();
-  const dispatch = useDispatch();
   const { t } = useTranslation();
+  const userLang = useSelector(selectLanguage);
 
   const radioButtonsTemplate = useMemo(() => {
     return radioButtons.map(button => {
@@ -25,6 +27,10 @@ export const RadioButtonsTemplate = ({
       };
     });
   }, []);
+
+  useEffect(() => {
+    setSelectedId(userLang);
+  }, [userLang]);
 
   return (
     <View>

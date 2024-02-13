@@ -1,19 +1,20 @@
 import { BackHandler } from 'react-native';
 import { sortOptionsValues } from '../constants';
 
-export const setToNullAfterDelay = (setState) => {
+export const setToNullAfterDelay = setState => {
   setTimeout(() => {
     setState(null);
   }, 3000);
 };
 
-export const refresh = (setRefreshing, useCallback) => {
-  return useCallback(() => {
+export const refresh = (setRefreshing, refetch) => {
+  return () => {
     setRefreshing(true);
-    setTimeout(() => {
+    
+    refetch().finally(() => {
       setRefreshing(false);
-    }, 2000);
-  }, []);
+    });
+  };
 };
 
 export const handleBackClick = (
